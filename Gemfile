@@ -37,7 +37,6 @@ group :development, :test do
   gem 'byebug'
   gem 'pry'
   gem 'pry-remote'
-  gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'factory_bot'
