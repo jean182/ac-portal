@@ -29,7 +29,12 @@ gem 'activeadmin'
 gem 'active_skin'
 gem 'faker'
 gem 'rails_12factor'
-
+# Bootstrap 
+gem 'bootstrap', '~> 4.1.3'
+# Jquery for bootstrap
+gem 'jquery-rails'
+# Generate devise views with bootstrap
+gem 'devise-bootstrapped'
 
 
 group :development, :test do
