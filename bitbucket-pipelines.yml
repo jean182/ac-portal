@@ -1,0 +1,47 @@
+image: starefossen/ruby-node:2-5
+
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - export HEROKU_APP_NAME=true-hockey
+            - chmod +x deploy-scripts/package_and_deploy.sh deploy-scripts/migrate.sh deploy-scripts/restart.sh
+            - deploy-scripts/package_and_deploy.sh
+            - deploy-scripts/migrate.sh
+            - deploy-scripts/restart.sh
+    staging:
+      - step:
+          script:
+            - export HEROKU_APP_NAME=ac-portal-staging
+            - chmod +x deploy-scripts/package_and_deploy.sh deploy-scripts/migrate.sh deploy-scripts/restart.sh
+            - deploy-scripts/package_and_deploy.sh
+            - deploy-scripts/migrate.sh
+            - deploy-scripts/restart.sh
+    develop:
+      - step:
+          script:
+            - export HEROKU_APP_NAME=ac-portal-development
+            - chmod +x deploy-scripts/package_and_deploy.sh deploy-scripts/migrate.sh deploy-scripts/restart.sh
+            - deploy-scripts/package_and_deploy.sh
+            - deploy-scripts/migrate.sh
+            - deploy-scripts/restart.sh
+  default:
+    - step:
+        script:
+          - export DATABASE_URL=postgresql://test_user:test_user_password@localhost/pipelines
+          - apt-get update
+          - gem update bundler
+          - bundle install
+          - bundle exec rake db:setup db:migrate --trace RAILS_ENV=test
+          - bundle exec rspec
+        services:
+          - postgres
+definitions:
+   services:
+    postgres:
+      image: postgres
+      environment:
+        POSTGRES_DB: ac_portal_test
+        POSTGRES_USER: test_user
+        POSTGRES_PASSWORD: test_user_password
