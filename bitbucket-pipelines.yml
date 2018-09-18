@@ -5,7 +5,7 @@ pipelines:
     master:
       - step:
           script:
-            - export HEROKU_APP_NAME=true-hockey
+            - export HEROKU_APP_NAME=ac-portal
             - chmod +x deploy-scripts/package_and_deploy.sh deploy-scripts/migrate.sh deploy-scripts/restart.sh
             - deploy-scripts/package_and_deploy.sh
             - deploy-scripts/migrate.sh
