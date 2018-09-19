@@ -1,0 +1,24 @@
+%h3 User Management
+= link_to  "Dashboard", admin_root_path
+|
+= link_to 'Admin List', admin_admins_path
+|
+= link_to 'Mentor List', admin_mentors_path
+|
+= link_to 'Client List', admin_clients_path
+%table.table.table-bordered
+  %thead
+    %tr
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} Role
+      %th{:scope => "col"} Delete
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td
+          = link_to user.email, [:admin, user]
+        %td
+          = user.account_type
+        %td
+          = link_to("Delete user", admin_user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm') unless user == current_user
+= link_to  "Dashboard", admin_root_path
