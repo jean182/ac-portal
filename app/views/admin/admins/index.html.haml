@@ -1,0 +1,18 @@
+%h1 Admin Management
+= link_to('New Admin', new_admin_admin_path)
+%table.table.table-bordered
+  %thead
+    %tr
+      %th{:scope => "col"} Email
+      %th{:scope => "col"} Role
+      %th{:scope => "col"} Delete
+  %tbody
+    - @admins.each do |admin|
+      %tr
+        %td
+          = admin.user.email
+        %td
+          = admin.user.account_type
+        %td
+          = link_to("Delete user", admin_admin_path(admin), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm') unless admin == current_user
+= render 'admin/shared/links'

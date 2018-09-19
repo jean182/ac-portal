@@ -12,10 +12,16 @@ class Admin::ClientsController < Admin::UsersController
   def create
     @client = Client.new(client_params)
     if @client.save
-      redirect_to(polymorphic_path([:admin, @client]), notice: 'Client was successfully created.')
+      redirect_to(admin_clients_path, notice: 'Client was successfully created.')
     else
       render action: :new
     end
+  end
+
+  def destroy
+    @client = Client.find(params[:id])
+    @client.destroy
+    redirect_to admin_clients_path, notice: "Client deleted."
   end
 
   private
