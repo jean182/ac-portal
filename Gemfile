@@ -30,7 +30,7 @@ gem 'active_skin'
 gem 'faker'
 gem 'aasm'
 gem 'rails_12factor'
-# Bootstrap 
+# Bootstrap
 gem 'bootstrap', '~> 4.1.3'
 # Jquery for bootstrap
 gem 'jquery-rails'
@@ -38,7 +38,6 @@ gem 'jquery-rails'
 gem 'devise-bootstrapped'
 # HAML compiler
 gem "haml"
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,7 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'factory_bot'
-  
+
   gem 'shoulda-matchers'
   gem 'database_cleaner'
 end

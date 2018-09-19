@@ -1,4 +1,3 @@
 class Admin::DashboardController < Admin::AdminBaseController
-  def show
-  end
+  def show; end
 end

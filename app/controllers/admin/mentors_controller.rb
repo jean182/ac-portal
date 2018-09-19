@@ -1,6 +1,6 @@
 class Admin::MentorsController < Admin::UsersController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, :except => :show
+  before_action :authenticate_admin!, except: :show
   def index
     @users = Mentor.all
   end
@@ -13,9 +13,9 @@ class Admin::MentorsController < Admin::UsersController
   def create
     @mentor = Mentor.new(mentor_params)
     if @mentor.save
-      redirect_to(polymorphic_path([:admin, @mentor]), :notice => 'Mentor was successfully created.')
+      redirect_to(polymorphic_path([:admin, @mentor]), notice: 'Mentor was successfully created.')
     else
-      render :action => :new 
+      render action: :new
     end
   end
 
@@ -24,7 +24,7 @@ class Admin::MentorsController < Admin::UsersController
   #   if @mentor.save
   #     redirect_to(polymorphic_path([:admin, @mentor]), :notice => 'User was successfully created.')
   #   else
-  #     render :action => :new 
+  #     render :action => :new
   #   end
   # end
 
@@ -49,7 +49,7 @@ class Admin::MentorsController < Admin::UsersController
   def destroy
     @mentor = Mentor.find(params[:id])
     @mentor.destroy
-    redirect_to admin_mentors_path, :notice => "User deleted."
+    redirect_to admin_mentors_path, notice: "User deleted."
   end
 
   private

@@ -14,7 +14,7 @@ class Admin::AdminsController < Admin::UsersController
     if @admin.save
       redirect_to(admins_path, notice: 'Admin was successfully created.')
     else
-      render action: :new 
+      render action: :new
     end
   end
 

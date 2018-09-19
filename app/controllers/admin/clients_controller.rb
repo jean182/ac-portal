@@ -14,7 +14,7 @@ class Admin::ClientsController < Admin::UsersController
     if @client.save
       redirect_to(polymorphic_path([:admin, @client]), notice: 'Client was successfully created.')
     else
-      render action: :new 
+      render action: :new
     end
   end
 

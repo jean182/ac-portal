@@ -8,7 +8,7 @@ class User < ApplicationRecord
   def admin?
     account.is_a?(Admin)
   end
-  
+
   def mentor?
     account.is_a?(Mentor)
   end

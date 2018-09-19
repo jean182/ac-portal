@@ -1,4 +1,3 @@
 class Mentor::DashboardController < Mentor::MentorBaseController
-  def show
-  end
+  def show; end
 end

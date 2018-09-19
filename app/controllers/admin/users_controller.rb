@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::AdminBaseController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, :except => :show
+  before_action :authenticate_admin!, except: :show
   def index
     @users = User.all
   end
@@ -9,7 +9,7 @@ class Admin::UsersController < Admin::AdminBaseController
     @user = User.find(params[:id])
     unless current_user.admin?
       unless @user == current_user
-        redirect_to root_path, :alert => "Access denied."
+        redirect_to root_path, alert: "Access denied."
       end
     end
   end
@@ -17,7 +17,7 @@ class Admin::UsersController < Admin::AdminBaseController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to admin_users_path, :notice => "User deleted."
+    redirect_to admin_users_path, notice: "User deleted."
   end
 
   private
