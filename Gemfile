@@ -28,6 +28,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'active_skin'
 gem 'faker'
+gem 'aasm'
 gem 'rails_12factor'
 # Bootstrap 
 gem 'bootstrap', '~> 4.1.3'
@@ -70,6 +71,7 @@ group :development do
 end
 
 group :test do
+  gem 'simplecov', require: false
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
