@@ -1,0 +1,8 @@
+%h1 New Mentor
+= form_for [:admin, @mentor] do |f|
+  = render 'admin/shared/form_nested', f: f  
+  .form-check
+    = f.check_box :is_active, autofocus: false, class: 'form-check-input'
+    = f.label 'Activate/Deactivate', class: 'form-check-label'
+  .form-group
+    = f.submit 'Create New', :class => 'btn btn-primary'

@@ -12,10 +12,16 @@ class Admin::AdminsController < Admin::UsersController
   def create
     @admin = Admin.new(admin_params)
     if @admin.save
-      redirect_to(admins_path, notice: 'Admin was successfully created.')
+      redirect_to(admin_admins_path, notice: 'Admin was successfully created.')
     else
       render action: :new 
     end
+  end
+
+  def destroy
+    @admin = Admin.find(params[:id])
+    @admin.destroy
+    redirect_to admin_admins_path, notice: "Admin deleted."
   end
 
   private
