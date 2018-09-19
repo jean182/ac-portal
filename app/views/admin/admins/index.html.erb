@@ -1,0 +1,26 @@
+<h1>Admin Management</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @admins.each do |admin| %>
+      <tr>
+        <td>
+          <%= admin.user.email %>
+        </td>
+        <td>
+          <%= admin.user.account_type %>
+        </td>
+        <td>
+          <%= link_to("Delete user", admin_admin_path(admin), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm') unless admin == current_user %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render 'admin/shared/links' %>

@@ -1,13 +1,19 @@
 class User < ApplicationRecord
+  belongs_to :account, polymorphic: true, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  enum role: [:client, :mentor, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  def admin?
+    account.is_a?(Admin)
+  end
+  
+  def mentor?
+    account.is_a?(Mentor)
+  end
 
-  def set_default_role
-    self.role ||= :client
+  def client?
+    account.is_a?(Client)
   end
 end
