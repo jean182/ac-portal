@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Checklist, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Checklist, type: :model do
+
+  describe 'associations' do
+    it { should have_many(:tasks) }
+    it { should have_many(:tags) }
+  end
 end
