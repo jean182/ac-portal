@@ -35,6 +35,8 @@ gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 # Generate devise views with bootstrap
 gem 'devise-bootstrapped'
+# HAML compiler
+gem "haml"
 
 
 group :development, :test do
@@ -45,7 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'factory_bot'
-
+  
   gem 'shoulda-matchers'
   gem 'database_cleaner'
 end

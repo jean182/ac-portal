@@ -368,6 +368,7 @@ DEPENDENCIES
   factory_bot
   faker
   foreman
+  haml
   jbuilder (~> 2.5)
   jquery-rails
   listen

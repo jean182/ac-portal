@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'dashboard#show'
+    resources :users, only: [:index, :show, :destroy]
+    resources :mentors
+    resources :admins
+    resources :clients
   end
 
   namespace :mentor do

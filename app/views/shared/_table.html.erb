@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% obj.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to user.email, [:admin, user] %>
+        </td>
+        <td>
+          <%= user.account_type %>
+        </td>
+        <td>
+          <%= link_to("Delete user", admin_user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm') unless user == current_user %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
