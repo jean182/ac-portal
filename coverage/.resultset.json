@@ -66,7 +66,7 @@
         1,
         null
       ],
-      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/spec/models/client_spec.rb": [
+      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/spec/models/company_spec.rb": [
         1,
         null,
         1,
@@ -74,21 +74,21 @@
         2,
         2,
         2,
-        null,
         null,
         null
       ],
-      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/client.rb": [
+      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/company.rb": [
+        1,
+        1,
+        1,
+        1,
+        null,
         1,
         1,
         null,
         1,
         1,
         1,
-        1,
-        null,
-        null,
-        null,
         1,
         null
       ],
@@ -132,31 +132,12 @@
         1,
         null
       ],
-      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/spec/models/tag_spec.rb": [
-        null,
-        1,
-        null,
-        1,
-        1,
-        2,
-        2,
-        null,
-        null
-      ],
-      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/tag.rb": [
-        null,
-        1,
-        1,
-        1,
-        null
-      ],
       "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/spec/models/task_spec.rb": [
         null,
         1,
         null,
         1,
         1,
-        2,
         2,
         null,
         null
@@ -178,13 +159,32 @@
         null,
         null
       ],
+      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/tag.rb": [
+        null,
+        1,
+        1,
+        1,
+        null
+      ],
       "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/time_tracking.rb": [
         1,
         1,
         1,
         null
+      ],
+      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/milestone.rb": [
+        null,
+        1,
+        1,
+        null
+      ],
+      "/home/alhernandez01/Documents/Pernix-Projects/ac-portal/app/models/message.rb": [
+        null,
+        1,
+        1,
+        null
       ]
     },
-    "timestamp": 1537392060
+    "timestamp": 1537455302
   }
 }

@@ -13,7 +13,7 @@ class Admin::MentorsController < Admin::UsersController
   def create
     @mentor = Mentor.new(mentor_params)
     if @mentor.save
-      redirect_to(admin_mentors_path, :notice => 'Mentor was successfully created.')
+      redirect_to(admin_mentors_path, notice: 'Mentor was successfully created.')
     else
       render action: :new
     end
@@ -49,11 +49,7 @@ class Admin::MentorsController < Admin::UsersController
   def destroy
     @mentor = Mentor.find(params[:id])
     @mentor.destroy
-<<<<<<< HEAD
-    redirect_to admin_mentors_path, notice: "User deleted."
-=======
     redirect_to admin_mentors_path, notice: "Mentor deleted."
->>>>>>> 709a29703f09e012ac0e7fa08a1fe0c717101b53
   end
 
   private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_205925) do
+ActiveRecord::Schema.define(version: 2018_09_19_223300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "logo"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "mentor_id"
+    t.index ["mentor_id"], name: "index_companies_on_mentor_id"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.string "address_line1"
@@ -46,7 +56,9 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "admin_id"
+    t.bigint "company_id"
     t.index ["admin_id"], name: "index_locations_on_admin_id"
+    t.index ["company_id"], name: "index_locations_on_company_id"
   end
 
   create_table "mentors", force: :cascade do |t|
@@ -77,6 +89,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
     t.decimal "phase_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_phases_on_company_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -85,7 +99,11 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "checklist_id"
+    t.bigint "client_id"
+    t.bigint "company_id"
     t.index ["checklist_id"], name: "index_tags_on_checklist_id"
+    t.index ["client_id"], name: "index_tags_on_client_id"
+    t.index ["company_id"], name: "index_tags_on_company_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -106,7 +124,9 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
     t.datetime "updated_at", null: false
     t.bigint "mentor_id"
     t.bigint "client_id"
+    t.bigint "company_id"
     t.index ["client_id"], name: "index_time_trackings_on_client_id"
+    t.index ["company_id"], name: "index_time_trackings_on_company_id"
     t.index ["mentor_id"], name: "index_time_trackings_on_mentor_id"
   end
 
@@ -133,11 +153,17 @@ ActiveRecord::Schema.define(version: 2018_09_19_205925) do
   end
 
   add_foreign_key "checklists", "phases"
+  add_foreign_key "companies", "mentors"
   add_foreign_key "locations", "admins"
+  add_foreign_key "locations", "companies"
   add_foreign_key "messages", "tasks"
   add_foreign_key "milestones", "phases"
+  add_foreign_key "phases", "companies"
   add_foreign_key "tags", "checklists"
+  add_foreign_key "tags", "clients"
+  add_foreign_key "tags", "companies"
   add_foreign_key "tasks", "checklists"
   add_foreign_key "time_trackings", "clients"
+  add_foreign_key "time_trackings", "companies"
   add_foreign_key "time_trackings", "mentors"
 end

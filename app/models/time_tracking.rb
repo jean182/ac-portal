@@ -1,4 +1,4 @@
 class TimeTracking < ApplicationRecord
   belongs_to :mentor
-  belongs_to :client
+  belongs_to :company
 end
