@@ -3,6 +3,6 @@
     = form.label :name
     = form.text_field :name, class: "form-control", placeholder: "Tag Name"
   .form-group
-    = form.select(:tag_type, Tag.tag_types.keys.map {|tag_type| [tag_type.titleize, tag_type]})
+    = form.select(:tag_type, Tag.tag_types.keys.map {|type| [type.titleize, type]})
   .actions
     = form.submit "Send", class: "btn btn-primary"

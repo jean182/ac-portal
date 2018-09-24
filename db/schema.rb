@@ -46,14 +46,14 @@ ActiveRecord::Schema.define(version: 2018_09_24_151614) do
   end
 
   create_table "has_tags", force: :cascade do |t|
-    t.bigint "checklists_id"
-    t.bigint "tags_id"
-    t.bigint "companies_id"
+    t.bigint "checklist_id"
+    t.bigint "tag_id"
+    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["checklists_id"], name: "index_has_tags_on_checklists_id"
-    t.index ["companies_id"], name: "index_has_tags_on_companies_id"
-    t.index ["tags_id"], name: "index_has_tags_on_tags_id"
+    t.index ["checklist_id"], name: "index_has_tags_on_checklist_id"
+    t.index ["company_id"], name: "index_has_tags_on_company_id"
+    t.index ["tag_id"], name: "index_has_tags_on_tag_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -159,9 +159,9 @@ ActiveRecord::Schema.define(version: 2018_09_24_151614) do
 
   add_foreign_key "checklists", "phases"
   add_foreign_key "companies", "mentors"
-  add_foreign_key "has_tags", "checklists", column: "checklists_id"
-  add_foreign_key "has_tags", "companies", column: "companies_id"
-  add_foreign_key "has_tags", "tags", column: "tags_id"
+  add_foreign_key "has_tags", "checklists"
+  add_foreign_key "has_tags", "companies"
+  add_foreign_key "has_tags", "tags"
   add_foreign_key "locations", "admins"
   add_foreign_key "locations", "companies"
   add_foreign_key "messages", "tasks"
