@@ -1,6 +1,7 @@
 class Company < ApplicationRecord
   has_many :phases, dependent: :destroy
-  has_many :tags, dependent: :destroy
+  has_many :has_tags, dependent: :destroy
+  has_many :tags, through: :has_tags
   has_one :location, dependent: :destroy
 
   alias_attribute :owner, :client

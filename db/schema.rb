@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_19_223300) do
+ActiveRecord::Schema.define(version: 2018_09_24_151614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,17 @@ ActiveRecord::Schema.define(version: 2018_09_19_223300) do
     t.datetime "updated_at", null: false
     t.bigint "mentor_id"
     t.index ["mentor_id"], name: "index_companies_on_mentor_id"
+  end
+
+  create_table "has_tags", force: :cascade do |t|
+    t.bigint "checklist_id"
+    t.bigint "tag_id"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checklist_id"], name: "index_has_tags_on_checklist_id"
+    t.index ["company_id"], name: "index_has_tags_on_company_id"
+    t.index ["tag_id"], name: "index_has_tags_on_tag_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -95,15 +106,9 @@ ActiveRecord::Schema.define(version: 2018_09_19_223300) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "checklist_id"
-    t.bigint "client_id"
-    t.bigint "company_id"
-    t.index ["checklist_id"], name: "index_tags_on_checklist_id"
-    t.index ["client_id"], name: "index_tags_on_client_id"
-    t.index ["company_id"], name: "index_tags_on_company_id"
+    t.integer "tag_type"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -154,14 +159,14 @@ ActiveRecord::Schema.define(version: 2018_09_19_223300) do
 
   add_foreign_key "checklists", "phases"
   add_foreign_key "companies", "mentors"
+  add_foreign_key "has_tags", "checklists"
+  add_foreign_key "has_tags", "companies"
+  add_foreign_key "has_tags", "tags"
   add_foreign_key "locations", "admins"
   add_foreign_key "locations", "companies"
   add_foreign_key "messages", "tasks"
   add_foreign_key "milestones", "phases"
   add_foreign_key "phases", "companies"
-  add_foreign_key "tags", "checklists"
-  add_foreign_key "tags", "clients"
-  add_foreign_key "tags", "companies"
   add_foreign_key "tasks", "checklists"
   add_foreign_key "time_trackings", "clients"
   add_foreign_key "time_trackings", "companies"
