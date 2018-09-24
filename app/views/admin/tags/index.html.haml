@@ -1,0 +1,20 @@
+%h1 All tags
+= link_to('New Tag', new_admin_tag_path)
+%table.table.table-bordered
+  %thead
+    %tr
+      %th{:scope => "col"} Tag Name
+      %th{:scope => "col"} Type
+      %th{:scope => "col"} Actions
+  %tbody
+    - @tags.each do |tag|
+      %tr
+        %td
+          = tag.name
+        %td
+          = tag.tag_type
+        %td
+          = link_to 'View', admin_tag_path(tag), class: 'btn btn-secondary btn-sm'
+          = link_to 'Edit', edit_admin_tag_path(tag), class: 'btn btn-primary btn-sm'
+          = link_to("Delete", admin_tag_path(tag), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm')
+= link_to  "Dashboard", admin_root_path

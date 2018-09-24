@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :mentors
     resources :admins
     resources :clients
+    resources :tags
   end
 
   namespace :mentor do
