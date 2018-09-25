@@ -32,3 +32,6 @@
 
 .env
 
+# Ignore database YML file
+/config/database.yml
+

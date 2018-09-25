@@ -1,0 +1,5 @@
+%h1= @company.name
+= render "phase"
+- @phases.each do |phase|
+  - if phase.status == "active" then
+    %p= "Phase " + phase.phase_number.to_i.to_s

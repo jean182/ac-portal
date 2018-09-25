@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   namespace :mentor do
     root 'dashboard#show'
+    resources :companies, only: [:index, :show]
+    resources :phases 
+    resources :milestones
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
