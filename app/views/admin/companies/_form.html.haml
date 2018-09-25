@@ -1,0 +1,22 @@
+= form_for [:admin, @company] do |f|
+  = render 'shared/errors', object: @company
+  .form-group
+    = f.label :name
+    %br/
+    = f.text_field :name, autofocus: false, class: 'form-control'
+  .form-group
+    = f.label :logo
+    %br/
+    = f.text_field :logo, autofocus: false, class: 'form-control'
+  .form-group
+    = f.label :description
+    %br/
+    = f.text_field :description, autofocus: false, class: 'form-control'
+  = render 'admin/shared/location_nested_form', f: f
+  = hidden_field_tag 'company[tag_ids][]', nil
+  - Tag.all.where(tag_type: 'industry').each do |tag|
+    .form-check.form-check-inline
+      = check_box_tag 'company[tag_ids][]', tag.id, @company.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
+      = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  .form-group
+    = f.submit 'Save', :class => 'btn btn-primary'

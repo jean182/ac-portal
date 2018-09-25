@@ -1,0 +1,17 @@
+%h1 All Companies
+= link_to('New Tag', new_admin_company_path)
+%table.table.table-bordered
+  %thead
+    %tr
+      %th{:scope => "col"} Company Name
+      %th{:scope => "col"} Actions
+  %tbody
+    - @companies.each do |company|
+      %tr
+        %td
+          = company.name
+        %td
+          = link_to 'View', admin_company_path(company), class: 'btn btn-secondary btn-sm'
+          = link_to 'Edit', edit_admin_company_path(company), class: 'btn btn-primary btn-sm'
+          -# = link_to("Delete", admin_company_path(company), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm')
+= link_to  "Dashboard", admin_root_path
