@@ -1,10 +1,10 @@
 %div.d-block.mb-3
-  %button.btn.btn-primary.mx-auto{type: "button"} < Back
+  %button.btn.btn-primary{type: "button"} < Back
 %div.row
   %div.col-7.bg-white.border-light-gray.ac-corner-radius
     %div.row
       %div.col-3
-        %img.img-fluid.p-4{src: "http://www.pernix-solutions.com/assets/pernix-logo-colors-f96acbf701fb8947764bc6d141db5ccdcc4de82229ea996dccfd4cd3b65e96e4.png"}
+        %img.img-fluid.p-4{src: @company.logo}
       %div.col-9.p-4
         %h5= @company.name
         %span.d-block= "Sara Coivisto"
@@ -21,12 +21,16 @@
         %div.text-center
           %h2= "90%"
 %div.row
-  %div.mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-5
+  %div.mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+    %h5.mb-3= "Learning Objective"
+    %div
+      %p= @phase.learning_objetive
+      %button.btn.btn-primary.float-right{type: "button"} Edit
+  %div.mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Milestones"
     - @milestones.each do |milestone|
       %div.div-spacer
         %div.custom-control.custom-checkbox.p-3
-          %input#defaultUnchecked.custom-control-input{type: "checkbox"}/
-          %label.custom-control-label{for: "defaultUnchecked"}= milestone.title
-%div.d-flex.float-right
-  %button.btn.btn-primary.mx-auto{type: "button"} Update
+          = check_box_tag(milestone.title, milestone.title, milestone.complete?)
+          = milestone.title
+    %button.btn.btn-primary.float-right{type: "button"} Update

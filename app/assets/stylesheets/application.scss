@@ -1,22 +1,4 @@
 @import "base/globals.scss";
 @import "styles/navbar.scss";
 @import "bootstrap";
-
-$body-bg: #FAFBFC;
-$primary: #0076BE;
-
-.div-spacer {
-  border-top: 1px solid #E6EAEE;
-}
-
-.border-light-gray {
-  border: 1px solid #E6EAEE;
-}
-
-.ac-corner-radius {
-  border-radius: 4.76px;
-}
-
-.test-border {
-  border: 1px solid red;
-}
+@import "base/ac_custom.scss";
