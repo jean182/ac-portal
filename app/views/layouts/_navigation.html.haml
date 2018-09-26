@@ -1,8 +1,8 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-ac-blue
   = link_to "AC-Portal", root_path, class: "navbar-brand"
-  %button.navbar-toggler.p-0.border-0{"data-toggle" => "offcanvas", type: "button"}
+  %button.navbar-toggler.p-0.border-0{"aria-controls" => "navbarMobile", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarMobile", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
-  #navbarMobile.navbar-collapse.offcanvas-collapse
+  #navbarMobile.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
       = render 'shared/nav_links'
     %ul.navbar-nav.ml-auto

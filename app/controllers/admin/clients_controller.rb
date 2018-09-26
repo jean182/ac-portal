@@ -20,8 +20,15 @@ class Admin::ClientsController < Admin::UsersController
 
   def destroy
     @client = Client.find(params[:id])
-    @client.destroy
+    @client.user.soft_delete
     redirect_to admin_clients_path, notice: "Client deleted."
+  end
+
+  def reactivate_client
+    @user = User.find(params[:id])
+    @user.update_attribute(:deleted_at, nil)
+    redirect_to admin_clients_path
+    flash[:notice] = "Client Activated succesfully"
   end
 
   private
