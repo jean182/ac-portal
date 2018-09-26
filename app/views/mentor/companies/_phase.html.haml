@@ -1,0 +1,32 @@
+%div.d-block.mb-3
+  %button.btn.btn-primary.mx-auto{type: "button"} < Back
+%div.row
+  %div.col-7.bg-white.border-light-gray.ac-corner-radius
+    %div.row
+      %div.col-3
+        %img.img-fluid.p-4{src: "http://www.pernix-solutions.com/assets/pernix-logo-colors-f96acbf701fb8947764bc6d141db5ccdcc4de82229ea996dccfd4cd3b65e96e4.png"}
+      %div.col-9.p-4
+        %h5= @company.name
+        %span.d-block= "Sara Coivisto"
+        %span.d-block= @company.description
+  %div.col-1
+  %div.col-4.bg-white.border-light-gray.ac-corner-radius
+    %div.row.p-4
+      %div.col.text-center
+        %div
+          %h6= "PHASE"
+        %div
+          %H2= @phase.phase_number.to_i.to_s
+      %div.col
+        %div.text-center
+          %h2= "90%"
+%div.row
+  %div.mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-5
+    %h5.mb-3= "Milestones"
+    - @milestones.each do |milestone|
+      %div.div-spacer
+        %div.custom-control.custom-checkbox.p-3
+          %input#defaultUnchecked.custom-control-input{type: "checkbox"}/
+          %label.custom-control-label{for: "defaultUnchecked"}= milestone.title
+%div.d-flex.float-right
+  %button.btn.btn-primary.mx-auto{type: "button"} Update

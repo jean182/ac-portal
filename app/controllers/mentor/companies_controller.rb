@@ -1,5 +1,5 @@
 class Mentor::CompaniesController < Mentor::MentorBaseController
-  before_action :set_company, :set_phase, only: [:show]
+  before_action :set_company, only: [:show]
 
   def index
     @mentor = current_user.account
@@ -7,16 +7,13 @@ class Mentor::CompaniesController < Mentor::MentorBaseController
   end
 
   def show
-    @phases = Phase.all.where(company_id: @company.id)
+    @phase = Phase.all.where(company_id: @company.id).find_by status: 'active'
+    @milestones = @phase.milestones
   end
 
   private
 
   def set_company
     @company = Company.find(params[:id])
-  end
-
-  def set_phase
-    @phase = Phase.find(params[:id])
   end
 end
