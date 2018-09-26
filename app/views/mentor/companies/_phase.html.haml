@@ -12,14 +12,14 @@
   %div.col-1
   %div.col-4.bg-white.border-light-gray.ac-corner-radius
     %div.row.p-4
-      %div.col.text-center
+      %div.col.text-center.my-auto
         %div
           %h6= "PHASE"
         %div
           %H2= @phase.phase_number.to_i.to_s
-      %div.col
-        %div.text-center
-          %h2= "90%"
+      %div.col.h-100.my-auto
+        %div.text-center.h-100.my-auto
+          %h2= calculate_progress(@milestones) + "%"
 %div.row
   %div.mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
     %h5.mb-3= "Learning Objective"
@@ -34,3 +34,5 @@
           = check_box_tag(milestone.title, milestone.title, milestone.complete?)
           = milestone.title
     %button.btn.btn-primary.float-right{type: "button"} Update
+- @milestones.each do |milestone|
+  = milestone.complete?
