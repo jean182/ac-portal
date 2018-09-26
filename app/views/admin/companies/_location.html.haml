@@ -1,0 +1,11 @@
+%br
+.container
+  - if @location.present?
+    %p= @location.address_line1
+    %p= @location.address_line2
+    %p= @location.city
+    %p= @location.postal_code
+    %p= @location.state
+    %p= @location.country
+  - else
+    %p No location for this company, please contact the admin

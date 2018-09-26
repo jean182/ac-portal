@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_151614) do
+ActiveRecord::Schema.define(version: 2018_09_26_161341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_151614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "mentor_id"
+    t.string "phone"
     t.index ["mentor_id"], name: "index_companies_on_mentor_id"
   end
 
@@ -51,8 +52,10 @@ ActiveRecord::Schema.define(version: 2018_09_24_151614) do
     t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "mentor_id"
     t.index ["checklist_id"], name: "index_has_tags_on_checklist_id"
     t.index ["company_id"], name: "index_has_tags_on_company_id"
+    t.index ["mentor_id"], name: "index_has_tags_on_mentor_id"
     t.index ["tag_id"], name: "index_has_tags_on_tag_id"
   end
 
@@ -161,6 +164,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_151614) do
   add_foreign_key "companies", "mentors"
   add_foreign_key "has_tags", "checklists"
   add_foreign_key "has_tags", "companies"
+  add_foreign_key "has_tags", "mentors"
   add_foreign_key "has_tags", "tags"
   add_foreign_key "locations", "admins"
   add_foreign_key "locations", "companies"

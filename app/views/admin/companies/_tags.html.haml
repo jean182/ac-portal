@@ -1,0 +1,6 @@
+- if @company.tags.exists?  
+  %h3 Tags
+  - Tag.all.each do |tag|
+    - if @company.tags.include?(tag)
+      %h3{style: "display:inline;"}
+        = link_to tag.name, admin_tag_path(tag), class: 'badge badge-info'

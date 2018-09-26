@@ -1,6 +1,7 @@
 class Admin::UsersController < Admin::AdminBaseController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: :show
+  before_action :configure_permitted_parameters, if: :devise_controller?
   def index
     @users = User.all
   end
@@ -20,11 +21,18 @@ class Admin::UsersController < Admin::AdminBaseController
     redirect_to admin_users_path, notice: "User deleted."
   end
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+
   private
 
   def user_params
     %i(
       name
+      phone
       email
       password
     )
