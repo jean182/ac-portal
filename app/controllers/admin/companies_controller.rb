@@ -1,4 +1,5 @@
 class Admin::CompaniesController < Admin::AdminBaseController
+  require 'admin/states_helper'
   before_action :set_company, except: [:index, :new, :create]
 
   def index

@@ -55,6 +55,6 @@ class Admin::MentorsController < Admin::UsersController
   private
 
   def mentor_params
-    params.require(:mentor).permit(:is_active, user_attributes: user_params)
+    params.require(:mentor).permit(:is_active, user_attributes: user_params, tag_ids: [])
   end
 end
