@@ -47,6 +47,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
       :name,
       :logo,
       :description,
+      :phone,
       location_attributes: location_params,
       tag_ids: [],
     )

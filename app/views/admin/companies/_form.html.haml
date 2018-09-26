@@ -12,6 +12,10 @@
     = f.label :description
     %br/
     = f.text_field :description, autofocus: false, class: 'form-control'
+  .form-group
+    = f.label :phone
+    %br/
+    = f.text_field :phone, autofocus: false, class: 'form-control'
   = render 'admin/shared/location_nested_form', f: f
   = hidden_field_tag 'company[tag_ids][]', nil
   - Tag.all.where(tag_type: 'industry').each do |tag|

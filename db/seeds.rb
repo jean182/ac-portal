@@ -67,6 +67,7 @@ end
     name: Faker::Company.name,
     logo: Faker::Company.logo,
     description: Faker::Company.buzzword,
+    phone: Faker::PhoneNumber.cell_phone,
   )
   company.location = location
 end
