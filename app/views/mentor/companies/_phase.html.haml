@@ -31,7 +31,7 @@
     - @milestones.each do |milestone|
       .div-spacer
         .custom-control.custom-checkbox.p-3
-          = check_box_tag(milestone.title, milestone.title, milestone.complete?)
+          = check_box_tag(milestone.title, milestone.id, milestone.complete?)
           = milestone.title
     %button.btn.btn-primary.float-right{type: "button"} Update
 
@@ -45,10 +45,11 @@
       .modal-body
         #editor
           %p= @phase.learning_objetive
-          :javascript
-            var quill = new Quill('#editor', {
-              theme: 'snow'
-            });
+        %script{src: "https://cdn.quilljs.com/1.3.6/quill.js"}
+        :javascript
+          var quill = new Quill('#editor', {
+            theme: 'snow'
+          });
 
 
       .modal-footer
