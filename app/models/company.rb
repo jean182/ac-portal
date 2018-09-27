@@ -4,11 +4,12 @@ class Company < ApplicationRecord
   has_many :tags, through: :has_tags
   has_one :location, dependent: :destroy
 
-  alias_attribute :owner, :client
-  alias_attribute :team_members, :client
+  # alias_attribute :owner, :client
+  # alias_attribute :team_members, :client
 
-  has_one :owner, dependent: :destroy
-  has_many :team_members, dependent: :destroy
+  # has_one :owner, dependent: :destroy
+  # has_many :team_members, dependent: :destroy
   has_many :time_trackings
-  belongs_to :mentor
+  belongs_to :mentor, optional: true
+  accepts_nested_attributes_for :location
 end

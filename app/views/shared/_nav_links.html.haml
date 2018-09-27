@@ -1,10 +1,10 @@
 - if current_user.present? && current_user.admin?
-  %li.nav-item.dropdown
+  %li.nav-item
     = link_to 'Dashboard' , admin_root_path, class: "nav-link"
   %li.nav-item
     = link_to 'User Management' , admin_users_path, class: "nav-link"
   %li.nav-item
-    %a.nav-link{href: "#"} Link
+    = link_to 'Company Management' , admin_companies_path, class: "nav-link"
 - elsif current_user.present? && current_user.mentor?   
   %li.nav-item.dropdown
     = link_to 'Dashboard' , mentor_root_path, class: "nav-link"
