@@ -1,0 +1,23 @@
+body {
+  background: $ac-background;
+}
+.btn-primary {
+  background-color: $ac-primary;
+  border-color: $ac-primary;
+}
+
+.div-spacer {
+  border-top: 1px solid #E6EAEE;
+}
+
+.border-light-gray {
+  border: 1px solid #E6EAEE;
+}
+
+.ac-corner-radius {
+  border-radius: 4.76px;
+}
+
+.test-border {
+  border: 1px solid red;
+}
