@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :companies
   end
 
+  resources :companies, only: :show do
+    resources :phases
+  end
+
   namespace :mentor do
     root 'dashboard#show'
   end
