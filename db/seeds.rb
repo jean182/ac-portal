@@ -1,8 +1,21 @@
 # Default Users
 admin = Admin.create
-User.create(name: 'John Doe', email: 'admin@example.com', password: '123456', phone: '123456789', title: 'Admin', account: admin)
+User.create(
+  name: 'John Doe',
+  email: 'admin@example.com',
+  password: '123456',
+  phone: '123456789',
+  title: 'Admin',
+  account: admin,
+)
 mentor = Mentor.create
-User.create(name: 'Jane Doe', email: 'mentor@example.com', password: '123456', phone: '123456789', title: 'Mentor', account: mentor)
+User.create(
+  name: 'Jane Doe',
+  email: 'mentor@example.com',
+  password: '123456', phone: '123456789',
+  title: 'Mentor',
+  account: mentor
+)
 
 # Dummy Data
 10.times do
@@ -59,7 +72,13 @@ end
 end
 
 client = Client.create(company: Company.last)
-User.create(name: 'Jeff Doe', email: 'client@example.com', password: '123456', phone: '123456789', title: 'Client', account: client)
+User.create(
+  name: 'Jeff Doe',
+  email: 'client@example.com',
+  password: '123456', phone: '123456789',
+  title: 'Client',
+  account: client
+)
 
 10.times do
   client = Client.create(description: Faker::Pokemon.name, company: Company.last)

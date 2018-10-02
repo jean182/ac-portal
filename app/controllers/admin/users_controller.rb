@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::AdminBaseController
   before_action :authenticate_user!
-  before_action :authenticate_admin!, except: :show
+  before_action :authenticate_admin!
   before_action :configure_permitted_parameters, if: :devise_controller?
   def index
     @users = User.all
@@ -8,11 +8,6 @@ class Admin::UsersController < Admin::AdminBaseController
 
   def show
     @user = User.find(params[:id])
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_to root_path, alert: "Access denied."
-      end
-    end
   end
 
   def destroy

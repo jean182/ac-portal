@@ -1,4 +1,4 @@
-module Admin::StatesHelper
+module StatesHelper
   def us_states
     [
       %w(Alabama AL),
