@@ -27,8 +27,8 @@ class Admin::AdminsController < Admin::UsersController
   def reactivate_admin
     @user = User.find(params[:id])
     @user.update_attribute(:deleted_at, nil)
-    redirect_to admin_admins_path
     flash[:notice] = "Admin Activated succesfully"
+    redirect_to admin_admins_path
   end
 
   private

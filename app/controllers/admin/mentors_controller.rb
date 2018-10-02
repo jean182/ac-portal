@@ -28,8 +28,8 @@ class Admin::MentorsController < Admin::UsersController
   def reactivate_mentor
     @user = User.find(params[:id])
     @user.update_attribute(:deleted_at, nil)
-    redirect_to admin_mentors_path
     flash[:notice] = "Mentor Activated succesfully"
+    redirect_to admin_mentors_path
   end
 
   private

@@ -13,16 +13,4 @@ class Company < ApplicationRecord
   has_many :time_trackings
   belongs_to :mentor, optional: true
   accepts_nested_attributes_for :location
-  # before_create :set_slug
-
-  # def to_param
-  #   slug
-  # end
-
-  # private
-
-  # def set_slug
-  #   return nil unless persisted?
-  #   self.slug = name.parameterize.to_s
-  # end
 end

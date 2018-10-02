@@ -6,7 +6,7 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def index?
-    true if user&.client? && user.present?
+    user&.client? && user.present?
   end
 
   private

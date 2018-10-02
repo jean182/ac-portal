@@ -27,8 +27,8 @@ class Admin::ClientsController < Admin::UsersController
   def reactivate_client
     @user = User.find(params[:id])
     @user.update_attribute(:deleted_at, nil)
-    redirect_to admin_clients_path
     flash[:notice] = "Client Activated succesfully"
+    redirect_to admin_clients_path
   end
 
   private
