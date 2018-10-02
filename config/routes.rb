@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :companies, only: :show do
-    resources :phases
+    resources :clients
   end
 
   namespace :mentor do

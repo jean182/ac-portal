@@ -38,6 +38,8 @@ gem 'jquery-rails'
 gem 'devise-bootstrapped'
 # HAML compiler
 gem "haml"
+# Pundit for authorization
+gem "pundit"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
