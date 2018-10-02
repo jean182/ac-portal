@@ -17,8 +17,15 @@ class Admin::UsersController < Admin::AdminBaseController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @user.soft_delete
     redirect_to admin_users_path, notice: "User deleted."
+  end
+
+  def reactivate_user
+    @user = User.find(params[:id])
+    @user.update_attribute(:deleted_at, nil)
+    flash[:notice] = "User Activated succesfully"
+    redirect_to admin_users_path
   end
 
   protected

@@ -5,6 +5,8 @@
     = link_to 'User Management' , admin_users_path, class: "nav-link"
   %li.nav-item
     = link_to 'Company Management' , admin_companies_path, class: "nav-link"
+  %li.nav-item
+    = link_to 'Tags' , admin_tags_path, class: "nav-link"
 - elsif current_user.present? && current_user.mentor?   
   %li.nav-item.dropdown
     = link_to 'Dashboard' , mentor_root_path, class: "nav-link"

@@ -38,6 +38,8 @@ gem 'jquery-rails'
 gem 'devise-bootstrapped'
 # HAML compiler
 gem "haml"
+# Pundit for authorization
+gem "pundit"
 # Cocoon dynamic nested forms
 gem 'cocoon'
 

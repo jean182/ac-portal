@@ -3,8 +3,6 @@ admin = Admin.create
 User.create(name: 'John Doe', email: 'admin@example.com', password: '123456', phone: '123456789', title: 'Admin', account: admin)
 mentor = Mentor.create
 User.create(name: 'Jane Doe', email: 'mentor@example.com', password: '123456', phone: '123456789', title: 'Mentor', account: mentor)
-client = Client.create
-User.create(name: 'Jeff Doe', email: 'client@example.com', password: '123456', phone: '123456789', title: 'Client', account: client)
 
 # Dummy Data
 10.times do
@@ -28,18 +26,6 @@ end
     phone: Faker::PhoneNumber.cell_phone,
     title: 'Mentor',
     account: mentor,
-  )
-end
-
-10.times do
-  client = Client.create(description: Faker::Pokemon.name)
-  User.create(
-    name: Faker::Name.name,
-    email: Faker::Internet.email,
-    password: '123456',
-    phone: Faker::PhoneNumber.cell_phone,
-    title: 'Client',
-    account: client,
   )
 end
 
@@ -70,4 +56,19 @@ end
     phone: Faker::PhoneNumber.cell_phone,
   )
   company.location = location
+end
+
+client = Client.create(company: Company.last)
+User.create(name: 'Jeff Doe', email: 'client@example.com', password: '123456', phone: '123456789', title: 'Client', account: client)
+
+10.times do
+  client = Client.create(description: Faker::Pokemon.name, company: Company.last)
+  User.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: '123456',
+    phone: Faker::PhoneNumber.cell_phone,
+    title: 'Client',
+    account: client,
+  )
 end

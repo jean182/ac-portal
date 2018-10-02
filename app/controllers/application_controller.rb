@@ -1,20 +1,27 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotDefinedError, with: :user_not_logged
 
   def after_sign_in_path_for(resource)
     if resource.admin?
       admin_root_path
     elsif resource.mentor?
       mentor_root_path
-    else
-      root_path
+    elsif resource.client?
+      company_path(resource.account.company)
     end
   end
 
-  # def authenticate_mentor!
-  #   redirect_to root_path, :flash => { :error => "You don't have the permissions to do this!" } unless user_signed_in? && current_user.mentor?
-  # end
+  private
 
-  # def authenticate_client!
-  #   redirect_to root_path, :flash => { :error => "You don't have the permissions to do this!" } unless user_signed_in? && current_user.client?
-  # end
+  def user_not_authorized
+    flash[:error] = "You are not authorized to perform this action."
+    redirect_to(request.referer || root_path)
+  end
+
+  def user_not_logged
+    flash[:error] = "Please login with a current client."
+    redirect_to(request.referer || root_path)
+  end
 end

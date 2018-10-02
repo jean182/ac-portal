@@ -2,7 +2,7 @@ class Admin::MentorsController < Admin::UsersController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: :show
   def index
-    @users = Mentor.all
+    @mentors = Mentor.all
   end
 
   def new
@@ -19,37 +19,17 @@ class Admin::MentorsController < Admin::UsersController
     end
   end
 
-  # def create
-  #   @mentor = User.new(secure_params)
-  #   if @mentor.save
-  #     redirect_to(polymorphic_path([:admin, @mentor]), :notice => 'User was successfully created.')
-  #   else
-  #     render :action => :new
-  #   end
-  # end
-
-  # def show
-  #   @mentor = User.find(params[:id])
-  #   unless current_user.admin?
-  #     unless @mentor == current_user
-  #       redirect_to root_path, :alert => "Access denied."
-  #     end
-  #   end
-  # end
-
-  # def update
-  #   @mentor = User.find(params[:id])
-  #   if @mentor.update_attributes(secure_params)
-  #     redirect_to admin_mentors_path, :notice => "User updated."
-  #   else
-  #     redirect_to admin_mentors_path, :alert => "Unable to update user."
-  #   end
-  # end
-
   def destroy
     @mentor = Mentor.find(params[:id])
-    @mentor.destroy
+    @mentor.user.soft_delete
     redirect_to admin_mentors_path, notice: "Mentor deleted."
+  end
+
+  def reactivate_mentor
+    @user = User.find(params[:id])
+    @user.update_attribute(:deleted_at, nil)
+    flash[:notice] = "Mentor Activated succesfully"
+    redirect_to admin_mentors_path
   end
 
   private

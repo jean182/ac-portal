@@ -1,5 +1,7 @@
 %h1 Client Management
 = link_to('New Client', new_admin_client_path)
+|
+= render 'admin/shared/links'
 %table.table.table-bordered
   %thead
     %tr
@@ -14,5 +16,7 @@
         %td
           = client.user.account_type
         %td
-          = link_to("Delete user", admin_client_path(client), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm')
-= render 'admin/shared/links'
+          - if client.user.deleted_at.present?
+            = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.user.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}  
+          -else
+            = link_to("Disable user", admin_client_path(client), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm')

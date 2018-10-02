@@ -1,5 +1,7 @@
 %h3 Mentor Management
 = link_to('New Mentor', new_admin_mentor_path)
+|
+= render 'admin/shared/links'
 %table.table.table-bordered
   %thead
     %tr
@@ -7,12 +9,14 @@
       %th{:scope => "col"} Role
       %th{:scope => "col"} Delete
   %tbody
-    - @users.each do |mentor|
+    - @mentors.each do |mentor|
       %tr
         %td
           = mentor.user.email
         %td
           = mentor.user.account_type
         %td
-          = link_to("Delete user", admin_mentor_path(mentor), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm')
-= render 'admin/shared/links'
+          - if mentor.user.deleted_at.present?
+            = button_to "Restore mentor", {controller: "mentors", action: "reactivate_mentor", id: mentor.user.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }} 
+          -else
+            = link_to("Disable user", admin_mentor_path(mentor), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm') unless mentor.user == current_user
