@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  devise_for :users
+  devise_for :users, skip: [:registrations],
+                     path:       '',
+                     path_names: {
+                       sign_in:      'login',
+                       sign_out:     'logout',
+                       password:     'secret',
+                       confirmation: 'verification',
+                       unlock:       'unblock',
+                       sign_up: '',
+                     }
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', as: 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', as: 'user_registration'
+  end
 
   namespace :admin do
     root 'dashboard#show'
@@ -27,7 +40,7 @@ Rails.application.routes.draw do
   namespace :mentor do
     root 'dashboard#show'
     resources :companies, only: [:index, :show]
-    resources :phases 
+    resources :phases
     resources :milestones
   end
 end
