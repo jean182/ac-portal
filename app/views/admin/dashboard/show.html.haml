@@ -1,8 +1,6 @@
 %h1 Admin Dashboard
 %h3
   Hello #{current_user.name  if current_user.name.present?}
-= link_to 'Edit', edit_user_registration_path
-|
 = link_to 'Log Out', destroy_user_session_path, method: :delete
 |
 = link_to  "Users", admin_users_path
