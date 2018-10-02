@@ -31,8 +31,10 @@ class Admin::TagsController < Admin::AdminBaseController
 
   def destroy
     if @tag.destroy
-      redirect_to admin_tags_path
       flash[:success] = "Deleted succesfully."
+      redirect_to admin_tags_path
+    else
+      flash[:error] = "Could not process your request"
     end
   end
 

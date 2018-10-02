@@ -21,4 +21,4 @@ module RequestSpecHelper
     resource.class.name.underscore.to_sym
   end
 
-  end
+end

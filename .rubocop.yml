@@ -9,7 +9,9 @@ AllCops:
     - "db/schema.rb"
     - "db/migrate/*.rb"
     - "db/samples/**/*" # Don't talk to me about samples, rubocop
-    - "config/initializers/assets.rb"
+    - "config/initializers/assets.rb" 
+    - "app/helpers/states_helper.rb" # Helper is a really long array
+    - "test/test_helper.rb"
 
 Rails:
   Enabled: true
