@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  devise_for :users
+  devise_for :users,
+             path:       '',
+             path_names: {
+               sign_in:      'login',
+               sign_out:     'logout',
+               password:     'secret',
+               confirmation: 'verification',
+               unlock:       'unblock',
+             }
 
   namespace :admin do
     root 'dashboard#show'
@@ -27,7 +35,7 @@ Rails.application.routes.draw do
   namespace :mentor do
     root 'dashboard#show'
     resources :companies, only: [:index, :show]
-    resources :phases 
+    resources :phases
     resources :milestones
   end
 end
