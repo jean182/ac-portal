@@ -6,7 +6,19 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def index?
-    user&.client? && user.present?
+    true
+  end
+
+  def new?
+    true
+  end
+
+  def create?
+    true
+  end
+
+  def destroy?
+    true
   end
 
   private
