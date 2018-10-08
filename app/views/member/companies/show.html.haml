@@ -1,0 +1,11 @@
+.d-block.mb-3
+  = link_to '< Back', member_root_path, class: 'btn btn-primary'
+.row
+  .col-12.bg-white.border-light-gray.ac-corner-radius
+    .row
+      .col-3
+        %img.img-fluid.p-4{src: @company.logo}
+      .col-9.p-4
+        %h5= @company.name
+        %span.d-block= @client.user.name
+        %span.d-block= @company.description

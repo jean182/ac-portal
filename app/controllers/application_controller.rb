@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     elsif resource.mentor?
       mentor_root_path
     elsif resource.client?
-      company_path(resource.account.company)
+      member_root_path
     end
   end
 

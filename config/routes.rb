@@ -28,14 +28,19 @@ Rails.application.routes.draw do
     resources :companies
   end
 
-  resources :companies, only: :show do
-    resources :clients
-  end
-
   namespace :mentor do
     root 'dashboard#show'
     resources :companies, only: [:index, :show]
     resources :phases
     resources :milestones
+  end
+
+  namespace :member do
+    root 'dashboard#show'
+    resources :companies, path: 'company', only: :show do
+      resources :clients
+      post 'clients/:id/reactivate_client' => 'clients#reactivate_client', as: :reactivate_client
+      get 'reactivate_client'
+    end
   end
 end
