@@ -12,5 +12,10 @@ class Company < ApplicationRecord
   # has_many :team_members, dependent: :destroy
   has_many :time_trackings
   belongs_to :mentor, optional: true
+  after_create :make_phases
   accepts_nested_attributes_for :location
+
+  def make_phases
+    4.times { |i| phases.create(phase_number: i, status: 'inactive') }
+  end
 end
