@@ -1,4 +1,4 @@
-# Default Users
+User.destroy_all
 admin = Admin.create
 User.create(
   name: 'John Doe',
@@ -52,7 +52,7 @@ end
     tag_type: 'expertise',
   )
 end
-
+Company.destroy_all
 25.times do
   location = Location.create(
     address_line1: Faker::Address.street_address,
