@@ -1,5 +1,6 @@
 class Member::ClientsController < Member::MemberBaseController
   before_action :set_current_client, :check_client_owner
+
   def index
     @clients = policy_scope(Client)
   end

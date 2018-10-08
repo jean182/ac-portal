@@ -1,6 +1,8 @@
 class Member::MemberBaseController < ApplicationController
   before_action :authenticate_client!
+
   layout 'member/application'
+
   def authenticate_client!
     return if user_signed_in? && current_user.client?
 
