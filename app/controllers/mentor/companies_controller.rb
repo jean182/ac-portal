@@ -2,7 +2,7 @@ class Mentor::CompaniesController < Mentor::MentorBaseController
   before_action :set_company, only: [:show]
 
   def index
-    @mentor = current_user.account
+    @mentor = current_user
     @companies = Company.all.where(mentor: @mentor)
   end
 

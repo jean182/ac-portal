@@ -9,11 +9,11 @@
     - @clients.each do |client|
       %tr
         %td
-          = client.user.email
+          = client.email
         %td
-          = client.user.account_type
+          = client.account_type
         %td
-          - if client.user.deleted_at.present?
-            = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.user.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}  
+          - if client.deleted_at.present?
+            = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}
           -else
-            = link_to("Disable user", member_company_client_path(current_user.account.company.id,client), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm') unless client.user == current_user
+            = link_to("Disable user", member_company_client_path(current_user.client_info.company.id,client), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm') unless client == current_user

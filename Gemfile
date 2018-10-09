@@ -44,6 +44,8 @@ gem 'pundit'
 gem 'cocoon'
 # TinyMce
 gem 'tinymce-rails'
+#annotate
+gem 'annotate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

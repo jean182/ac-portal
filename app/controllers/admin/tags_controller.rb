@@ -1,5 +1,6 @@
 class Admin::TagsController < Admin::AdminBaseController
   before_action :set_tag, except: [:index, :new, :create]
+
   def index
     @tags = Tag.all
   end

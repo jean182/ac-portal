@@ -1,10 +1,10 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-ac-blue
-  = link_to current_user.account.company.name, member_root_path, class: "navbar-brand"
+  = link_to current_user.client_info.company.name, member_root_path, class: "navbar-brand"
   %button.navbar-toggler.p-0.border-0{"aria-controls" => "navbarMobile", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarMobile", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
   #navbarMobile.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
-      = link_to('Company', member_company_path(current_user.account.company), class: 'nav-link')
+      = link_to('Company', member_company_path(current_user.client_info.company), class: 'nav-link')
       = link_to('Phases', member_phases_path, class: 'nav-link')
     %ul.navbar-nav.ml-auto
       - if user_signed_in?
