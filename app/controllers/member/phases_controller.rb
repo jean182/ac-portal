@@ -20,9 +20,9 @@ class Member::PhasesController < Member::MemberBaseController
   end
 
   def set_progress
-    @total = @phase.milestones.count
-    @num = @phase.milestones.where(complete: true).count
-    @percentage = (@num * 100) / @total.to_f
+    total = @phase.milestones.count
+    num = @phase.milestones.where(complete: true).count
+    @percentage = (num * 100) / total.to_f
   end
 
   private
