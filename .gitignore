@@ -31,6 +31,7 @@
 /config/master.key
 
 .env
+.ruby-gemset
 
 # Ignore database YML file
 /config/database.yml
