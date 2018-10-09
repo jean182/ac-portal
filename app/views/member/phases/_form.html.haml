@@ -1,0 +1,7 @@
+= form_for [:member, @phase] do |f|
+  #milestones.form-group
+    = f.fields_for :milestones do |milestone|
+      = render 'member/phases/milestone_fields', f: milestone
+    .links
+      = link_to_add_association 'Add milestone', f, :milestones
+  = f.submit 'Save Changes', class: 'btn btn-primary'

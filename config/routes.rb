@@ -42,5 +42,6 @@ Rails.application.routes.draw do
       post 'clients/:id/reactivate_client' => 'clients#reactivate_client', as: :reactivate_client
       get 'reactivate_client'
     end
+    resources :phases
   end
 end
