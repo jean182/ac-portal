@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: ac-portal_development
+
+test:
+  <<: *default
+  database: ac-portal_test
+
+production:
+  <<: *default
+  database: ac-portal_production
+  username: ac-portal
+  password: <%= ENV['AC-PORTAL_DATABASE_PASSWORD'] %>

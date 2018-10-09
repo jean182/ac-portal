@@ -37,9 +37,9 @@ gem 'jquery-rails'
 # Generate devise views with bootstrap
 gem 'devise-bootstrapped'
 # HAML compiler
-gem "haml"
+gem 'haml'
 # Pundit for authorization
-gem "pundit"
+gem 'pundit'
 # Cocoon dynamic nested forms
 gem 'cocoon'
 # TinyMce
