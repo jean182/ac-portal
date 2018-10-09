@@ -91,3 +91,5 @@ User.create(
     account: client,
   )
 end
+
+Phase.find_by(company: Company.last).update(status: 'active')

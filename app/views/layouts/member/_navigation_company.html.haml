@@ -5,6 +5,7 @@
   #navbarMobile.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
       = link_to('Company', member_company_path(current_user.account.company), class: 'nav-link')
+      = link_to('Phases', member_phases_path, class: 'nav-link')
     %ul.navbar-nav.ml-auto
       - if user_signed_in?
         %li.nav-item.dropdown

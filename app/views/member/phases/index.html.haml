@@ -1,0 +1,5 @@
+%h1 My company phases
+- @phases_completed.each.with_index(1) do |phase_completed, index|
+  = link_to("Requirement #{index}", member_phase_path(phase_completed))
+
+= link_to("Current Phase", member_phase_path(@phase))
