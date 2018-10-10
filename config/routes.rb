@@ -10,6 +10,36 @@ Rails.application.routes.draw do
                unlock:       'unblock',
              }
 
+  devise_for :admins,
+             path:       'admin',
+             path_names: {
+                 sign_in:      'login',
+                 sign_out:     'logout',
+                 password:     'secret',
+                 confirmation: 'verification',
+                 unlock:       'unblock',
+             }
+
+  devise_for :mentors,
+             path:       'mentor',
+             path_names: {
+                 sign_in:      'login',
+                 sign_out:     'logout',
+                 password:     'secret',
+                 confirmation: 'verification',
+                 unlock:       'unblock',
+             }
+
+  devise_for :clients,
+             path:       'member',
+             path_names: {
+                 sign_in:      'login',
+                 sign_out:     'logout',
+                 password:     'secret',
+                 confirmation: 'verification',
+                 unlock:       'unblock',
+             }
+
   namespace :admin do
     root 'dashboard#show'
     resources :users, only: [:index, :show, :destroy]

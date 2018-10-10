@@ -12,11 +12,11 @@
     - @clients.each do |client|
       %tr
         %td
-          = client.user.email
+          = client.email
         %td
-          = client.user.account_type
+          = client.role
         %td
           - if client.user.deleted_at.present?
-            = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.user.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}  
+            = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}
           -else
             = link_to("Disable user", admin_client_path(client), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm')

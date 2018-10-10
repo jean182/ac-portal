@@ -1,5 +1,6 @@
 class Admin::AdminBaseController < ApplicationController
   before_action :authenticate_admin!
+
   def authenticate_admin!
     return if user_signed_in? && current_user.admin?
 
