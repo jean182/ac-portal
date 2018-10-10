@@ -382,7 +382,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   database_cleaner
-  devise
+  devise (~> 4.2)
   devise-bootstrapped
   erb2haml
   factory_bot
