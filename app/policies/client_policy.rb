@@ -1,7 +1,7 @@
 class ClientPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all.where(company_id: user.account.company_id) if user.client? && user.present?
+      scope.all.where(company_id: user.client_info.company_id) if user.client? && user.present?
     end
   end
 

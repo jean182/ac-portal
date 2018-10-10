@@ -6,7 +6,7 @@ class Admin::ClientsController < Admin::UsersController
 
   def new
     @client = Client.new
-    @client.build_user
+    @client.build_client_info
   end
 
   def create
@@ -20,7 +20,7 @@ class Admin::ClientsController < Admin::UsersController
 
   def destroy
     @client = Client.find(params[:id])
-    @client.user.soft_delete
+    @client.soft_delete
     redirect_to admin_clients_path, notice: "Client deleted."
   end
 
@@ -34,6 +34,6 @@ class Admin::ClientsController < Admin::UsersController
   private
 
   def client_params
-    params.require(:client).permit(:description, user_attributes: user_params)
+    params.require(:client).permit(user_params, client_info_attributes: [:description])
   end
 end

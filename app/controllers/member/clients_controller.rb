@@ -7,7 +7,7 @@ class Member::ClientsController < Member::MemberBaseController
 
   def new
     @client = Client.new
-    @client.build_user
+    @client.build_client_info
   end
 
   def create
@@ -21,7 +21,7 @@ class Member::ClientsController < Member::MemberBaseController
 
   def destroy
     @client = Client.find(params[:id])
-    @client.user.soft_delete
+    @client.soft_delete
     redirect_to member_company_clients_path, notice: "Client deleted."
   end
 
@@ -35,11 +35,11 @@ class Member::ClientsController < Member::MemberBaseController
   private
 
   def client_params
-    params.require(:client).permit(:company_id, :description, user_attributes: user_params)
+    params.require(:client).permit(user_params, client_info_attributes: [:company_id, :description])
   end
 
   def set_current_client
-    @client = current_user.account if current_user.present?
+    @client = current_user
   end
 
   def user_params
@@ -52,7 +52,7 @@ class Member::ClientsController < Member::MemberBaseController
   end
 
   def check_client_owner
-    return if params[:company_id].to_i == @client.company.id
+    return if params[:client_info_attributes][:company_id].to_i == @client.client_info.company.id
     flash[:error] = "You are not allowed to perform this action"
     redirect_to mentor_root_path
   end

@@ -3,6 +3,6 @@
   Hello #{current_user.name  if current_user.name.present?}
 = link_to 'Log Out', destroy_user_session_path, method: :delete
 |
-= link_to 'Go to Company', member_company_path(current_user.account.company)
+= link_to 'Go to Company', member_company_path(current_user.client_info.company)
 |
 = link_to('Company Users', member_company_clients_path(@company))

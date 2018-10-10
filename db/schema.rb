@@ -10,15 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_08_144457) do
+ActiveRecord::Schema.define(version: 2018_10_09_201416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "checklists", force: :cascade do |t|
     t.string "name"
@@ -29,12 +24,14 @@ ActiveRecord::Schema.define(version: 2018_10_08_144457) do
     t.index ["phase_id"], name: "index_checklists_on_phase_id"
   end
 
-  create_table "clients", force: :cascade do |t|
+  create_table "client_infos", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
-    t.index ["company_id"], name: "index_clients_on_company_id"
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_client_infos_on_client_id"
+    t.index ["company_id"], name: "index_client_infos_on_company_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -77,10 +74,12 @@ ActiveRecord::Schema.define(version: 2018_10_08_144457) do
     t.index ["company_id"], name: "index_locations_on_company_id"
   end
 
-  create_table "mentors", force: :cascade do |t|
-    t.boolean "is_active"
+  create_table "mentor_infos", force: :cascade do |t|
+    t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_mentor_infos_on_client_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -146,7 +145,7 @@ ActiveRecord::Schema.define(version: 2018_10_08_144457) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name"
-    t.string "title"
+    t.string "role"
     t.string "phone"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -158,27 +157,26 @@ ActiveRecord::Schema.define(version: 2018_10_08_144457) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "account_type"
-    t.integer "account_id"
     t.datetime "deleted_at"
+    t.string "type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "checklists", "phases"
-  add_foreign_key "clients", "companies"
-  add_foreign_key "companies", "mentors"
+  add_foreign_key "client_infos", "companies"
+  add_foreign_key "companies", "users", column: "mentor_id"
   add_foreign_key "has_tags", "checklists"
   add_foreign_key "has_tags", "companies"
-  add_foreign_key "has_tags", "mentors"
   add_foreign_key "has_tags", "tags"
-  add_foreign_key "locations", "admins"
+  add_foreign_key "has_tags", "users", column: "mentor_id"
   add_foreign_key "locations", "companies"
+  add_foreign_key "locations", "users", column: "admin_id"
   add_foreign_key "messages", "tasks"
   add_foreign_key "milestones", "phases"
   add_foreign_key "phases", "companies"
   add_foreign_key "tasks", "checklists"
-  add_foreign_key "time_trackings", "clients"
   add_foreign_key "time_trackings", "companies"
-  add_foreign_key "time_trackings", "mentors"
+  add_foreign_key "time_trackings", "users", column: "client_id"
+  add_foreign_key "time_trackings", "users", column: "mentor_id"
 end

@@ -32,7 +32,7 @@ class Member::PhasesController < Member::MemberBaseController
   end
 
   def set_company
-    @company = current_user.account.company
+    @company = current_user.client_info.company
   end
 
   def set_phase

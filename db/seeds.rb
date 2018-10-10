@@ -1,44 +1,38 @@
 User.destroy_all
-admin = Admin.create
-User.create(
+
+Admin.create(
   name: 'John Doe',
   email: 'admin@example.com',
   password: '123456',
   phone: '123456789',
-  title: 'Admin',
-  account: admin,
+  role: 'Admin',
 )
-mentor = Mentor.create
-User.create(
+
+Mentor.create(
   name: 'Jane Doe',
   email: 'mentor@example.com',
   password: '123456', phone: '123456789',
-  title: 'Mentor',
-  account: mentor
+  role: 'Mentor'
 )
 
 # Dummy Data
 10.times do
-  admin = Admin.create
-  User.create(
+  Admin.create(
     name: Faker::Name.name,
     email: Faker::Internet.email,
     password: '123456',
     phone: Faker::PhoneNumber.cell_phone,
-    title: 'Admin',
-    account: admin,
+    role: 'Admin'
   )
 end
 
 10.times do
-  mentor = Mentor.create(is_active: true)
-  User.create(
+  Mentor.create(
     name: Faker::Name.name,
     email: Faker::Internet.email,
     password: '123456',
     phone: Faker::PhoneNumber.cell_phone,
-    title: 'Mentor',
-    account: mentor,
+    role: 'Mentor',
   )
 end
 
@@ -71,18 +65,17 @@ Company.destroy_all
   company.location = location
 end
 
-client = Client.create(company: Company.last)
-User.create(
+client = Client.create(
   name: 'Jeff Doe',
   email: 'client@example.com',
   password: '123456', phone: '123456789',
-  title: 'Client',
-  account: client
+  role: 'Client'
 )
 
+client.client_data.update_columns(description: Faker::Pokemon.name, company: Company.first)
+
 10.times do
-  client = Client.create(description: Faker::Pokemon.name, company: Company.last)
-  User.create(
+  client = Client.create(
     name: Faker::Name.name,
     email: Faker::Internet.email,
     password: '123456',
@@ -90,6 +83,7 @@ User.create(
     title: 'Client',
     account: client,
   )
+  client.update_columns(description: Faker::Pokemon.name, company: Company.last)
 end
 
 Phase.find_by(company: Company.last).update(status: 'active')
