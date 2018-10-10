@@ -7,19 +7,20 @@
     = f.label :address_line2
     %br/
     = f.text_field :address_line2, autofocus: false, class: 'form-control'
-  .form-group
-    = f.label :city
-    %br/
-    = f.text_field :city, autofocus: false, class: 'form-control'
+  .form-row
+    .form-group.col-md-6
+      = f.label :city
+      %br/
+      = f.text_field :city, autofocus: false, class: 'form-control'
+    .form-group.col-md-4
+      = f.label :state
+      %br/
+      = f.select(:state, options_for_select(us_states), {include_blank: 'Select State'}, {class: 'custom-select'})
+    .form-group.col-md-2
+      = f.label :postal_code
+      %br/
+      = f.text_field :postal_code, autofocus: false, class: 'form-control' 
   .form-group
     = f.label :country
     %br/
     = f.text_field :country, autofocus: false, class: 'form-control'
-  .form-group
-    = f.label :postal_code
-    %br/
-    = f.text_field :postal_code, autofocus: false, class: 'form-control' 
-  .form-group
-    = f.label :state
-    %br/
-    = f.select :state, options_for_select(us_states, selected: :state)
