@@ -134,6 +134,8 @@ GEM
     faker (1.9.1)
       i18n (>= 0.7)
     ffi (1.9.25)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     foreman (0.64.0)
       dotenv (~> 0.7.0)
       thor (>= 0.13.6)
@@ -387,6 +389,7 @@ DEPENDENCIES
   erb2haml
   factory_bot
   faker
+  font-awesome-rails
   foreman
   haml
   jbuilder (~> 2.5)

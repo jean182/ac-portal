@@ -18,5 +18,6 @@ class Tag < ApplicationRecord
 
   enum tag_type: [:industry, :expertise]
 
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
+  validates :tag_type, presence: true
 end

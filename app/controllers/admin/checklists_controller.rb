@@ -2,10 +2,13 @@ class Admin::ChecklistsController < Admin::AdminBaseController
   before_action :set_checklist, except: [:index, :new, :create]
 
   def index
-    @checklist = Checklist.all
+    @checklists = Checklist.all
   end
 
-  def show; end
+  def show
+    @tasks = @checklist.tasks
+    @color = %w(primary success info light dark)
+  end
 
   def new
     @checklist = Checklist.new
@@ -17,6 +20,18 @@ class Admin::ChecklistsController < Admin::AdminBaseController
       redirect_to(admin_checklists_path, notice: 'Checklist was successfully created.')
     else
       render action: :new
+    end
+  end
+
+  def edit
+    build_has_tags
+  end
+
+  def update
+    if @checklist.update(checklist_params)
+      redirect_to(admin_checklists_path, notice: 'Checklist was successfully updated.')
+    else
+      render :edit
     end
   end
 
