@@ -72,7 +72,7 @@ client = Client.create(
   role: 'Client'
 )
 
-client.client_info.update_columns(description: Faker::Pokemon.name, company: Company.first)
+client.client_info.update_attributes(description: Faker::Pokemon.name, company: Company.first)
 
 10.times do
   client = Client.create(
@@ -83,7 +83,7 @@ client.client_info.update_columns(description: Faker::Pokemon.name, company: Com
     title: 'Client',
     account: client,
   )
-  client.update_columns(description: Faker::Pokemon.name, company: Company.last)
+  client.update_attributes(description: Faker::Pokemon.name, company: Company.last)
 end
 
 Phase.find_by(company: Company.last).update(status: 'active')
