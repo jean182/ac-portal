@@ -38,6 +38,8 @@ gem 'tinymce-rails'
 
 #annotate
 gem 'annotate'
+# Font awesome
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'byebug'

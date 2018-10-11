@@ -1,8 +1,9 @@
 = form_for [:admin, @tag] do |form|
-  .form-group
-    = form.label :name
-    = form.text_field :name, class: "form-control", placeholder: "Tag Name"
-  .form-group
-    = form.select(:tag_type, Tag.tag_types.keys.map {|type| [type.titleize, type]})
+  = render 'shared/errors', object: @tag
+  .form-row
+    .form-group.col-md-8
+      = form.text_field :name, class: "form-control", placeholder: "Tag Name"
+    .form-group.col-md-4
+      = form.select(:tag_type, Tag.tag_types.keys.map {|type| [type.titleize, type]}, {include_blank: 'Tag type'}, {class: 'custom-select'})
   .actions
-    = form.submit "Send", class: "btn btn-primary"
+    = form.submit "Add", class: "btn btn-primary float-right"

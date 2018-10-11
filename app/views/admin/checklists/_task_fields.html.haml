@@ -1,0 +1,8 @@
+.nested-fields
+  .form-row
+    .form-group.col-md-6
+      = f.text_field :description, autofocus: false, placeholder: 'Description', class: 'form-control'
+    .form-group.col-md-5
+      = f.number_field :score, autofocus: false, placeholder: 'Score', class: 'form-control'
+    .form-group.col-md-1
+      = link_to_remove_association "Remove", f, class: 'btn btn-danger'

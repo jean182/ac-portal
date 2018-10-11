@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get 'reactivate_client'
     resources :tags
     resources :companies
+    resources :checklists
   end
 
   namespace :mentor do
