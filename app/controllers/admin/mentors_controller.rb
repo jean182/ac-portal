@@ -13,7 +13,9 @@ class Admin::MentorsController < Admin::UsersController
 
   def create
     @mentor = Mentor.new(mentor_params)
-    if @mentor.save
+    if params[:mentor][:email].present? && params[:mentor][:name].present?
+      @mentor.save(validate: false)
+      @mentor.invite!(current_user)
       redirect_to(admin_mentors_path, notice: 'Mentor was successfully created.')
     else
       render action: :new
@@ -36,6 +38,6 @@ class Admin::MentorsController < Admin::UsersController
   private
 
   def mentor_params
-    params.require(:mentor).permit(user_params, mentor_info_attributes: [:is_active], tag_ids: [])
+    params.require(:mentor).permit(user_params)
   end
 end

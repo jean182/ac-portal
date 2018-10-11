@@ -11,7 +11,9 @@ class Admin::ClientsController < Admin::UsersController
 
   def create
     @client = Client.new(client_params)
-    if @client.save
+    if params[:client][:email].present? && params[:client][:name].present?
+      @client.save(validate: false)
+      @client.invite!(current_user)
       redirect_to(admin_clients_path, notice: 'Client was successfully created.')
     else
       render action: :new

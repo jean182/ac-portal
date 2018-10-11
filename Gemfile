@@ -14,7 +14,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.3'
 gem 'haml'
@@ -25,8 +24,11 @@ gem 'cocoon'
 
 #Authentication and authorization
 gem 'devise', '~> 4.2'
+gem 'devise_invitable', '~> 1.7.0'
 gem 'pundit'
 
+#Mailers
+gem 'smtpapi'
 
 gem 'activeadmin'
 gem 'active_skin'
@@ -39,7 +41,7 @@ gem 'tinymce-rails'
 #annotate
 gem 'annotate'
 # Font awesome
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'byebug'
@@ -51,6 +53,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'faker'
+  gem 'dotenv-rails', '~> 2.2.1'
 end
 
 group :development do

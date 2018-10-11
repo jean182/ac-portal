@@ -20,6 +20,14 @@
 #  updated_at             :datetime         not null
 #  deleted_at             :datetime
 #  type                   :string
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  invitation_limit       :integer
+#  invited_by_type        :string
+#  invited_by_id          :bigint(8)
+#  invitations_count      :integer          default(0)
 #
 
 class Client < User
@@ -29,10 +37,15 @@ class Client < User
   accepts_nested_attributes_for :client_info
 
   after_create_commit :create_client_info
+  before_create :set_role
 
   private
 
   def create_client_info
     ClientInfo.create(client: self) if client_info.nil?
+  end
+
+  def set_role
+    self.role = "Client"
   end
 end

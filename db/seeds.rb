@@ -68,7 +68,8 @@ end
 client = Client.create(
   name: 'Jeff Doe',
   email: 'client@example.com',
-  password: '123456', phone: '123456789',
+  password: '123456',
+  phone: '123456789',
   role: 'Client'
 )
 
@@ -80,10 +81,9 @@ client.client_info.update_attributes(description: Faker::Pokemon.name, company: 
     email: Faker::Internet.email,
     password: '123456',
     phone: Faker::PhoneNumber.cell_phone,
-    title: 'Client',
-    account: client,
+    role: 'Client',
   )
-  client.update_attributes(description: Faker::Pokemon.name, company: Company.last)
+  client.client_info.update_attributes(description: Faker::Pokemon.name, company: Company.last)
 end
 
 Phase.find_by(company: Company.last).update(status: 'active')

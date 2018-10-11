@@ -20,8 +20,24 @@
 #  updated_at             :datetime         not null
 #  deleted_at             :datetime
 #  type                   :string
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  invitation_limit       :integer
+#  invited_by_type        :string
+#  invited_by_id          :bigint(8)
+#  invitations_count      :integer          default(0)
 #
 
 class Admin < User
   has_one :location, dependent: :destroy
+
+  before_create :set_role
+
+  private
+
+  def set_role
+    self.role = "Admin"
+  end
 end
