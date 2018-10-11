@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_09_201416) do
+ActiveRecord::Schema.define(version: 2018_10_10_235755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 2018_10_09_201416) do
     t.boolean "is_active", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "client_id"
-    t.index ["client_id"], name: "index_mentor_infos_on_client_id"
+    t.integer "mentor_id"
+    t.index ["mentor_id"], name: "index_mentor_infos_on_mentor_id"
   end
 
   create_table "messages", force: :cascade do |t|
