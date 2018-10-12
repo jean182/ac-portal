@@ -9,4 +9,16 @@ class Member::MemberBaseController < ApplicationController
     flash[:error] = "You don't have the permissions to do this!"
     redirect_to root_path
   end
+
+  private
+
+  def user_params
+    %i(
+      name
+      phone
+      email
+      password
+      type
+    )
+  end
 end

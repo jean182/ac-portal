@@ -13,6 +13,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def after_accept_path_for(resource)
+    if resource.admin?
+      admin_root_path
+    elsif resource.mentor?
+      mentor_root_path
+    elsif resource.client?
+      member_root_path
+    end
+  end
+
   private
 
   def user_not_authorized

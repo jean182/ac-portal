@@ -40,11 +40,8 @@ Rails.application.routes.draw do
 
   namespace :member do
     root 'dashboard#show'
-    resources :companies, path: 'company', only: :show do
-      resources :clients
-      post 'clients/:id/reactivate_client' => 'clients#reactivate_client', as: :reactivate_client
-      get 'reactivate_client'
-    end
+    resources :companies, path: 'company', only: :show
+    resources :clients
     resources :phases
   end
 end
