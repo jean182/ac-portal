@@ -36,6 +36,6 @@ class Admin::ClientsController < Admin::UsersController
   private
 
   def client_params
-    params.require(:client).permit(user_params, client_info_attributes: [:description])
+    params.require(:client).permit(user_params, client_info_attributes: [:id, :description, :company_id])
   end
 end

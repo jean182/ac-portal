@@ -1,22 +1,14 @@
-= form_for( @client, url: member_company_clients_path) do |f|
-  = f.fields_for :client_info do |cf|
+= simple_form_for( @client, url: member_company_clients_path) do |f|
+  = f.simple_fields_for :client_info do |cf|
     = cf.hidden_field(:company_id, :value => params[:company_id])
     .form-group
-      = cf.label :description
-      %br/
-      = cf.text_field :description, autofocus: false, class: 'form-control'
+      = cf.input :description, autofocus: false, class: 'form-control'
   .form-group
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: false, class: 'form-control'
+    = f.input :name, autofocus: false, class: 'form-control'
   .form-group
-    = f.label :phone
-    %br/
-    = f.text_field :phone, autofocus: false, class: 'form-control'
+    = f.input :phone, autofocus: false, class: 'form-control'
   .form-group
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: false, class: 'form-control'
+    = f.input :email, autofocus: false, class: 'form-control'
   .form-group
     = f.label :password
     - if @minimum_password_length

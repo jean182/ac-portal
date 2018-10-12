@@ -17,6 +17,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.3'
 gem 'haml'
+gem 'simple_form'
+gem 'country_select'
 
 #Views
 gem 'devise-bootstrapped'
