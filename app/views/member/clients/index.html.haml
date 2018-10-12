@@ -11,7 +11,7 @@
         %td
           = client.email
         %td
-          = client.account_type
+          = client.type
         %td
           - if client.deleted_at.present?
             = button_to "Restore client", {controller: "clients", action: "reactivate_client", id: client.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}

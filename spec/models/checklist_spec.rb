@@ -18,5 +18,6 @@ describe Checklist, type: :model do
   describe 'associations' do
     it { should have_many(:tasks) }
     it { should have_many(:tags).through(:has_tags) }
+    it { should belong_to(:phase) }
   end
 end

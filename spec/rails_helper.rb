@@ -12,6 +12,8 @@ require 'faker'
 require 'simplecov'
 require 'csv'
 
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
 SimpleCov.start do
   add_group 'Controllers', 'app/controllers'
   add_group 'Helpers', 'app/helpers'

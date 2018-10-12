@@ -29,10 +29,12 @@
 #  invitations_count      :integer          default(0)
 #
 
-require 'rails_helper'
-
-describe Admin, type: :model do
-  describe 'associations' do
-    it { should have_one(:location) }
+FactoryBot.define do
+  factory :client do
+    name { Faker::Name.unique.name }
+    email { Faker::Internet.unique.email }
+    password "password"
+    password_confirmation "password"
+    type "Client"
   end
 end

@@ -6,7 +6,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
-#  role                   :string
 #  phone                  :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -32,12 +31,4 @@
 
 class Admin < User
   has_one :location, dependent: :destroy
-
-  before_create :set_role
-
-  private
-
-  def set_role
-    self.role = "Admin"
-  end
 end

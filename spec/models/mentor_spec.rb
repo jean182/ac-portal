@@ -6,7 +6,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
-#  role                   :string
 #  phone                  :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -36,5 +35,17 @@ describe Mentor, type: :model do
   describe 'associations' do
     it { should have_many(:time_trackings) }
     it { should have_many(:companies) }
+    it { should have_many(:tags).through(:has_tags) }
+    it { should have_one(:mentor_info) }
+  end
+
+  describe 'triggers' do
+    describe 'create_mentor_info' do
+      let(:mentor) { FactoryBot.create :mentor }
+
+      it 'creates a mentor_infor' do
+        expect(mentor.mentor_info).to be_present
+      end
+    end
   end
 end

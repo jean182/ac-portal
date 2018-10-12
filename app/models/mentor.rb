@@ -6,7 +6,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
-#  role                   :string
 #  phone                  :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -38,17 +37,12 @@ class Mentor < User
   has_one :mentor_info, dependent: :destroy
 
   after_create_commit :create_mentor_info
-  before_create :set_role
 
   accepts_nested_attributes_for :mentor_info
 
   private
 
-  def create_mentor_data
+  def create_mentor_info
     self.mentor_info = MentorInfo.create(is_active: true) if mentor_info.nil?
-  end
-
-  def set_role
-    self.role = "Mentor"
   end
 end

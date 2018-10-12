@@ -15,7 +15,7 @@
           = mentor.email
           = " (Invitation pending)" if mentor.invitation_created_at.present? && mentor.invitation_accepted_at.nil?
         %td
-          = mentor.role
+          = mentor.type
         %td
           - if mentor.deleted_at.present?
             = button_to "Restore mentor", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}

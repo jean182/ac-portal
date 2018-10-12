@@ -15,7 +15,7 @@
           = admin.email
           = " (Invitation pending)" if admin.invitation_created_at.present? && admin.invitation_accepted_at.nil?
         %td
-          = admin.role
+          = admin.type
         %td
           - if admin.deleted_at.present?
             = button_to "Restore admin", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}

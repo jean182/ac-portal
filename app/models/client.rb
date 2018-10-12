@@ -6,7 +6,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
-#  role                   :string
 #  phone                  :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -37,15 +36,10 @@ class Client < User
   accepts_nested_attributes_for :client_info
 
   after_create_commit :create_client_info
-  before_create :set_role
 
   private
 
   def create_client_info
     ClientInfo.create(client: self) if client_info.nil?
-  end
-
-  def set_role
-    self.role = "Client"
   end
 end

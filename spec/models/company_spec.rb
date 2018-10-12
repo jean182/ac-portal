@@ -18,6 +18,19 @@ RSpec.describe Company, type: :model do
   describe 'associations' do
     it { should have_many(:phases) }
     it { should have_many(:tags).through(:has_tags) }
+    it { should have_many(:clients).through(:client_infos) }
     it { should have_many(:time_trackings) }
+    it { should have_one(:location) }
+    it { should belong_to(:mentor) }
+  end
+
+  describe 'triggers' do
+    describe 'make_phases' do
+      let(:company) { FactoryBot.create :company }
+
+      it 'creates phases after company creation' do
+        expect(company.phases.count).to eq(4)
+      end
+    end
   end
 end
