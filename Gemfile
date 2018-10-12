@@ -37,6 +37,8 @@ gem 'active_skin'
 gem 'aasm'
 gem 'rails_12factor'
 
+gem 'faker'
+
 # TinyMce
 gem 'tinymce-rails'
 
@@ -54,7 +56,6 @@ group :development, :test do
   gem 'factory_bot'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
-  gem 'faker'
   gem 'dotenv-rails', '~> 2.2.1'
   gem 'factory_bot_rails'
 end
