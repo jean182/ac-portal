@@ -1,14 +1,6 @@
 %h1 New Mentor
-= form_for [:admin, @mentor] do |f|
+= simple_form_for [:admin, @mentor] do |f|
   = render 'shared/errors', object: @mentor
-  = render 'admin/shared/form_nested', f: f  
-  = fields_for :mentor_info do |mf|
-    .form-check
-      = mf.check_box :is_active, autofocus: false, class: 'form-check-input'
-      = mf.label 'Activate/Deactivate', class: 'form-check-label'
-  - Tag.all.where(tag_type: 'expertise').each do |tag|
-    .form-check.form-check-inline
-      = check_box_tag 'mentor[tag_ids][]', tag.id, @mentor.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
-      = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  = render 'admin/shared/form_nested', f: f
   .form-group
     = f.submit 'Create New', :class => 'btn btn-primary'

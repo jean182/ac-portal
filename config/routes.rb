@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   devise_for :users,
              path:       '',
+             controllers: { invitations: 'users/invitations' },
              path_names: {
                sign_in:      'login',
                sign_out:     'logout',
@@ -10,40 +11,11 @@ Rails.application.routes.draw do
                unlock:       'unblock',
              }
 
-  devise_for :admins,
-             path:       'admin',
-             path_names: {
-                 sign_in:      'login',
-                 sign_out:     'logout',
-                 password:     'secret',
-                 confirmation: 'verification',
-                 unlock:       'unblock',
-             }
-
-  devise_for :mentors,
-             path:       'mentor',
-             path_names: {
-                 sign_in:      'login',
-                 sign_out:     'logout',
-                 password:     'secret',
-                 confirmation: 'verification',
-                 unlock:       'unblock',
-             }
-
-  devise_for :clients,
-             path:       'member',
-             path_names: {
-                 sign_in:      'login',
-                 sign_out:     'logout',
-                 password:     'secret',
-                 confirmation: 'verification',
-                 unlock:       'unblock',
-             }
-
   namespace :admin do
     root 'dashboard#show'
     resources :users, only: [:index, :show, :destroy]
     post 'users/:id/reactivate_user' => 'users#reactivate_user', as: :reactivate_user
+    post 'users/:id/send_reset_password_instructions' => 'users#send_reset_password_instructions', as: :send_reset_password_instructions
     get 'reactivate_user'
     resources :mentors
     post 'mentors/:id/reactivate_mentor' => 'mentors#reactivate_mentor', as: :reactivate_mentor
@@ -68,11 +40,8 @@ Rails.application.routes.draw do
 
   namespace :member do
     root 'dashboard#show'
-    resources :companies, path: 'company', only: :show do
-      resources :clients
-      post 'clients/:id/reactivate_client' => 'clients#reactivate_client', as: :reactivate_client
-      get 'reactivate_client'
-    end
+    resources :companies, path: 'company', only: :show
+    resources :clients
     resources :phases
   end
 end

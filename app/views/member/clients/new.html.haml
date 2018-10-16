@@ -1,1 +1,5 @@
-= render 'form'
+%h1 New Client
+= simple_form_for [:member, @client] do |f|
+  = render 'admin/shared/form_nested', f: f
+  .form-group
+    = f.submit 'Create New', :class => 'btn btn-primary'

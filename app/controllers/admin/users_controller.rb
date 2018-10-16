@@ -17,6 +17,13 @@ class Admin::UsersController < Admin::AdminBaseController
     redirect_to admin_users_path, notice: "User deleted."
   end
 
+  def send_reset_password_instructions
+    @user = User.find(params[:id])
+    @user.send_reset_password_instructions
+    flash[:notice] = "Sent reset password instructions to user"
+    redirect_to admin_users_path
+  end
+
   def reactivate_user
     @user = User.find(params[:id])
     @user.update_attribute(:deleted_at, nil)

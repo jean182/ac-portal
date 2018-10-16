@@ -6,7 +6,6 @@
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
-#  role                   :string
 #  phone                  :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -20,6 +19,14 @@
 #  updated_at             :datetime         not null
 #  deleted_at             :datetime
 #  type                   :string
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  invitation_limit       :integer
+#  invited_by_type        :string
+#  invited_by_id          :bigint(8)
+#  invitations_count      :integer          default(0)
 #
 
 class Mentor < User
@@ -35,7 +42,7 @@ class Mentor < User
 
   private
 
-  def create_mentor_data
+  def create_mentor_info
     self.mentor_info = MentorInfo.create(is_active: true) if mentor_info.nil?
   end
 end

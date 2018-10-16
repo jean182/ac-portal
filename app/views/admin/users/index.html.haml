@@ -11,16 +11,17 @@
     %tr
       %th{:scope => "col"} Email
       %th{:scope => "col"} Role
-      %th{:scope => "col"} Delete
+      %th{:scope => "col"} Actions
   %tbody
     - @users.each do |user|
       %tr
         %td
           = link_to user.email, [:admin, user]
         %td
-          = user.role
+          = user.type
         %td
           - if user.deleted_at.present?
             = button_to "Restore user", {controller: "users", action: "reactivate_user", id: user.id}, {class: 'btn btn-warning btn-sm', :data => { confirm: "Are you sure?" }} 
           -else
             = link_to("Disable user", admin_user_path(user), data: { :confirm => "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm') unless user == current_user
+          = link_to("Reset password", admin_send_reset_password_instructions_path(user), data: { confirm: "Are you sure?" }, method: :post, class: 'btn btn-success btn-sm')
