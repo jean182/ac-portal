@@ -12,9 +12,12 @@
               = fa_icon "angle-down", class: "fa-2x text-dark"
       .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
         .card-body
+          = checklist.phase.phase_number.humanize if checklist.phase.present?
           - checklist.tasks.each do |task|
             %ul.list-unstyled
               %li=task.description
           = link_to('Edit', edit_admin_checklist_path(checklist))
           |
           = link_to('View', admin_checklist_path(checklist))
+          |
+          = link_to("Delete", admin_checklist_path(checklist), data: { :confirm => "Are you sure?" }, method: :delete)

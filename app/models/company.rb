@@ -20,6 +20,7 @@ class Company < ApplicationRecord
   has_many :clients, through: :client_infos, dependent: :destroy
   has_one :location, dependent: :destroy
   has_many :time_trackings
+  has_many :companies_tasks
   belongs_to :mentor, optional: true
 
   after_create :make_phases

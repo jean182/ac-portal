@@ -10,7 +10,7 @@ Admin.create(
 Mentor.create(
   name: 'Jane Doe',
   email: 'mentor@example.com',
-  password: '123456', phone: '123456789',
+  password: '123456', phone: '123456789'
 )
 
 # Dummy Data
@@ -48,9 +48,9 @@ Company.destroy_all
     address_line1: Faker::Address.street_address,
     address_line2: Faker::Address.secondary_address,
     city: Faker::Address.city,
-    country: 'United States',
+    country: 'US',
     postal_code: Faker::Address.zip_code,
-    state: Faker::Address.state,
+    state: Faker::Address.state_abbr,
   )
   company = Company.create(
     name: Faker::Company.name,

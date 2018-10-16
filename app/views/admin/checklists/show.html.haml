@@ -9,6 +9,7 @@
             = fa_icon "angle-down", class: "fa-2x text-dark"
     .collapse.show{id: "collapseOne", "aria-labelledby" => "headingOne", "data-parent" => "#accordionChecklist"}
       .card-body
+        = @checklist.phase.phase_number.humanize if @checklist.phase.present?
         - @checklist.tasks.each do |task|
           %ul.list-unstyled
             %li=task.description
