@@ -1,4 +1,4 @@
-= form_for [:member, @phase] do |f|
+= simple_form_for [:member, @phase] do |f|
   #milestones.form-group
     = f.fields_for :milestones do |milestone|
       = render 'member/phases/milestone_fields', f: milestone

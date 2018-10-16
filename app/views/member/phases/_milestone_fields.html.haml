@@ -3,5 +3,5 @@
     .input-group-prepend
       .input-group-text
         = f.check_box :complete
-    = f.text_field :title, autofocus: false, class: 'form-control', disabled: f.object.title.present?
+    = f.input :title, autofocus: false, class: 'form-control', disabled: f.object.title.present?
   = link_to_remove_association "Remove Milestone", f

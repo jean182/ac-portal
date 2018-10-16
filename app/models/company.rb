@@ -16,6 +16,7 @@ class Company < ApplicationRecord
   has_many :phases, dependent: :destroy
   has_many :has_tags, dependent: :destroy
   has_many :tags, through: :has_tags
+  has_many :client_infos
   has_many :clients, through: :client_infos, dependent: :destroy
   has_one :location, dependent: :destroy
   has_many :time_trackings

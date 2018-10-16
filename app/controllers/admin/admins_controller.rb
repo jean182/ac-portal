@@ -10,7 +10,9 @@ class Admin::AdminsController < Admin::UsersController
 
   def create
     @admin = Admin.new(admin_params)
-    if @admin.save
+    if params[:admin][:email].present? && params[:admin][:name].present?
+      @admin.save(validate: false)
+      @admin.invite!(current_user)
       redirect_to(admin_admins_path, notice: 'Admin was successfully created.')
     else
       render action: :new

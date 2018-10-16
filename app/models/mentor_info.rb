@@ -6,7 +6,7 @@
 #  is_active  :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  client_id  :integer
+#  mentor_id  :integer
 #
 
 class MentorInfo < ApplicationRecord

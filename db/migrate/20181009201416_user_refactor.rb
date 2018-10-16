@@ -47,7 +47,7 @@ class UserRefactor < ActiveRecord::Migration[5.2]
 
     remove_foreign_key :locations, column: :admin_id
 
-    execute('select * from mentor_infos order by id asc').each do |admin|
+    execute('select * from admins order by id asc').each do |admin|
       user = User.where(account_type: 'Admin', account_id: admin['id']).first
       user.update_column(:type, 'Admin')
       Location.where(admin_id: admin['id']).find_each do |record|

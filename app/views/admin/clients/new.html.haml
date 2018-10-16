@@ -1,10 +1,7 @@
 %h1 New Client
-= form_for [:admin, @client] do |f|
-  = f.fields_for :client_info do |cf|
-    .form-group
-      = cf.label :description
-      %br/
-      = cf.text_field :description, autofocus: false, class: 'form-control'
+= simple_form_for [:admin, @client] do |f|
+  = f.simple_fields_for :client_info do |f|
+    = f.input :company_id, collection: Company.all
   = render 'admin/shared/form_nested', f: f
   .form-group
     = f.submit 'Create New', :class => 'btn btn-primary'

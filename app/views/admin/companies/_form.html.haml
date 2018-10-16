@@ -1,21 +1,13 @@
-= form_for [:admin, @company] do |f|
+= simple_form_for [:admin, @company] do |f|
   = render 'shared/errors', object: @company
   .form-group
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: false, class: 'form-control'
+    = f.input :name, autofocus: false, class: 'form-control'
   .form-row
     .form-group.col-md-6
-      = f.label :description
-      %br/
-      = f.text_area :description, autofocus: false, class: 'form-control', rows: "4"
+      = f.input :description, autofocus: false, class: 'form-control', :input_html => { rows: 5}
     .form-group.col-md-6
-      = f.label :logo
-      %br/
-      = f.text_field :logo, autofocus: false, class: 'form-control'
-      = f.label :phone
-      %br/
-      = f.text_field :phone, autofocus: false, class: 'form-control'
+      = f.input :logo, autofocus: false, class: 'form-control'
+      = f.input :phone, autofocus: false, class: 'form-control'
   = render 'admin/shared/location_nested_form', f: f
   = hidden_field_tag 'company[tag_ids][]', nil
   .form-group.row
