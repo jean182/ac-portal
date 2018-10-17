@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_16_170706) do
+ActiveRecord::Schema.define(version: 2018_10_16_224352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 2018_10_16_170706) do
     t.bigint "mentor_id"
     t.string "phone"
     t.index ["mentor_id"], name: "index_companies_on_mentor_id"
+  end
+
+  create_table "company_phases", force: :cascade do |t|
+    t.text "learning_objective"
+    t.bigint "company_id"
+    t.bigint "phase_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_phases_on_company_id"
+    t.index ["phase_id"], name: "index_company_phases_on_phase_id"
   end
 
   create_table "company_tasks", force: :cascade do |t|
@@ -116,9 +126,7 @@ ActiveRecord::Schema.define(version: 2018_10_16_170706) do
     t.integer "phase_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
     t.integer "status"
-    t.index ["company_id"], name: "index_phases_on_company_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -194,7 +202,6 @@ ActiveRecord::Schema.define(version: 2018_10_16_170706) do
   add_foreign_key "locations", "users", column: "admin_id"
   add_foreign_key "messages", "tasks"
   add_foreign_key "milestones", "phases"
-  add_foreign_key "phases", "companies"
   add_foreign_key "tasks", "checklists"
   add_foreign_key "time_trackings", "companies"
   add_foreign_key "time_trackings", "users", column: "client_id"

@@ -36,7 +36,6 @@ class Admin::ChecklistsController < Admin::AdminBaseController
   end
 
   def destroy
-    raise "Cannot delete checklist with companies" if @checklist.phase.present?
     if @checklist.destroy
       flash[:success] = "Deleted succesfully."
       redirect_to admin_tags_path

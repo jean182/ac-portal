@@ -13,6 +13,6 @@
 
 class Task < ApplicationRecord
   has_many :messages, dependent: :destroy
-  has_many :companies_tasks
+  has_many :company_tasks
   belongs_to :checklist
 end

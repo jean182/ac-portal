@@ -15,7 +15,8 @@
 class Phase < ApplicationRecord
   has_many :checklists, dependent: :destroy
   has_many :milestones, dependent: :destroy, inverse_of: :phase
-  belongs_to :company
+  has_many :company_phases
+  has_many :companies, through: :company_phases
 
   enum phase_number: [:first_phase, :second_phase, :third_phase, :fourth_phase]
   enum status: [:inactive, :active, :completed]
