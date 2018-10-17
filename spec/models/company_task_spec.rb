@@ -15,7 +15,6 @@ require 'rails_helper'
 
 RSpec.describe CompanyTask, type: :model do
   describe 'associations' do
-    it { should have_many(:messages) }
     it { should belong_to(:company) }
     it { should belong_to(:task) }
   end

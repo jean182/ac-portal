@@ -8,7 +8,6 @@
 #  phase_number       :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  company_id         :bigint(8)
 #  status             :integer
 #
 

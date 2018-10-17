@@ -51,7 +51,7 @@ class Admin::ChecklistsController < Admin::AdminBaseController
   end
 
   def checklist_params
-    params.require(:checklist).permit(:name, :order,
+    params.require(:checklist).permit(:name, :order, :phase_id,
                                       tasks_attributes: [:id, :description, :is_complete, :score, :_destroy],
                                       tag_ids: [])
   end
