@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: phases
@@ -11,12 +10,8 @@
 #  status             :integer
 #
 
-require 'rails_helper'
-
-describe Phase, type: :model do
-  describe 'associations' do
-    it { should have_many(:checklists) }
-    it { should have_many(:milestones) }
-    it { should have_many(:companies).through(:company_phases) }
+FactoryBot.define do
+  factory :phase do
+    learning_objective { Faker::Lorem.sentence(3) }
   end
 end

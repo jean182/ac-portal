@@ -14,9 +14,11 @@
         .form-check.form-check-inline
           = check_box_tag 'checklist[tag_ids][]', tag.id, @checklist.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
           = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  .form-group
+    = f.input :name, autofocus: false, class: 'form-control'
   .form-row
     .form-group.col-md-8
-      = f.input :name, autofocus: false, class: 'form-control'
+      = f.association :phase, label_method: lambda {|k| k.phase_number.humanize}, value_method: :id, include_blank: "Select Phase"
     .form-group.col-md-4
       = f.input :order, autofocus: false, class: 'form-control'
   #milestones.form-group

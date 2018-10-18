@@ -35,6 +35,15 @@ class Admin::ChecklistsController < Admin::AdminBaseController
     end
   end
 
+  def destroy
+    if @checklist.destroy
+      flash[:success] = "Deleted succesfully."
+      redirect_to admin_tags_path
+    else
+      flash[:error] = "Could not process your request"
+    end
+  end
+
   private
 
   def set_checklist
@@ -42,7 +51,7 @@ class Admin::ChecklistsController < Admin::AdminBaseController
   end
 
   def checklist_params
-    params.require(:checklist).permit(:name, :order,
+    params.require(:checklist).permit(:name, :order, :phase_id,
                                       tasks_attributes: [:id, :description, :is_complete, :score, :_destroy],
                                       tag_ids: [])
   end
