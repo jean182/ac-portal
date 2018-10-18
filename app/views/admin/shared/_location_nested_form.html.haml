@@ -8,7 +8,8 @@
       = f.input :city, autofocus: false, class: 'form-control'
     .form-group.col-md-4
       = f.label :state
-      = f.select(:state, options_for_select(us_states), {include_blank: 'Select State'}, {class: 'custom-select'})
+      %br/
+      = f.select(:state, options_for_select(us_states, selected: @company.location.state), {include_blank: 'Select State'}, {class: 'custom-select'})
     .form-group.col-md-2
       = f.input :postal_code, autofocus: false, class: 'form-control'
   .form-group

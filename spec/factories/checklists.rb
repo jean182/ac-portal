@@ -1,16 +1,18 @@
 # == Schema Information
 #
-# Table name: mentor_infos
+# Table name: checklists
 #
 #  id         :bigint(8)        not null, primary key
-#  is_active  :boolean          default(TRUE)
+#  name       :string
+#  order      :decimal(, )
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  mentor_id  :integer
+#  phase_id   :bigint(8)
 #
 
 FactoryBot.define do
-  factory :mentor_info do
-    is_active true
+  factory :checklist do
+    name { Faker::Name.unique.name }
+    order { Faker::Number.number(2) }
   end
 end

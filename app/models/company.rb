@@ -13,20 +13,16 @@
 #
 
 class Company < ApplicationRecord
-  has_many :phases, dependent: :destroy
   has_many :has_tags, dependent: :destroy
   has_many :tags, through: :has_tags
   has_many :client_infos
   has_many :clients, through: :client_infos, dependent: :destroy
+  has_many :company_phases
+  has_many :phases, through: :company_phases
   has_one :location, dependent: :destroy
   has_many :time_trackings
+  has_many :company_tasks
   belongs_to :mentor, optional: true
 
-  after_create :make_phases
-
   accepts_nested_attributes_for :location
-
-  def make_phases
-    4.times { |i| phases.create(phase_number: i, status: 'inactive') }
-  end
 end

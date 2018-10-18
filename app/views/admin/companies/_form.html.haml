@@ -4,7 +4,7 @@
     = f.input :name, autofocus: false, class: 'form-control'
   .form-row
     .form-group.col-md-6
-      = f.input :description, autofocus: false, class: 'form-control', rows: "4"
+      = f.input :description, autofocus: false, class: 'form-control', :input_html => { rows: 5}
     .form-group.col-md-6
       = f.input :logo, autofocus: false, class: 'form-control'
       = f.input :phone, autofocus: false, class: 'form-control'

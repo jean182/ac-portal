@@ -20,4 +20,25 @@ describe Checklist, type: :model do
     it { should have_many(:tags).through(:has_tags) }
     it { should belong_to(:phase) }
   end
+
+  describe 'triggers' do
+    describe 'destroyable?' do
+      it 'returns exception if phase is present and has companies' do
+        company = create(:company)
+        company2 = create(:company)
+        phase = create(:phase, company_ids: [company.id, company2.id])
+
+        checklist = create(:checklist, phase: phase)
+
+        expect { checklist.destroy }.to raise_error(RuntimeError)
+      end
+
+      it 'returns false if phase is present and has no companies' do
+        phase = create(:phase)
+
+        checklist = create(:checklist, phase: phase)
+        expect { checklist.destroy }.to change(Checklist, :count).by(-1)
+      end
+    end
+  end
 end
