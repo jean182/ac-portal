@@ -13,7 +13,7 @@
 #
 
 class Checklist < ApplicationRecord
-  before_destroy :saveable?
+  before_destroy :destroyable?
   has_many :tasks, dependent: :destroy
   has_many :has_tags, dependent: :destroy
   has_many :tags, through: :has_tags
@@ -22,7 +22,7 @@ class Checklist < ApplicationRecord
 
   accepts_nested_attributes_for :tasks, reject_if: :all_blank, allow_destroy: true
 
-  def saveable?
-    raise :abort if phase.companies.count > 0
+  def destroyable?
+    raise "Error" if phase.companies.count > 0
   end
 end
