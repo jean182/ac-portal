@@ -13,6 +13,7 @@
 //= require cocoon
 //= require popper
 //= require bootstrap-sprockets
+//= require trix
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks

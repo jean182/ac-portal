@@ -23,6 +23,7 @@ gem 'country_select'
 #Views
 gem 'devise-bootstrapped'
 gem 'cocoon'
+gem 'trix-rails', require: 'trix'
 
 #Authentication and authorization
 gem 'devise', '~> 4.2'
