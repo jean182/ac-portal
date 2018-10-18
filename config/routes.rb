@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     post 'clients/:id/reactivate_client' => 'clients#reactivate_client', as: :reactivate_client
     get 'reactivate_client'
     resources :tags
-    resources :companies
+    resources :companies do
+      resources :company_phases, except: [:new, :create, :destroy], path: 'phase'
+    end
     resources :checklists
   end
 

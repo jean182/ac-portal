@@ -8,6 +8,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
 
   def show
     @location = @company.location
+    @phase = CompanyPhase.find_by(["company_phases.status = ? and company_id = ?", CompanyPhase.statuses[:active], @company.id])
   end
 
   def new

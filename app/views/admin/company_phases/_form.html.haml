@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @company, @phase] do |form|
+  .form-group
+    = form.input :learning_objective, as: :trix_editor
+  .form-group
+    = form.submit 'Save', :class => 'btn btn-primary'

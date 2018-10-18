@@ -8,9 +8,11 @@
 #  phase_id           :bigint(8)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  state              :integer
 #
 
 class CompanyPhase < ApplicationRecord
   belongs_to :company
   belongs_to :phase
+  enum status: [:inactive, :active, :completed]
 end

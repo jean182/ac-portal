@@ -8,6 +8,7 @@
 #  phase_id           :bigint(8)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  state              :integer
 #
 
 require 'rails_helper'
