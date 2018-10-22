@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_18_154253) do
+ActiveRecord::Schema.define(version: 2018_10_22_211205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2018_10_18_154253) do
   end
 
   create_table "company_phases", force: :cascade do |t|
-    t.text "learning_objective"
+    t.text "learning_objectives"
     t.bigint "company_id"
     t.bigint "phase_id"
     t.datetime "created_at", null: false
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2018_10_18_154253) do
   end
 
   create_table "company_tasks", force: :cascade do |t|
-    t.boolean "is_approved"
-    t.boolean "is_complete"
+    t.boolean "approved"
+    t.boolean "complete"
     t.bigint "company_id"
     t.bigint "task_id"
     t.datetime "created_at", null: false
@@ -109,25 +109,23 @@ ActiveRecord::Schema.define(version: 2018_10_18_154253) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "task_id"
-    t.index ["task_id"], name: "index_messages_on_task_id"
+    t.bigint "company_task_id"
+    t.index ["company_task_id"], name: "index_messages_on_company_task_id"
   end
 
   create_table "milestones", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "phase_id"
-    t.boolean "complete"
-    t.index ["phase_id"], name: "index_milestones_on_phase_id"
+    t.boolean "complete", default: false
+    t.bigint "company_phase_id"
+    t.index ["company_phase_id"], name: "index_milestones_on_company_phase_id"
   end
 
   create_table "phases", force: :cascade do |t|
-    t.string "learning_objective"
     t.integer "phase_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -201,8 +199,8 @@ ActiveRecord::Schema.define(version: 2018_10_18_154253) do
   add_foreign_key "has_tags", "users", column: "mentor_id"
   add_foreign_key "locations", "companies"
   add_foreign_key "locations", "users", column: "admin_id"
-  add_foreign_key "messages", "tasks"
-  add_foreign_key "milestones", "phases"
+  add_foreign_key "messages", "company_tasks"
+  add_foreign_key "milestones", "company_phases"
   add_foreign_key "tasks", "checklists"
   add_foreign_key "time_trackings", "companies"
   add_foreign_key "time_trackings", "users", column: "client_id"

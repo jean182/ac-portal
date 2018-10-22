@@ -80,4 +80,6 @@ client.client_info.update_attributes(description: Faker::Pokemon.name, company: 
   client.client_info.update_attributes(description: Faker::Pokemon.name, company: Company.last)
 end
 
-Phase.find_by(company: Company.last).update(status: 'active')
+4.times do |i|
+  Phase.where(phase_number: i + 1).first_or_create()
+end

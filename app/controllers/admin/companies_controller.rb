@@ -8,7 +8,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
 
   def show
     @location = @company.location
-    @phase = CompanyPhase.find_by(["company_phases.status = ? and company_id = ?", CompanyPhase.statuses[:active], @company.id])
+    @phase = @company.company_phases.with_status(:active).first
   end
 
   def new
@@ -50,6 +50,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
       :description,
       :phone,
       location_attributes: location_params,
+      company_phases_attributes: [:id, :learning_objectives, :phase_id, :status],
       tag_ids: [],
     )
   end

@@ -6,7 +6,7 @@ class Admin::CompanyPhasesController < Admin::AdminBaseController
   end
 
   def show
-    @phase = CompanyPhase.find_by(["company_phases.status = ? and company_id = ?", CompanyPhase.statuses[:active], @company.id])
+    @phase = @company.company_phases.with_status(:active).first
   end
 
   def edit; end
@@ -27,6 +27,6 @@ class Admin::CompanyPhasesController < Admin::AdminBaseController
   end
 
   def phase_params
-    params.require(:company_phase).permit(:learning_objective)
+    params.require(:company_phase).permit(:learning_objectives, milestones_attributes: [:id, :title])
   end
 end

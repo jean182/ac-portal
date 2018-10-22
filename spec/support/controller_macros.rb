@@ -19,6 +19,7 @@ module ControllerMacros
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:client]
       client = FactoryBot.create(:client)
+      client.client_info.update_attributes(company_id: FactoryBot.create(:company).id)
       sign_in client
     end
   end

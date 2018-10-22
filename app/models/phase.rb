@@ -3,22 +3,18 @@
 #
 # Table name: phases
 #
-#  id                 :bigint(8)        not null, primary key
-#  learning_objective :string
-#  phase_number       :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  status             :integer
+#  id           :bigint(8)        not null, primary key
+#  phase_number :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Phase < ApplicationRecord
+  include Enumerize
+
   has_many :checklists, dependent: :destroy
-  has_many :milestones, dependent: :destroy, inverse_of: :phase
   has_many :company_phases
   has_many :companies, through: :company_phases
 
-  enum phase_number: [:first_phase, :second_phase, :third_phase, :fourth_phase]
-  enum status: [:inactive, :active, :completed]
-
-  accepts_nested_attributes_for :milestones, reject_if: :all_blank, allow_destroy: true
+  enumerize :phase_number, in: {:first_phase => 1, :second_phase => 2, :third_phase => 3, :fourth_phase => 4}
 end

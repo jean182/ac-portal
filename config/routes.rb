@@ -45,5 +45,13 @@ Rails.application.routes.draw do
     resources :companies, path: 'company', only: :show
     resources :clients
     resources :phases
+    resources :milestones, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+      put :mark_complete
+      put :mark_incomplete
+    end
+    resources :tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+      put :mark_complete
+      put :mark_incomplete
+    end
   end
 end
