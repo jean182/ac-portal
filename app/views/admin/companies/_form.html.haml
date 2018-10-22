@@ -17,6 +17,12 @@
         .form-check.form-check-inline
           = check_box_tag 'company[tag_ids][]', tag.id, @company.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
           = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  .form-group.row
+    .col-sm-12 Phases
+    = f.simple_fields_for :company_phases do |phase|
+      = render 'admin/companies/company_phase_fields', f: phase
+    .links
+      = link_to_add_association 'Add phase', f, :company_phases
   .form-group
     = f.submit 'Save', :class => 'btn btn-primary'
  

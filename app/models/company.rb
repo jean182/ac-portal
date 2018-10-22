@@ -25,4 +25,5 @@ class Company < ApplicationRecord
   belongs_to :mentor, optional: true
 
   accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :company_phases, reject_if: :all_blank, allow_destroy: true
 end

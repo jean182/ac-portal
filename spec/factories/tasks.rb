@@ -1,15 +1,18 @@
 # == Schema Information
 #
-# Table name: phases
+# Table name: tasks
 #
 #  id           :bigint(8)        not null, primary key
-#  phase_number :integer
+#  description  :string
+#  score        :decimal(, )
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  checklist_id :bigint(8)
 #
 
 FactoryBot.define do
-  factory :phase do
-    phase_number 1
+  factory :task do
+    description { "sdfdsf" }
+    score { 5 }
   end
 end

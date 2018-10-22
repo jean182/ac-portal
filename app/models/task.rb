@@ -12,7 +12,15 @@
 #
 
 class Task < ApplicationRecord
-  has_many :messages, dependent: :destroy
   has_many :company_tasks
   belongs_to :checklist
+
+  def completed_by_company?(company_id)
+    company_task = company_tasks.find_by(company_id: company_id)
+    if company_task.present?
+      company_task.complete
+    else
+      false
+    end
+  end
 end
