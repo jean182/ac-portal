@@ -18,20 +18,13 @@ class CompanyPhase < ApplicationRecord
   belongs_to :phase
   has_many :milestones, dependent: :destroy, inverse_of: :company_phase
 
-  enumerize :status, in: {:inactive => 1, :active => 2, :completed => 3}, scope: true
+  enumerize :status, in: { inactive: 1, active: 2, completed: 3 }, scope: true
 
   accepts_nested_attributes_for :milestones, reject_if: :all_blank, allow_destroy: true
 
   delegate :phase_number, to: :phase
 
   def checklists
-    checklist_arr = []
-    phase.checklists.each do |checklist|
-      company.tags.each do |company_tag|
-        if checklist.tags.include?(company_tag)
-          checklist_arr << checklist
-        end
-      end
-    end
+    phase.checklists.select { |ch| (ch.tags & company.tags).count > 0 }
   end
 end
