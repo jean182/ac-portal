@@ -38,7 +38,7 @@
         = render 'milestones_form', form: form
     .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
       %h5.mb-3= "Checklists"
-      - @phase.phase.checklists.each_with_index do |checklist, index|
+      - @phase.checklists.each_with_index do |checklist, index|
         .div-spacer
           #accordionChecklist.accordion
             .card
