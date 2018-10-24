@@ -20,10 +20,10 @@ describe Task, type: :model do
 
   describe 'methods' do
     describe 'completed_by_company?' do
-      let(:company) { FactoryBot.create :company }
-      let(:checklist) { FactoryBot.create :checklist }
-      let(:task) { FactoryBot.create :task, checklist: checklist }
-      let(:company_task) { FactoryBot.create :company_tasks, company: company, task: task }
+      let(:company) { create :company }
+      let(:checklist) { create :checklist }
+      let(:task) { create :task, checklist: checklist }
+      let(:company_task) { create :company_tasks, company: company, task: task }
 
       it 'should return true' do
         expect(task.company_tasks).to be_truthy
