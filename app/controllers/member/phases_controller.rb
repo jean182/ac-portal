@@ -4,8 +4,8 @@ class Member::PhasesController < Member::MemberBaseController
   before_action :set_progress, only: :show
 
   def index
-    @phases_completed = @company.phases.where(status: 'completed')
-    @phase = @company.phases.find_by(status: 'active')
+    @phases_completed = @company.company_phases.where(status: 'completed')
+    @phase = @company.company_phases.find_by(status: 'active')
   end
 
   def show; end

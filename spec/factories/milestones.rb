@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: milestones
@@ -11,8 +10,9 @@
 #  company_phase_id :bigint(8)
 #
 
-class Milestone < ApplicationRecord
-  belongs_to :company_phase
-
-  validates :title, presence: true
+FactoryBot.define do
+  factory :milestone do
+    title { "title 1" }
+    complete { false }
+  end
 end

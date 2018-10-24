@@ -37,7 +37,7 @@ gem 'activeadmin'
 gem 'active_skin'
 gem 'aasm'
 gem 'rails_12factor'
-
+gem 'enumerize'
 gem 'faker'
 
 # TinyMce
