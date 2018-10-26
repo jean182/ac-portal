@@ -26,4 +26,8 @@ class Company < ApplicationRecord
 
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :company_phases, reject_if: :all_blank, allow_destroy: true
+
+  def current_phase
+    company_phases.with_status(:active).first
+  end
 end

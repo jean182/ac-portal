@@ -1,0 +1,5 @@
+= form.simple_fields_for :milestones do |f|
+  = render 'shared/company_phase_milestone_fields', f: f
+= link_to_add_association 'Add milestone', form, :milestones, partial: 'shared/company_phase_milestone_fields'
+.form-group
+  = form.submit 'Save', :class => 'btn btn-primary float-right'
