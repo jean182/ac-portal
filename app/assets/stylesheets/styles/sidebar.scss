@@ -7,7 +7,8 @@
   min-width: 75px;
   max-width: 75px;
   min-height: 100vh;
-  border-right: 1px solid rgb(136, 137, 138);
+  -webkit-box-shadow: 1px 0 5px -2px #888;
+  box-shadow: 1px 0 5px -2px #888;
 }
 
 #sidebar.active {
@@ -20,11 +21,15 @@
   background: white;
   color: $ac-blue;
   transition: all 0.3s;
+  padding: 15px;
 }
 
 #sidebar .sidebar-header {
-  padding: 20px;
   background: white;
+}
+
+.sidebar-link:active {
+  background-color:$ac-blue;
 }
 
 #sidebar ul.components {
@@ -47,10 +52,6 @@
   background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
-  color: #fff;
-  background: white;
-}
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
