@@ -23,4 +23,17 @@ RSpec.describe Company, type: :model do
     it { should have_one(:location) }
     it { should belong_to(:mentor) }
   end
+
+  describe 'methods' do
+    describe 'current_phase' do
+      let(:company) { create :company }
+      let(:phase) { create :phase }
+      let!(:active_company_phase) { create :company_phase, company: company, phase: phase, status: 2 }
+      let!(:inactive_company_phase) { create :company_phase, company: company, phase: phase, status: 2 }
+
+      it 'returns the companies current phase' do
+        expect(company.current_phase).to eq(active_company_phase)
+      end
+    end
+  end
 end

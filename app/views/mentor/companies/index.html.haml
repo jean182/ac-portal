@@ -1,16 +1,2 @@
 %h1 All my companies
-%table.table.table-bordered
-  %thead
-    %tr
-      %th{:scope => "col"} Tag Name
-      %th{:scope => "col"} Type
-      %th{:scope => "col"} Actions
-  %tbody
-    - @companies.each do |company|
-      %tr
-        %td
-          = company.name
-        %td
-          = company.description
-        %td
-= link_to  "Dashboard", mentor_root_path
+= render 'shared/companies_index'

@@ -35,7 +35,9 @@ Rails.application.routes.draw do
 
   namespace :mentor do
     root 'dashboard#show'
-    resources :companies, only: [:index, :show]
+    resources :companies, only: [:index, :show] do
+      resources :company_phases, except: [:new, :create, :destroy], path: 'phase'
+    end
     resources :phases
     resources :milestones
   end
