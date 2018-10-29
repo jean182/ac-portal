@@ -24,6 +24,30 @@ RSpec.describe Company, type: :model do
     it { should belong_to(:mentor) }
   end
 
+  describe 'triggers' do
+    describe 'update_company_phases' do
+      let!(:first_phase) { create :phase, phase_number: 1 }
+      let!(:second_phase) { create :phase, phase_number: 2 }
+      let!(:third_phase) { create :phase, phase_number: 3 }
+      let!(:fourth_phase) { create :phase, phase_number: 4 }
+      let!(:company) { create :company, current_phase_id: 2 }
+
+      it 'creates company_phases' do
+        company.company_phases.each do |company_phase|
+          if company_phase.phase_id == first_phase.id
+            expect(company_phase.status).to eq(3)
+          elsif company_phase.phase_id == second_phase.id
+            expect(company_phase.status).to eq(2)
+          elsif company_phase.phase_id == third_phase.id
+            expect(company_phase.status).to eq(1)
+          elsif company_phase.phase_id == fourth_phase.id
+            expect(company_phase.status).to eq(1)
+          end
+        end
+      end
+    end
+  end
+
   describe 'methods' do
     describe 'current_phase' do
       let(:company) { create :company }

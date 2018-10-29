@@ -8,6 +8,9 @@
     .form-group.col-md-6
       = f.input :logo, autofocus: false, class: 'form-control'
       = f.input :phone, autofocus: false, class: 'form-control'
+  .form-row
+    .form-group.col-md-12
+      = f.input :current_phase_id, collection: Phase.all.map { |p| [p.phase_number.humanize, p.phase_number.value] }, selected: @company.current_phase.phase.phase_number.value || 1, autofocus: false, class: 'form-control'
   = render 'admin/shared/location_nested_form', f: f
   = hidden_field_tag 'company[tag_ids][]', nil
   .form-group.row
@@ -17,12 +20,6 @@
         .form-check.form-check-inline
           = check_box_tag 'company[tag_ids][]', tag.id, @company.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
           = label_tag dom_id(tag), tag.name, class: "form-check-label"
-  .form-group.row
-    .col-sm-12 Phases
-    = f.simple_fields_for :company_phases do |phase|
-      = render 'admin/companies/company_phase_fields', f: phase
-    .links
-      = link_to_add_association 'Add phase', f, :company_phases
   .form-group
     = f.submit 'Save', :class => 'btn btn-primary'
  
