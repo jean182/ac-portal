@@ -1,0 +1,7 @@
+.wrapper
+  / Sidebar
+  %nav#sidebar
+    - @phases.each_with_index do |phase, index|
+      =link_to(admin_company_company_phase_path(@company, phase)) do
+        %img{:src => "/images/#{phase.phase_number}.svg", class: 'img-fluid mt-3'}  
+      

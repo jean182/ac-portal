@@ -1,0 +1,8 @@
+- if @phases.present?  
+  - @phases.each do |phase|
+    - status = action_status(phase.status)
+    = link_to "#{phase.phase_number.humanize}",  admin_company_company_phase_path(@company, phase) 
+    %span{class: "badge badge-pill badge-#{status}"}= phase.status
+    %br
+- else
+  %p No phases to display.
