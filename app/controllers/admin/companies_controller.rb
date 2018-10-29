@@ -8,7 +8,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
 
   def show
     @location = @company.location
-    @phase = @company.company_phases.with_status(:active).first
+    @phases = @company.company_phases
   end
 
   def new

@@ -1,12 +1,15 @@
 class Admin::CompanyPhasesController < Admin::AdminBaseController
   before_action :set_company
-  before_action :set_phase, only: [:edit, :update]
+  before_action :set_phase, only: [:show, :edit, :update]
+
+  layout 'phase/application'
+
   def index
     @phase = CompanyPhase.where.not(["company_phases.status = ? and company_id = ?", CompanyPhase.statuses[:inactive], @company.id])
   end
 
   def show
-    @phase = @company.company_phases.with_status(:active).first
+    @phases = @company.company_phases
   end
 
   def edit; end

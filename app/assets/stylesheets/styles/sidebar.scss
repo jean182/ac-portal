@@ -1,0 +1,67 @@
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+
+#sidebar {
+  min-width: 75px;
+  max-width: 75px;
+  min-height: 100vh;
+  border-right: 1px solid rgb(136, 137, 138);
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+
+#sidebar {
+  /* don't forget to add all the previously mentioned styles here too */
+  background: white;
+  color: $ac-blue;
+  transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: white;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 0.5px solid #FFFFFF;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+#sidebar ul li a:hover {
+  color: white;
+  background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: white;
+}
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: white;
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+      margin-left: -250px;
+  }
+  #sidebar.active {
+      margin-left: 0;
+  }
+}

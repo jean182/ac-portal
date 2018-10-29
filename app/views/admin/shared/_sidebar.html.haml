@@ -1,0 +1,6 @@
+.wrapper
+  / Sidebar
+  %nav#sidebar
+    .sidebar-header
+      - @phases.each_with_index do |phase, index|
+        =link_to phase.phase_number.humanize.rpartition(" ").first, admin_company_company_phase_path(@company, phase), class: 'text-muted'
