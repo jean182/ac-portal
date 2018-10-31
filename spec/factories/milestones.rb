@@ -8,6 +8,7 @@
 #  updated_at       :datetime         not null
 #  complete         :boolean          default(FALSE)
 #  company_phase_id :bigint(8)
+#  approved         :boolean          default(FALSE)
 #
 
 FactoryBot.define do

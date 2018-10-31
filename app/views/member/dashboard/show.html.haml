@@ -1,31 +1,4 @@
-.row
-  .mt-4.col-md-7.col-sm.bg-white.border-light-gray.ac-corner-radius
-    .row.p-4
-      .col-3
-        %img.img-fluid.p-4{src: @company.logo}
-      .col-9.p-4
-        %h5= @company.name
-        %span.d-block= "Sara Coivisto"
-        %span.d-block= @company.description
-  .mt-4.col-1
-  .mt-4.col-sm.col-md-4.bg-white.border-light-gray.ac-corner-radius.my-auto
-    .row.p-4
-      .col.text-center.my-auto
-        %div
-          %h6= "PHASE"
-        %div
-          %H2= @phase.phase_number.value
-      .col.h-100.my-auto
-        - progress = calculate_progress(@phase.milestones)
-        .progress.js--donut-chart{"data-percentage" => "#{progress}"}
-          %span.progress-left
-            %span.progress-bar
-          %span.progress-right
-            %span.progress-bar
-          .progress-value
-            %div
-              %h2.text-center.h-100.my-auto.js--donut-chart-center
-                = "#{progress}%"
+= render 'shared/company_phase_title_row'
 .row
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
     %h5.mb-3= "Learning Objectives"
@@ -35,8 +8,13 @@
     - @phase.milestones.each do |milestone|
       .div-spacer
         .custom-control.custom-checkbox.p-3
-          = check_box_tag(milestone.title, milestone.id, milestone.complete?, { class: 'js--milestone-checkbox' })
+          - unless milestone.approved
+            = check_box_tag(milestone.title, milestone.id, milestone.complete?, { class: 'js--milestone-checkbox' })
           = milestone.title
+          - if milestone.approved == false
+            %label.text-danger Refused
+          - elsif milestone.approved
+            %label.text-success Approved
           = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--milestone-tag-#{milestone.id}")
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Checklists"

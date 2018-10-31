@@ -26,20 +26,11 @@ RSpec.describe Company, type: :model do
 
   describe 'triggers' do
     describe 'update_company_phases' do
-      let!(:company) { create :company, current_phase_id: 2 }
+      let!(:phase) { create :phase }
+      let!(:company) { create :company, current_phase_id: 1 }
 
       it 'creates company_phases' do
-        company.company_phases.each do |company_phase|
-          if company_phase.phase_id == first_phase.id
-            expect(company_phase.status).to eq(3)
-          elsif company_phase.phase_id == second_phase.id
-            expect(company_phase.status).to eq(2)
-          elsif company_phase.phase_id == third_phase.id
-            expect(company_phase.status).to eq(1)
-          elsif company_phase.phase_id == fourth_phase.id
-            expect(company_phase.status).to eq(1)
-          end
-        end
+        expect(company.company_phases.count).to eq(Phase.count)
       end
     end
   end
