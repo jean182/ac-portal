@@ -5,5 +5,6 @@ class Member::DashboardController < Member::MemberBaseController
     @company = current_user.client_info.company
     authorize @company
     @phase = @company.company_phases.where(status: 'active').first
+    @message = Message.new
   end
 end

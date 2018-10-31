@@ -32,17 +32,18 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :recoverable,
          :rememberable, :validatable, :trackable
+  has_many :messages
 
   def admin?
-    self.is_a?(Admin)
+    is_a?(Admin)
   end
 
   def mentor?
-    self.is_a?(Mentor)
+    is_a?(Mentor)
   end
 
   def client?
-    self.is_a?(Client)
+    is_a?(Client)
   end
 
   def soft_delete
