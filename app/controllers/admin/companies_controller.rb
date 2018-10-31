@@ -49,8 +49,8 @@ class Admin::CompaniesController < Admin::AdminBaseController
       :logo,
       :description,
       :phone,
+      :current_phase_id,
       location_attributes: location_params,
-      company_phases_attributes: [:id, :learning_objectives, :phase_id, :status],
       tag_ids: [],
     )
   end
