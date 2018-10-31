@@ -10,7 +10,7 @@
       = f.input :phone, autofocus: false, class: 'form-control'
   .form-row
     .form-group.col-md-12
-      = f.input :current_phase_id, collection: Phase.all.map { |p| [p.phase_number.humanize, p.phase_number.value] }, selected: @company.current_phase.phase.phase_number.value || 1, autofocus: false, class: 'form-control'
+      = f.input :current_phase_id, collection: Phase.all.map { |p| [p.phase_number.humanize, p.phase_number.value] }, selected: @company.current_phase.present? ? @company.current_phase.phase.phase_number.value : 1, autofocus: false, class: 'form-control'
   = render 'admin/shared/location_nested_form', f: f
   = hidden_field_tag 'company[tag_ids][]', nil
   .form-group.row

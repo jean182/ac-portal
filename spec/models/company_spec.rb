@@ -26,10 +26,6 @@ RSpec.describe Company, type: :model do
 
   describe 'triggers' do
     describe 'update_company_phases' do
-      let!(:first_phase) { create :phase, phase_number: 1 }
-      let!(:second_phase) { create :phase, phase_number: 2 }
-      let!(:third_phase) { create :phase, phase_number: 3 }
-      let!(:fourth_phase) { create :phase, phase_number: 4 }
       let!(:company) { create :company, current_phase_id: 2 }
 
       it 'creates company_phases' do

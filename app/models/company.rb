@@ -27,7 +27,7 @@ class Company < ApplicationRecord
   accepts_nested_attributes_for :location
   accepts_nested_attributes_for :company_phases, reject_if: :all_blank, allow_destroy: true
 
-  after_update :update_company_phases
+  after_save :update_company_phases
 
   attr_accessor :current_phase_id
 
