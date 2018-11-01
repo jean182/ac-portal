@@ -9,6 +9,8 @@
     = link_to 'Checklists' , admin_checklists_path, class: "nav-link"
   %li.nav-item
     = link_to 'Tags' , admin_tags_path, class: "nav-link"
+  %li.nav-item
+    = link_to 'Logs', admin_logs_path, class: "nav-link"
 - elsif current_user.present? && current_user.mentor?   
   %li.nav-item.dropdown
     = link_to 'Dashboard' , mentor_root_path, class: "nav-link"

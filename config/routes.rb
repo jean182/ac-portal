@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       put :approve
       put :refuse
     end
+    resources :logs, only: :index
   end
 
   namespace :mentor do

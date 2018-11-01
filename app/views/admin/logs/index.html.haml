@@ -1,0 +1,13 @@
+%h2 Logs
+%table.table.table-bordered.table-striped{id: ""}
+  %thead
+    %tr
+      %th Description
+      %th Log type
+      %th Changed by
+      %th Company
+      %th Description
+      %th Status
+      %th Date
+  %tbody#topics
+    = render @logs
