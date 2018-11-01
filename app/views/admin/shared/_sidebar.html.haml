@@ -2,6 +2,12 @@
   / Sidebar
   %nav#sidebar
     - @phases.each_with_index do |phase, index|
-      =link_to(admin_company_company_phase_path(@company, phase)) do
-        %img{:src => "/images/#{phase.phase_number}.svg", class: 'img-fluid mt-3'}  
+      - if current_user.admin?
+        - path = admin_company_company_phase_path(@company, phase)
+      - elsif current_user.mentor?
+        - path = mentor_company_company_phase_path(@company, phase)
+      - elsif current_user.client?
+        - path = member_company_phase_path(phase)
+      =link_to(path) do
+        %img{:src => "/images/#{phase.phase_number}.svg", class: "img-fluid mt-3#{" bg-primary" if @phase.phase.phase_number == phase.phase_number}"}
       

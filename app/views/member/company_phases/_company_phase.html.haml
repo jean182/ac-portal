@@ -1,0 +1,49 @@
+= render 'shared/company_phase_title_row'
+.row
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+    %h5.mb-3= "Learning Objectives"
+    = @phase.learning_objectives.html_safe
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
+    %h5.mb-3= "Milestones"
+    - @phase.milestones.each do |milestone|
+      .div-spacer
+        .custom-control.custom-checkbox.p-3
+          - if !milestone.approved && @phase == @company.current_phase
+            = check_box_tag(milestone.title, milestone.id, milestone.complete?, { class: 'js--milestone-checkbox' })
+          = milestone.title
+          - if milestone.approved == false
+            %label.text-danger Refused
+          - elsif milestone.approved
+            %label.text-success Approved
+          = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--milestone-tag-#{milestone.id}")
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
+    %h5.mb-3= "Checklists"
+    - @phase.checklists.each_with_index do |checklist, index|
+      .div-spacer
+        #accordionChecklist.accordion
+          .card
+            .card-header.bg-white{id: "heading-#{index}"}
+              .row
+                .col-sm-8
+                  %h6.mb-0=checklist.name
+                .col-sm-4
+                  %button.float-right.btn.btn-link{"aria-controls" => "collapse-accordion-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-accordion-#{index}", "data-toggle" => "collapse", type: "button"}
+                    = fa_icon "angle-down", class: "fa-2x text-dark"
+            .collapse{id: "collapse-accordion-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
+              .card-body
+                - checklist.tasks.each_with_index do |task, index|
+                  .div-spacer
+                    .custom-control.custom-checkbox.p-3
+                      - if @phase == @company.current_phase
+                        = check_box_tag(task.description, task.id, task.completed_by_company?(@company.id), { class: 'js--task-checkbox' })
+                      =task.description
+                      = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
+                      - if task.company_tasks.find_by(company: @company).present?
+                        - if @phase == @company.current_phase
+                          = render 'member/company_phases/form_message', current_company_task: task.company_tasks.find_by(company: @company).id
+                        - if task.company_tasks.find_by(company: @company).messages.present?
+                          %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
+                            Show comments
+                          .collapse{id: "collapse-comment-#{index}"}
+                            - task.company_tasks.find_by(company: @company).messages.each do |message|
+                              =render 'member/company_phases/comment', message: message
