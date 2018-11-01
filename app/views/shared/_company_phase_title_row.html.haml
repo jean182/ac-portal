@@ -1,0 +1,28 @@
+.row
+  .mt-4.col-md-7.col-sm.bg-white.border-light-gray.ac-corner-radius
+    .row
+      .col-3
+        %img.img-fluid.p-4{src: @company.logo}
+      .col-9.p-4
+        %h5= @company.name
+        %span.d-block= "Sara Coivisto"
+        %span.d-block= @company.description
+  .mt-4.col-1
+  .mt-4.col-sm.col-md-4.bg-white.border-light-gray.ac-corner-radius.my-auto
+    .row.p-4
+      .col.text-center.my-auto
+        %div
+          %h6= "PHASE"
+        %div
+          %h2= @phase.phase.phase_number.value
+      .col.h-100.my-auto
+        - progress = calculate_progress(@phase.milestones)
+        .progress{"data-percentage" => "#{progress}"}
+          %span.progress-left
+            %span.progress-bar
+          %span.progress-right
+            %span.progress-bar
+          .progress-value
+            %div
+              %h2.text-center.h-100.my-auto
+                = "#{progress}%"

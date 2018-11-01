@@ -1,5 +1,14 @@
 .nested-fields.form-row
-  .form-group.col-md-10
+  .form-group.col-md-9
     = f.input :title
-  .form-group.col-md-2
-    = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger gutter-top'
+  - if f.object.approved
+    .form-group.col-md-3
+      .form-control.gutter-top.text-success.text-center Approved
+  -else
+    .form-group.col-md-1
+      = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger gutter-top'
+    - if f.object.complete && current_user.admin?
+      .form-group.col-md-1
+        = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success gutter-top'
+      .form-group.col-md-1
+        = link_to 'Refuse', admin_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger gutter-top'
