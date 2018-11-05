@@ -31,6 +31,10 @@ Rails.application.routes.draw do
       resources :company_phases, except: [:new, :create, :destroy], path: 'phase'
     end
     resources :checklists
+    resources :company_tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+      put :approve
+      put :refuse
+    end
     resources :milestones, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
       put :approve
       put :refuse
