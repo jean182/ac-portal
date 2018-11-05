@@ -12,6 +12,7 @@
 #
 
 class CompanyTask < ApplicationRecord
+  has_many :logs, as: :loggable
   has_many :messages
   belongs_to :company
   belongs_to :task

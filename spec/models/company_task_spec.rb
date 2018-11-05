@@ -18,5 +18,6 @@ RSpec.describe CompanyTask, type: :model do
     it { should belong_to(:company) }
     it { should belong_to(:task) }
     it { should have_many(:messages) }
+    it { should have_many(:logs) }
   end
 end

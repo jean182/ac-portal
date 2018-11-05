@@ -9,10 +9,11 @@
 #  updated_at       :datetime         not null
 #  complete         :boolean          default(FALSE)
 #  company_phase_id :bigint(8)
-#  approved         :boolean          default(FALSE)
+#  approved         :boolean
 #
 
 class Milestone < ApplicationRecord
+  has_many :logs, as: :loggable
   belongs_to :company_phase
 
   default_scope { order(created_at: :asc) }

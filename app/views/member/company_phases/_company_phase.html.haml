@@ -37,6 +37,12 @@
                       - if @phase == @company.current_phase
                         = check_box_tag(task.description, task.id, task.completed_by_company?(@company.id), { class: 'js--task-checkbox' })
                       =task.description
+                      - @company_task = task.company_tasks.find_by(complete: true, company: @company)
+                      - unless @company_task.nil?
+                        - if @company_task.approved == false
+                          %label.text-danger Refused
+                        - elsif @company_task.approved
+                          %label.text-success Approved
                       = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
                       - if task.company_tasks.find_by(company: @company).present?
                         - if @phase == @company.current_phase

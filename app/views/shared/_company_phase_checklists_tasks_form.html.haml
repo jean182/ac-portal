@@ -15,6 +15,10 @@
               %ul.list-unstyled
                 %li
                   =task.description 
-                  - @company_task = task.company_tasks.find_by(approved: true, company: @company)
+                  - @company_task = task.company_tasks.find_by(complete: true, company: @company)
                   - unless  @company_task.nil?
-                    = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'form-control btn btn-success gutter-top' if @company_task.approved != true 
+                    - if @company_task.approved
+                      .form-control.gutter-top.text-success.text-center Approved
+                    - else
+                      = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-success gutter-top' if @company_task.approved != true
+                      = link_to 'Refuse', admin_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-danger gutter-top' if @company_task.approved != false  
