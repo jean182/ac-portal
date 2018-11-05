@@ -6,6 +6,8 @@ class Admin::CompanyTasksController < Admin::AdminBaseController
     redirect_to request.referer
   end
 
+  private
+
   def set_company
     @company ||= Company.find(params[:company_id])
   end
