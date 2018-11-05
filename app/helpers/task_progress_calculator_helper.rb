@@ -5,7 +5,7 @@ module TaskProgressCalculatorHelper
 
     _checklists.each do |checklist|
       checklist.tasks.each do |task|
-        completed_tasks += task.company_tasks.where(approved: true).count
+        completed_tasks += task.company_tasks.where(approved: true, company: @company).count
         length += 1
       end
     end

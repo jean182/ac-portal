@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_164751) do
+ActiveRecord::Schema.define(version: 2018_10_31_204250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_10_30_164751) do
     t.datetime "updated_at", null: false
     t.boolean "complete", default: false
     t.bigint "company_phase_id"
+    t.boolean "approved"
     t.index ["company_phase_id"], name: "index_milestones_on_company_phase_id"
   end
 

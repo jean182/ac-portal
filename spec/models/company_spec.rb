@@ -24,6 +24,17 @@ RSpec.describe Company, type: :model do
     it { should belong_to(:mentor) }
   end
 
+  describe 'triggers' do
+    describe 'update_company_phases' do
+      let!(:phase) { create :phase }
+      let!(:company) { create :company, current_phase_id: 1 }
+
+      it 'creates company_phases' do
+        expect(company.company_phases.count).to eq(Phase.count)
+      end
+    end
+  end
+
   describe 'methods' do
     describe 'current_phase' do
       let(:company) { create :company }

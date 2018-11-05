@@ -35,6 +35,10 @@ Rails.application.routes.draw do
       put :approve
       put :refuse
     end
+    resources :milestones, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+      put :approve
+      put :refuse
+    end
   end
 
   namespace :mentor do

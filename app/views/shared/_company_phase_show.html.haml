@@ -1,31 +1,4 @@
-.row
-  .mt-4.col-md-7.col-sm.bg-white.border-light-gray.ac-corner-radius
-    .row
-      .col-3
-        %img.img-fluid.p-4{src: @company.logo}
-      .col-9.p-4
-        %h5= @company.name
-        %span.d-block= "Sara Coivisto"
-        %span.d-block= @company.description
-  .mt-4.col-1
-  .mt-4.col-sm.col-md-4.bg-white.border-light-gray.ac-corner-radius.my-auto
-    .row.p-4
-      .col.text-center.my-auto
-        %div
-          %h6= "PHASE"
-        %div
-          %h2= @phase.phase.phase_number.value
-      .col.h-100.my-auto
-        - progress = calculate_task_progress(@phase.checklists)
-        .progress{"data-percentage" => "#{progress}"}
-          %span.progress-left
-            %span.progress-bar
-          %span.progress-right
-            %span.progress-bar
-          .progress-value
-            %div
-              %h2.text-center.h-100.my-auto
-                = "#{progress}%"
+= render 'shared/company_phase_title_row'
 = simple_form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
   .row
     .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
@@ -38,22 +11,4 @@
         = render 'shared/company_phase_milestones_form', form: form
     .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
       %h5.mb-3= "Checklists"
-      - @phase.checklists.each_with_index do |checklist, index|
-        .div-spacer
-          #accordionChecklist.accordion
-            .card
-              .card-header.bg-white{id: "heading-#{index}"}
-                .row
-                  .col-sm-8
-                    %h6.mb-0=checklist.name
-                  .col-sm-4
-                    %button.float-right.btn.btn-link{"aria-controls" => "collapse-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-#{index}", "data-toggle" => "collapse", type: "button"}
-                      = fa_icon "angle-down", class: "fa-2x text-dark"
-              .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
-                .card-body
-                  - checklist.tasks.each do |task|
-                    %ul.list-unstyled
-                      %li
-                        =task.description 
-                        - @company_task = task.company_tasks.find_by(approved: true, company: @company)
-                        = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'form-control btn btn-success gutter-top' if @company_task.approved != true
+      = render 'shared/company_phase_checklists_tasks_form'

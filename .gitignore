@@ -36,3 +36,6 @@
 # Ignore database YML file
 /config/database.yml
 
+# Ignore test coverage files
+coverage/*
+
