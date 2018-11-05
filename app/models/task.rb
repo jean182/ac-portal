@@ -13,6 +13,7 @@
 
 class Task < ApplicationRecord
   has_many :company_tasks
+  has_many :companies, through: :company_tasks
   belongs_to :checklist
 
   def completed_by_company?(company_id)

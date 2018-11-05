@@ -22,6 +22,7 @@ class Company < ApplicationRecord
   has_one :location, dependent: :destroy
   has_many :time_trackings
   has_many :company_tasks
+  has_many :tasks, through: :company_tasks
   belongs_to :mentor, optional: true
 
   accepts_nested_attributes_for :location

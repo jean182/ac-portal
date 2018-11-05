@@ -1,5 +1,5 @@
 module MilestoneProgressCalculatorHelper
-  def calculate_progress(milestones)
+  def calculate_milestone_progress(milestones)
     completed_milestones = 0
 
     milestones.each do |milestone|

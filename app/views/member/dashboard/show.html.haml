@@ -16,7 +16,7 @@
         %div
           %H2= @phase.phase_number.value
       .col.h-100.my-auto
-        - progress = calculate_progress(@phase.milestones)
+        - progress = calculate_task_progress(@phase.checklists)
         .progress.js--donut-chart{"data-percentage" => "#{progress}"}
           %span.progress-left
             %span.progress-bar
