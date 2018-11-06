@@ -13,7 +13,7 @@
 
 FactoryBot.define do
   factory :company_task do
-    approved { true }
-    complete { true }
+    approved { false }
+    complete { false }
   end
 end
