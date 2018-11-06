@@ -3,6 +3,9 @@ class Member::TasksController < Member::MemberBaseController
 
   def mark_complete
     @task.update_attribute(:complete, true)
+    @task.mentors.each do |mentor|
+      NotificationMailer.task_completed_notification(mentor, current_user, @task).deliver_later
+    end
     render json: { id: @task.task.id }, status: 200
   end
 

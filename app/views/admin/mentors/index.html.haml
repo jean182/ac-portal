@@ -17,6 +17,7 @@
         %td
           = mentor.type
         %td
+          = link_to("Edit", edit_admin_mentor_path(mentor), class: 'btn btn-success btn-sm')
           - if mentor.deleted_at.present?
             = button_to "Restore mentor", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}
           -else

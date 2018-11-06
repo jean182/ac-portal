@@ -25,4 +25,12 @@ class Checklist < ApplicationRecord
   def destroyable?
     raise "Error" if phase.companies.count > 0
   end
+
+  def mentors
+    mentors = []
+    Mentor.find_each do |mentor|
+      mentors << mentor if (tags & mentor.tags).count > 0
+    end
+    mentors
+  end
 end

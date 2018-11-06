@@ -1,0 +1,12 @@
+%h1 Edit Mentor
+= simple_form_for [:admin, @mentor] do |f|
+  = render 'form', f: f
+  .form-group.row
+    .col-sm-2 Expertise Tags
+    .col-sm-10
+      - Tag.all.where(tag_type: 'expertise').each do |tag|
+        .form-check.form-check-inline
+          = check_box_tag 'mentor[tag_ids][]', tag.id, @mentor.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
+          = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  .form-group
+    = f.submit 'Save', :class => 'btn btn-primary'
