@@ -5,6 +5,9 @@ class Member::MilestonesController < Member::MemberBaseController
 
   def mark_complete
     @milestone.update_attribute(:complete, true)
+    Admin.find_each do |admin|
+      NotificationMailer.milestone_completed_notification(admin, current_user, @milestone).deliver_later
+    end
     render json: { id: @milestone.id, completeness_rate: calculate_progress(@milestone.company_phase.milestones) }, status: 200
   end
 

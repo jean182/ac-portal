@@ -1,14 +1,15 @@
-%nav#sidebar
-  - @phases.each_with_index do |phase, index|
-    - if current_user.admin?
-      - path = admin_company_company_phase_path(@company, phase)
-    - elsif current_user.mentor?
-      - path = mentor_company_company_phase_path(@company, phase)
-    - elsif current_user.client?
-      - path = member_company_phase_path(phase)
-    =link_to(path) do
-      .d-flex
-        .flex-grow-1
-          %img{:src => "/images/#{phase.phase_number}.svg", class: "img-fluid mt-1"}
-        %div{ class: "#{"sidebar-border sidebar-border-right" if @phase.phase.phase_number == phase.phase_number}" }
+.wrapper
+  %nav#sidebar
+    - @phases.each_with_index do |phase, index|
+      - if current_user.admin?
+        - path = admin_company_company_phase_path(@company, phase)
+      - elsif current_user.mentor?
+        - path = mentor_company_company_phase_path(@company, phase)
+      - elsif current_user.client?
+        - path = member_company_phase_path(phase)
+      =link_to(path) do
+        .d-flex
+          .flex-grow-1
+            %img{:src => "/images/#{phase.phase_number}.svg", class: "img-fluid mt-1"}
+          %div{ class: "#{"sidebar-border sidebar-border-right" if @phase.phase.phase_number == phase.phase_number}" }
       
