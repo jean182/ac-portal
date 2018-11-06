@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_204250) do
+ActiveRecord::Schema.define(version: 2018_11_05_173029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 2018_10_31_204250) do
     t.bigint "company_id"
     t.index ["admin_id"], name: "index_locations_on_admin_id"
     t.index ["company_id"], name: "index_locations_on_company_id"
+  end
+
+  create_table "logs", force: :cascade do |t|
+    t.string "description"
+    t.integer "loggable_id"
+    t.string "loggable_type"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loggable_type", "loggable_id"], name: "index_logs_on_loggable_type_and_loggable_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
   end
 
   create_table "mentor_infos", force: :cascade do |t|
@@ -202,6 +213,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_204250) do
   add_foreign_key "has_tags", "users", column: "mentor_id"
   add_foreign_key "locations", "companies"
   add_foreign_key "locations", "users", column: "admin_id"
+  add_foreign_key "logs", "users"
   add_foreign_key "messages", "company_tasks"
   add_foreign_key "milestones", "company_phases"
   add_foreign_key "tasks", "checklists"

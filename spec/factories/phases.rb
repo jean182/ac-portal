@@ -10,6 +10,6 @@
 
 FactoryBot.define do
   factory :phase do
-    phase_number 1
+    phase_number { 1 }
   end
 end

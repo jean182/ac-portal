@@ -33,8 +33,8 @@ FactoryBot.define do
   factory :mentor do
     name { Faker::Name.unique.name }
     email { Faker::Internet.unique.email }
-    password "password"
-    password_confirmation "password"
-    type "Mentor"
+    password { "password" }
+    password_confirmation { "password" }
+    type { "Mentor" }
   end
 end
