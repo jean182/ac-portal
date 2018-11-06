@@ -1,0 +1,16 @@
+#accordionChecklist.accordion
+  .card
+    .card-header.bg-white{id: "headingOne"}
+      .row
+        .col-sm-8
+          %h6.mb-0=@checklist.name
+        .col-sm-4
+          %button.float-right.btn.btn-link{"aria-controls" => "collapseOne", "aria-expanded" => "true", "data-target" => "#collapseOne", "data-toggle" => "collapse", type: "button"}
+            = fa_icon "angle-down", class: "fa-2x text-dark"
+    .collapse.show{id: "collapseOne", "aria-labelledby" => "headingOne", "data-parent" => "#accordionChecklist"}
+      .card-body
+        = @checklist.phase.phase_number.humanize if @checklist.phase.present?
+        - @checklist.tasks.each do |task|
+          %ul.list-unstyled
+            %li=task.description
+        = render 'admin/shared/tags'

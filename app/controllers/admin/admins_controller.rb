@@ -6,12 +6,13 @@ class Admin::AdminsController < Admin::UsersController
 
   def new
     @admin = Admin.new
-    @admin.build_user
   end
 
   def create
     @admin = Admin.new(admin_params)
-    if @admin.save
+    if params[:admin][:email].present? && params[:admin][:name].present?
+      @admin.save(validate: false)
+      @admin.invite!(current_user)
       redirect_to(admin_admins_path, notice: 'Admin was successfully created.')
     else
       render action: :new
@@ -20,12 +21,12 @@ class Admin::AdminsController < Admin::UsersController
 
   def destroy
     @admin = Admin.find(params[:id])
-    @admin.user.soft_delete
+    @admin.soft_delete
     redirect_to admin_admins_path, notice: "Admin deleted."
   end
 
   def reactivate_admin
-    @user = User.find(params[:id])
+    @user = Admin.find(params[:id])
     @user.update_attribute(:deleted_at, nil)
     flash[:notice] = "Admin Activated succesfully"
     redirect_to admin_admins_path
@@ -34,6 +35,6 @@ class Admin::AdminsController < Admin::UsersController
   private
 
   def admin_params
-    params.require(:admin).permit(:description, user_attributes: user_params)
+    params.require(:admin).permit(user_params)
   end
 end

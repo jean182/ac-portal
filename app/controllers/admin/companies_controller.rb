@@ -8,6 +8,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
 
   def show
     @location = @company.location
+    @phases = @company.company_phases
   end
 
   def new
@@ -48,6 +49,7 @@ class Admin::CompaniesController < Admin::AdminBaseController
       :logo,
       :description,
       :phone,
+      :current_phase_id,
       location_attributes: location_params,
       tag_ids: [],
     )

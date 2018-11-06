@@ -1,0 +1,22 @@
+- if current_user.admin?
+  = link_to('Add Company', new_admin_company_path)
+%table.table.table-bordered
+  %thead
+    %tr
+      %th{:scope => "col"} Company Name
+      %th{:scope => "col"} Actions
+  %tbody
+    - @companies.each do |company|
+      %tr
+        %td
+          = company.name
+        %td
+          - if current_user.admin?
+            = link_to 'View', admin_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase
+            = link_to 'Edit', edit_admin_company_path(company), class: 'btn btn-primary btn-sm'
+          - elsif current_user.mentor?
+            = link_to 'View', mentor_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase
+- if current_user.admin?
+  = link_to  "Dashboard", admin_root_path
+- elsif current_user.mentor?
+  = link_to  "Dashboard", mentor_root_path

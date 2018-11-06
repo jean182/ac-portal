@@ -1,5 +1,5 @@
 @import "base/globals.scss";
-@import "styles/navbar.scss";
 @import "bootstrap";
-@import "styles/ac_custom.scss";
-@import "styles/quill.snow.css";
+@import "styles/**/*";
+@import "font-awesome";
+@import "trix";

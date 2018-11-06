@@ -1,6 +1,6 @@
 class CompanyPolicy < ApplicationPolicy
   def show?
-    user.present? && user.client? && user.account.company == company
+    user.present? && user.client? && user.client_info.company == company
   end
 
   private

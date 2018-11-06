@@ -1,18 +1,21 @@
 class Admin::MentorsController < Admin::UsersController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: :show
+
   def index
     @mentors = Mentor.all
   end
 
   def new
     @mentor = Mentor.new
-    @mentor.build_user
+    @mentor.build_mentor_info
   end
 
   def create
     @mentor = Mentor.new(mentor_params)
-    if @mentor.save
+    if params[:mentor][:email].present? && params[:mentor][:name].present?
+      @mentor.save(validate: false)
+      @mentor.invite!(current_user)
       redirect_to(admin_mentors_path, notice: 'Mentor was successfully created.')
     else
       render action: :new
@@ -21,12 +24,12 @@ class Admin::MentorsController < Admin::UsersController
 
   def destroy
     @mentor = Mentor.find(params[:id])
-    @mentor.user.soft_delete
+    @mentor.soft_delete
     redirect_to admin_mentors_path, notice: "Mentor deleted."
   end
 
   def reactivate_mentor
-    @user = User.find(params[:id])
+    @user = Mentor.find(params[:id])
     @user.update_attribute(:deleted_at, nil)
     flash[:notice] = "Mentor Activated succesfully"
     redirect_to admin_mentors_path
@@ -35,6 +38,6 @@ class Admin::MentorsController < Admin::UsersController
   private
 
   def mentor_params
-    params.require(:mentor).permit(:is_active, user_attributes: user_params, tag_ids: [])
+    params.require(:mentor).permit(user_params)
   end
 end

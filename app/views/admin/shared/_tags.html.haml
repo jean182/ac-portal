@@ -1,0 +1,10 @@
+%h6 Industry tags
+- Tag.where(tag_type: 'industry').each do |tag|
+  - if @checklist.tags.include?(tag)
+    %span{ class: "badge badge-#{@color.sample}"}
+      = tag.name
+%h6 Expertise tags
+- Tag.where(tag_type: 'expertise').each do |tag|
+  - if @checklist.tags.include?(tag)
+    %span{ class: "badge badge-#{@color.sample}"}
+      = tag.name

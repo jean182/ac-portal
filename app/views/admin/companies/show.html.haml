@@ -5,13 +5,17 @@
     %a#nav-home-tab.nav-item.nav-link.active.text-muted{"aria-controls" => "nav-home", "aria-selected" => "true", "data-toggle" => "tab", href: "#nav-home", role: "tab"} Profile
     %a#nav-location-tab.nav-item.nav-link.text-muted{"aria-controls" => "nav-location", "aria-selected" => "false", "data-toggle" => "tab", href: "#nav-location", role: "tab"} Location
     %a#nav-contact-tab.nav-item.nav-link.text-muted{"aria-controls" => "nav-contact", "aria-selected" => "false", "data-toggle" => "tab", href: "#nav-contact", role: "tab"} Contact
+    %a#nav-phases-tab.nav-item.nav-link.text-muted{"aria-controls" => "nav-phases", "aria-selected" => "false", "data-toggle" => "tab", href: "#nav-phases", role: "tab"} Phase
 #nav-tabContent.tab-content
   #nav-home.tab-pane.fade.show.active{"aria-labelledby" => "nav-home-tab", role: "tabpanel"}
     %br
     = @company.description
   #nav-location.tab-pane.fade{"aria-labelledby" => "nav-location-tab", role: "tabpanel"}
     = render 'location'
-  #nav-contact.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", role: "tabpanel"} ...
+  #nav-contact.tab-pane.fade{"aria-labelledby" => "nav-contact-tab", role: "tabpanel"}
+    = @company.phone  
+  #nav-phases.tab-pane.fade{"aria-labelledby" => "nav-phases-tab", role: "tabpanel"}
+    = render 'phases'
 %br
 = render 'tags'
 = link_to('All companies', admin_companies_path)

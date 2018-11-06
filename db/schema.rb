@@ -10,15 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_145140) do
+ActiveRecord::Schema.define(version: 2018_11_05_173029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "checklists", force: :cascade do |t|
     t.string "name"
@@ -29,12 +24,14 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.index ["phase_id"], name: "index_checklists_on_phase_id"
   end
 
-  create_table "clients", force: :cascade do |t|
+  create_table "client_infos", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "company_id"
-    t.index ["company_id"], name: "index_clients_on_company_id"
+    t.integer "client_id"
+    t.index ["client_id"], name: "index_client_infos_on_client_id"
+    t.index ["company_id"], name: "index_client_infos_on_company_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -46,6 +43,28 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.bigint "mentor_id"
     t.string "phone"
     t.index ["mentor_id"], name: "index_companies_on_mentor_id"
+  end
+
+  create_table "company_phases", force: :cascade do |t|
+    t.text "learning_objectives"
+    t.bigint "company_id"
+    t.bigint "phase_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.index ["company_id"], name: "index_company_phases_on_company_id"
+    t.index ["phase_id"], name: "index_company_phases_on_phase_id"
+  end
+
+  create_table "company_tasks", force: :cascade do |t|
+    t.boolean "approved"
+    t.boolean "complete"
+    t.bigint "company_id"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_tasks_on_company_id"
+    t.index ["task_id"], name: "index_company_tasks_on_task_id"
   end
 
   create_table "has_tags", force: :cascade do |t|
@@ -77,10 +96,23 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.index ["company_id"], name: "index_locations_on_company_id"
   end
 
-  create_table "mentors", force: :cascade do |t|
-    t.boolean "is_active"
+  create_table "logs", force: :cascade do |t|
+    t.string "description"
+    t.integer "loggable_id"
+    t.string "loggable_type"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["loggable_type", "loggable_id"], name: "index_logs_on_loggable_type_and_loggable_id"
+    t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "mentor_infos", force: :cascade do |t|
+    t.boolean "is_active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "mentor_id"
+    t.index ["mentor_id"], name: "index_mentor_infos_on_mentor_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -88,27 +120,26 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "task_id"
-    t.index ["task_id"], name: "index_messages_on_task_id"
+    t.bigint "company_task_id"
+    t.bigint "user_id"
+    t.index ["company_task_id"], name: "index_messages_on_company_task_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "milestones", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "phase_id"
-    t.boolean "complete"
-    t.index ["phase_id"], name: "index_milestones_on_phase_id"
+    t.boolean "complete", default: false
+    t.bigint "company_phase_id"
+    t.boolean "approved"
+    t.index ["company_phase_id"], name: "index_milestones_on_company_phase_id"
   end
 
   create_table "phases", force: :cascade do |t|
-    t.string "learning_objetive"
-    t.decimal "phase_number"
+    t.integer "phase_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "company_id"
-    t.integer "status"
-    t.index ["company_id"], name: "index_phases_on_company_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -120,9 +151,7 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "description"
-    t.boolean "is_complete"
     t.decimal "score"
-    t.boolean "is_approved"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "checklist_id"
@@ -146,7 +175,6 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name"
-    t.string "title"
     t.string "phone"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -158,27 +186,38 @@ ActiveRecord::Schema.define(version: 2018_10_01_145140) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "account_type"
-    t.integer "account_id"
     t.datetime "deleted_at"
+    t.string "type"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "checklists", "phases"
-  add_foreign_key "clients", "companies"
-  add_foreign_key "companies", "mentors"
+  add_foreign_key "client_infos", "companies"
+  add_foreign_key "companies", "users", column: "mentor_id"
   add_foreign_key "has_tags", "checklists"
   add_foreign_key "has_tags", "companies"
-  add_foreign_key "has_tags", "mentors"
   add_foreign_key "has_tags", "tags"
-  add_foreign_key "locations", "admins"
+  add_foreign_key "has_tags", "users", column: "mentor_id"
   add_foreign_key "locations", "companies"
-  add_foreign_key "messages", "tasks"
-  add_foreign_key "milestones", "phases"
-  add_foreign_key "phases", "companies"
+  add_foreign_key "locations", "users", column: "admin_id"
+  add_foreign_key "logs", "users"
+  add_foreign_key "messages", "company_tasks"
+  add_foreign_key "milestones", "company_phases"
   add_foreign_key "tasks", "checklists"
-  add_foreign_key "time_trackings", "clients"
   add_foreign_key "time_trackings", "companies"
-  add_foreign_key "time_trackings", "mentors"
+  add_foreign_key "time_trackings", "users", column: "client_id"
+  add_foreign_key "time_trackings", "users", column: "mentor_id"
 end

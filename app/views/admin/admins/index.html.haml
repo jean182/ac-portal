@@ -7,16 +7,18 @@
     %tr
       %th{:scope => "col"} Email
       %th{:scope => "col"} Role
-      %th{:scope => "col"} Delete
+      %th{:scope => "col"} Actions
   %tbody
     - @admins.each do |admin|
       %tr
         %td
-          = admin.user.email
+          = admin.email
+          = " (Invitation pending)" if admin.invitation_created_at.present? && admin.invitation_accepted_at.nil?
         %td
-          = admin.user.account_type
+          = admin.type
         %td
-          - if admin.user.deleted_at.present?
-            = button_to "Restore admin", {controller: "admins", action: "reactivate_admin", id: admin.user.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}  
+          - if admin.deleted_at.present?
+            = button_to "Restore admin", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'btn btn-warning btn-sm', data: { :confirm => "Are you sure?" }}
           -else
             = link_to("Disable user", admin_admin_path(admin), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm')
+          = link_to("Reset password", admin_send_reset_password_instructions_path(admin), data: { confirm: "Are you sure?" }, method: :post, class: 'btn btn-success btn-sm')

@@ -2,6 +2,7 @@ class Admin::UsersController < Admin::AdminBaseController
   before_action :authenticate_user!
   before_action :authenticate_admin!
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   def index
     @users = User.all
   end
@@ -14,6 +15,13 @@ class Admin::UsersController < Admin::AdminBaseController
     @user = User.find(params[:id])
     @user.soft_delete
     redirect_to admin_users_path, notice: "User deleted."
+  end
+
+  def send_reset_password_instructions
+    @user = User.find(params[:id])
+    @user.send_reset_password_instructions
+    flash[:notice] = "Sent reset password instructions to user"
+    redirect_to admin_users_path
   end
 
   def reactivate_user
@@ -37,6 +45,7 @@ class Admin::UsersController < Admin::AdminBaseController
       phone
       email
       password
+      type
     )
   end
 end

@@ -6,12 +6,14 @@ class Admin::ClientsController < Admin::UsersController
 
   def new
     @client = Client.new
-    @client.build_user
+    @client.build_client_info
   end
 
   def create
     @client = Client.new(client_params)
-    if @client.save
+    if params[:client][:email].present? && params[:client][:name].present?
+      @client.save(validate: false)
+      @client.invite!(current_user)
       redirect_to(admin_clients_path, notice: 'Client was successfully created.')
     else
       render action: :new
@@ -20,7 +22,7 @@ class Admin::ClientsController < Admin::UsersController
 
   def destroy
     @client = Client.find(params[:id])
-    @client.user.soft_delete
+    @client.soft_delete
     redirect_to admin_clients_path, notice: "Client deleted."
   end
 
@@ -34,6 +36,6 @@ class Admin::ClientsController < Admin::UsersController
   private
 
   def client_params
-    params.require(:client).permit(:description, user_attributes: user_params)
+    params.require(:client).permit(user_params, client_info_attributes: [:id, :description, :company_id])
   end
 end

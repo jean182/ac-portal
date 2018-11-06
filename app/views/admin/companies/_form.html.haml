@@ -1,26 +1,25 @@
-= form_for [:admin, @company] do |f|
+= simple_form_for [:admin, @company] do |f|
   = render 'shared/errors', object: @company
   .form-group
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: false, class: 'form-control'
-  .form-group
-    = f.label :logo
-    %br/
-    = f.text_field :logo, autofocus: false, class: 'form-control'
-  .form-group
-    = f.label :description
-    %br/
-    = f.text_field :description, autofocus: false, class: 'form-control'
-  .form-group
-    = f.label :phone
-    %br/
-    = f.text_field :phone, autofocus: false, class: 'form-control'
+    = f.input :name, autofocus: false, class: 'form-control'
+  .form-row
+    .form-group.col-md-6
+      = f.input :description, autofocus: false, class: 'form-control', :input_html => { rows: 5}
+    .form-group.col-md-6
+      = f.input :logo, autofocus: false, class: 'form-control'
+      = f.input :phone, autofocus: false, class: 'form-control'
+  .form-row
+    .form-group.col-md-12
+      = f.input :current_phase_id, collection: Phase.all.map { |p| [p.phase_number.humanize, p.phase_number.value] }, selected: @company.current_phase.present? ? @company.current_phase.phase.phase_number.value : 1, autofocus: false, class: 'form-control'
   = render 'admin/shared/location_nested_form', f: f
   = hidden_field_tag 'company[tag_ids][]', nil
-  - Tag.all.where(tag_type: 'industry').each do |tag|
-    .form-check.form-check-inline
-      = check_box_tag 'company[tag_ids][]', tag.id, @company.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
-      = label_tag dom_id(tag), tag.name, class: "form-check-label"
+  .form-group.row
+    .col-sm-2 Industry Tags
+    .col-sm-10
+      - Tag.all.where(tag_type: 'industry').each do |tag|
+        .form-check.form-check-inline
+          = check_box_tag 'company[tag_ids][]', tag.id, @company.tags.include?(tag), id: dom_id(tag), class: "form-check-input", type: "checkbox"
+          = label_tag dom_id(tag), tag.name, class: "form-check-label"
   .form-group
     = f.submit 'Save', :class => 'btn btn-primary'
+ 

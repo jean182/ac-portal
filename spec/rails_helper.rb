@@ -11,6 +11,9 @@ require 'shoulda/matchers'
 require 'faker'
 require 'simplecov'
 require 'csv'
+require Rails.root.join('spec/support/controller_macros.rb')
+require Rails.root.join('spec/support/devise.rb')
+require Rails.root.join('spec/support/factory_bot.rb')
 
 SimpleCov.start do
   add_group 'Controllers', 'app/controllers'

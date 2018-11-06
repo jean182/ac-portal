@@ -1,0 +1,8 @@
+.nested-fields
+  .form-row
+    .form-group.col-md-6
+      = f.input :description, autofocus: false, placeholder: 'Description', class: 'form-control'
+    .form-group.col-md-4
+      = f.input :score, autofocus: false, placeholder: 'Score', class: 'form-control'
+    .form-group.col-md-2
+      = link_to_remove_association "Remove", f, class: 'form-control btn btn-danger gutter-top'
