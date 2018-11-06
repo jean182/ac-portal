@@ -7,6 +7,8 @@
     - elsif current_user.client?
       - path = member_company_phase_path(phase)
     =link_to(path) do
-      .row
-        %img{:src => "/images/#{phase.phase_number}.svg", class: "img-fluid mt-1#{" bg-primary" if @phase.phase.phase_number == phase.phase_number}"}
+      .d-flex
+        .flex-grow-1
+          %img{:src => "/images/#{phase.phase_number}.svg", class: "img-fluid mt-1"}
+        %div{ class: "#{"sidebar-border sidebar-border-right" if @phase.phase.phase_number == phase.phase_number}" }
       

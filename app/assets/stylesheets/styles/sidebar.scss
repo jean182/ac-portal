@@ -3,25 +3,20 @@
   align-items: stretch;
 }
 
-#sidebar {
-  min-width: 75px;
-  max-width: 75px;
-  min-height: 100vh;
-  -webkit-box-shadow: 1px 0 5px -2px #888;
-  box-shadow: 1px 0 5px -2px #888;
-}
-
 #sidebar.active {
   margin-left: -250px;
 }
 
 
 #sidebar {
-  /* don't forget to add all the previously mentioned styles here too */
+  min-width: 75px;
+  max-width: 75px;
+  min-height: 100vh;
+  -webkit-box-shadow: 1px 0 5px -2px #888;
+  box-shadow: 1px 0 5px -2px #888;
   background: white;
   color: $ac-blue;
   transition: all 0.3s;
-  padding: 15px;
 }
 
 #sidebar .sidebar-header {
@@ -37,6 +32,10 @@
   border-bottom: 0.5px solid #FFFFFF;
 }
 
+.sidebar-border-right {
+  border-right: 3px solid #084B71 !important;
+}
+
 #sidebar ul p {
   color: #fff;
   padding: 10px;
@@ -50,6 +49,10 @@
 #sidebar ul li a:hover {
   color: white;
   background: #fff;
+}
+
+#sidebar img {
+  padding: 15px;
 }
 
 ul ul a {

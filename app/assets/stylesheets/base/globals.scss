@@ -1,8 +1,31 @@
+//Brand Colors
+$ac-primary: #0076BE;
+$ac-dark: #1D3767;
+$ac-light: #00AFEF;
+
+//Neutral colors
+$ac-black: #282828;
+$ac-dark-gray: #4D4D4D;
+$ac-light-grey: #B2BAC4;
+$ac-white-bg: #FAFBFC;
+
+//Utility colors
+$ac-error: #E15252;
+$ac-positive: #2DCC70;
+$ac-highlight: #F99D20;
+$ac-disabled: #B2BAC4;
+
 $ac-blue: #1E3667;
 $pure-white: #a5afd7;
 $pretty-in-pink: #f48fb1;
 $bright-blue: #64b5f6;
-$dark-blue: #333745;
 $material-blue: #4285F4;
 $ac-background: #FAFBFC;
-$ac-primary: #0076BE;
+
+// Bootstrap overrides
+$primary: $ac-primary;
+$dark: $ac-dark;
+$success: $ac-positive;
+$light: $ac-light;
+$danger: $ac-error;
+$warning: $ac-highlight;
