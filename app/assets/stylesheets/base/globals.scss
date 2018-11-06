@@ -21,3 +21,11 @@ $pretty-in-pink: #f48fb1;
 $bright-blue: #64b5f6;
 $material-blue: #4285F4;
 $ac-background: #FAFBFC;
+
+// Bootstrap overrides
+$primary: $ac-primary;
+$dark: $ac-dark;
+$success: $ac-positive;
+$light: $ac-light;
+$danger: $ac-error;
+$warning: $ac-highlight;
