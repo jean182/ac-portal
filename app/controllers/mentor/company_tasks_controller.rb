@@ -1,4 +1,4 @@
-class Admin::CompanyTasksController < Admin::AdminBaseController
+class Mentor::CompanyTasksController < Mentor::MentorBaseController
   before_action :set_company_task
 
   def approve
@@ -8,7 +8,7 @@ class Admin::CompanyTasksController < Admin::AdminBaseController
       NotificationMailer.task_approved_notification(client, current_user, @task).deliver_later
     end
     flash[:notice] = "Task approved"
-    redirect_to admin_company_company_phase_path(@task.company, @task.company.current_phase)
+    redirect_to mentor_company_company_phase_path(@task.company, @task.company.current_phase)
   end
 
   def refuse
@@ -18,7 +18,7 @@ class Admin::CompanyTasksController < Admin::AdminBaseController
       NotificationMailer.task_refused_notification(client, current_user, @task).deliver_later
     end
     flash[:notice] = "Task rejected"
-    redirect_to admin_company_company_phase_path(@task.company, @task.company.current_phase)
+    redirect_to mentor_company_company_phase_path(@task.company, @task.company.current_phase)
   end
 
   private

@@ -25,6 +25,56 @@ class NotificationMailer < ApplicationMailer
     mail(to: @mentor.email, subject: "#{@client.name} finished a task")
   end
 
+  def task_refused_notification(client, user, company_task)
+    @user = user
+    @client = client
+    @company_task = company_task
+    headers 'X-SMTPAPI' => {
+        sub: {
+            '%user_name%' => [@user.name],
+            '%client_name%' => [@client.name],
+            '%task_description%' => [@company_task.task.description],
+            '%company_id%' => [@company_task.company.id],
+            '%phase_id%' => [@company_task.company.current_phase.phase.phase_number],
+            '%root_url%' => [root_url]
+        },
+        filters: {
+            templates: {
+                settings: {
+                    enable: 1,
+                    template_id: ENV['TASK_REFUSED_EMAIL_TEMPLATE_ID']
+                }
+            }
+        }
+    }.to_json
+    mail(to: @client.email, subject: "#{@client.name} finished a task")
+  end
+
+  def task_approved_notification(client, user, company_task)
+    @user = user
+    @client = client
+    @company_task = company_task
+    headers 'X-SMTPAPI' => {
+        sub: {
+            '%user_name%' => [@user.name],
+            '%client_name%' => [@client.name],
+            '%task_description%' => [@company_task.task.description],
+            '%company_id%' => [@company_task.company.id],
+            '%phase_id%' => [@company_task.company.current_phase.phase.phase_number],
+            '%root_url%' => [root_url]
+        },
+        filters: {
+            templates: {
+                settings: {
+                    enable: 1,
+                    template_id: ENV['TASK_APPROVED_EMAIL_TEMPLATE_ID']
+                }
+            }
+        }
+    }.to_json
+    mail(to: @client.email, subject: "#{@client.name} finished a task")
+  end
+
   def milestone_completed_notification(admin, client, milestone)
     @admin = admin
     @client = client
