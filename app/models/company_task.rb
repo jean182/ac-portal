@@ -16,4 +16,8 @@ class CompanyTask < ApplicationRecord
   has_many :messages
   belongs_to :company
   belongs_to :task
+
+  def mentors
+    task.checklist.mentors
+  end
 end

@@ -1,6 +1,7 @@
 class Admin::MentorsController < Admin::UsersController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: :show
+  before_action :set_mentor, only: [:edit, :update]
 
   def index
     @mentors = Mentor.all
@@ -35,9 +36,31 @@ class Admin::MentorsController < Admin::UsersController
     redirect_to admin_mentors_path
   end
 
+  def edit
+    build_has_tags
+  end
+
+  def update
+    if @mentor.update(mentor_params)
+      redirect_to(admin_mentors_path, notice: 'Mentor was successfully updated.')
+    else
+      render :edit
+    end
+  end
+
   private
 
+  def set_mentor
+    @mentor ||= Mentor.find(params[:id])
+  end
+
   def mentor_params
-    params.require(:mentor).permit(user_params)
+    params.require(:mentor).permit(user_params, tag_ids: [])
+  end
+
+  def build_has_tags
+    Tag.all.each do |tag|
+      @mentor.has_tags.build(tag_id: tag.id)
+    end
   end
 end

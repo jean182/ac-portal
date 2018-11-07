@@ -49,6 +49,10 @@ Rails.application.routes.draw do
     end
     resources :phases
     resources :milestones
+    resources :company_tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+      put :approve
+      put :refuse
+    end
   end
 
   namespace :member do
