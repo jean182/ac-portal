@@ -33,7 +33,6 @@ require 'rails_helper'
 
 describe Client, type: :model do
   describe 'associations' do
-    it { should have_many(:time_trackings) }
     it { should have_one(:client_info) }
   end
 
