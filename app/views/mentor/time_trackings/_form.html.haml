@@ -1,0 +1,14 @@
+= simple_form_for [:mentor, @time_tracking] do |f|
+  = render 'shared/errors', object: @time_tracking
+  .form-row
+    .form-group.col-md-8
+      = f.input :hours_spent, as: :float, class: "form-control", placeholder: "Hours Spent", input_html: { step: 0.5, min: 0 }
+    .form-group.col-md-4
+      = f.input :date, as: :date, class: 'form-control', placeholder: "Date"
+  .form-group
+    = f.input :notes, class: 'form-control', placeholder: "Notes"
+  .form-group
+    = f.input :company_id, collection: Company.all, selected: @time_tracking.company_id, autofocus: false, class: 'form-control'
+  
+  .actions
+    = f.submit "Add", class: "btn btn-primary float-right"
