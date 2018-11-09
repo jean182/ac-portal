@@ -1,11 +1,11 @@
 class CompanyPolicy < ApplicationPolicy
   def show?
-    user.present? && user.client? && user.client_info.company == company
+    company_member?
   end
 
   private
 
-  def company
-    record
+  def company_member?
+    user.client_info.company == record
   end
 end

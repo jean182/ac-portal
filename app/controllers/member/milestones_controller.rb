@@ -2,6 +2,7 @@ class Member::MilestonesController < Member::MemberBaseController
   include MilestoneProgressCalculatorHelper
   include ActionView::Helpers::NumberHelper
   before_action :set_milestone
+  before_action :authorize_milestone
 
   def mark_complete
     @milestone.update_attribute(:complete, true)
@@ -20,5 +21,9 @@ class Member::MilestonesController < Member::MemberBaseController
 
   def set_milestone
     @milestone = Milestone.find(params[:milestone_id])
+  end
+
+  def authorize_milestone
+    authorize @milestone
   end
 end
