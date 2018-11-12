@@ -6,35 +6,26 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
+  def admin?
+    user.admin?
   end
 
-  def show?
-    false
+  def mentor?
+    user.mentor?
   end
 
-  def create?
-    false
+  def client?
+    user.client?
   end
 
-  def new?
-    create?
+  def scope
+    Pundit.policy_scope!(user, record.class)
   end
 
-  def update?
-    false
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    false
-  end
-
+  # Allows scoping AR models based on permissions through Pundit
+  # See https://github.com/elabs/pundit#scopes
   class Scope
+
     attr_reader :user, :scope
 
     def initialize(user, scope)
@@ -43,7 +34,8 @@ class ApplicationPolicy
     end
 
     def resolve
-      scope.all
+      scope
     end
+
   end
 end

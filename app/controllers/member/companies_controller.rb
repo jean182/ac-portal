@@ -1,5 +1,6 @@
 class Member::CompaniesController < Member::MemberBaseController
-  before_action :check_company, :set_company
+  before_action :set_company
+  before_action :authorize_company
 
   def show; end
 
@@ -10,9 +11,7 @@ class Member::CompaniesController < Member::MemberBaseController
     @client = current_user
   end
 
-  def check_company
-    return if params[:id].to_i == current_user.client_info.company.id
-    flash[:error] = "You are not allowed to perform this action"
-    redirect_to member_root_path
+  def authorize_company
+    authorize @company
   end
 end

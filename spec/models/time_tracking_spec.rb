@@ -28,7 +28,7 @@ describe TimeTracking, type: :model do
 
       context 'when total time exceeds quota' do
         it 'sends email to admins' do
-          expect { TimeTracking.create(company: company, mentor: mentor, hours_spent: 6, date: Date.today) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          expect { TimeTracking.create(company: company, mentor: mentor, hours_spent: 6, date: Date.today) }.to change { ActionMailer::Base.deliveries.count }.by(Admin.count)
         end
       end
 
