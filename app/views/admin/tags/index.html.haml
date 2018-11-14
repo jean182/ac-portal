@@ -1,20 +1,25 @@
-%h1 All tags
-= link_to('New Tag', new_admin_tag_path)
-%table.table.table-bordered
-  %thead
-    %tr
-      %th{:scope => "col"} Tag Name
-      %th{:scope => "col"} Type
-      %th{:scope => "col"} Actions
-  %tbody
-    - @tags.each do |tag|
+.d-flex.flex-row.align-items-center
+  %h1{ class: 'flex-grow-1'} All tags
+  = link_to('New Tag', new_admin_tag_path, class: 'btn btn-primary btn-sm')
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm
+    %thead.thead
       %tr
-        %td
-          = tag.name
-        %td
-          = tag.tag_type
-        %td
-          = link_to 'View', admin_tag_path(tag), class: 'btn btn-secondary btn-sm'
-          = link_to 'Edit', edit_admin_tag_path(tag), class: 'btn btn-primary btn-sm'
-          = link_to("Delete", admin_tag_path(tag), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-danger btn-sm')
-= link_to  "Dashboard", admin_root_path
+        %th{:scope => "col"} 
+          %h6 Tag Name
+        %th{:scope => "col"} 
+          %h6 Type
+        %th{:scope => "col"} 
+          %h6 Actions
+    %tbody
+      - @tags.each do |tag|
+        %tr
+          %td
+            = tag.name
+          %td
+            = tag.tag_type
+          %td
+            = link_to(edit_admin_tag_path(tag), class: 'text-muted') do
+              = material_icon.edit
+            = link_to(admin_tag_path(tag), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'text-danger') do
+              = material_icon.delete

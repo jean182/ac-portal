@@ -24,6 +24,7 @@ gem 'country_select'
 gem 'devise-bootstrapped'
 gem 'cocoon'
 gem 'trix-rails', require: 'trix'
+gem 'material_icons'
 
 #Authentication and authorization
 gem 'devise', '~> 4.2'

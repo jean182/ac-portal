@@ -1,0 +1,18 @@
+#accordionChecklist.accordion
+  .card
+    .card-header.d-flex.align-items-center{id: "heading-#{checklist.id}"}
+      %h5.flex-grow-1.mb-0=checklist.name
+      %button.btn.btn-link{"aria-controls" => "collapse-#{checklist.phase.phase_number.split("_")[0]}-#{checklist.id}", "aria-expanded" => "true", "data-target" => "#collapse-#{checklist.phase.phase_number.split("_")[0]}-#{checklist.id}", "data-toggle" => "collapse", type: "button"}
+        = material_icon.keyboard_arrow_down
+    .collapse{id: "collapse-#{checklist.phase.phase_number.split("_")[0]}-#{checklist.id}", "aria-labelledby" => "heading-#{checklist.phase.phase_number.split("_")[0]}-#{checklist.id}", "data-parent" => "#accordionChecklist"}
+      .card-body
+        .d-flex.align-items-start
+          .flex-grow-1
+            - checklist.tasks.each do |task|
+              %ul.list-unstyled
+                %li=task.description 
+          .flex-grow-1 
+            = render 'admin/shared/tags', checklist: checklist
+          %div
+            = link_to(edit_admin_checklist_path(checklist), class: 'btn') do
+              = material_icon.edit

@@ -1,2 +1,3 @@
 %h1 Edit checklist
+= link_to("Delete", admin_checklist_path(@checklist), data: { :confirm => "Are you sure?" }, method: :delete)
 = render 'form'

@@ -1,2 +1,4 @@
-%h1 All Companies
+.d-flex.flex-row.align-items-center
+  %h1{ class: 'flex-grow-1'} All Clients
+  = link_to('Add New Client', new_admin_company_path, class: 'btn btn-primary btn-sm')
 = render 'shared/companies_index'

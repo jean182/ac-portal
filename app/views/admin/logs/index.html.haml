@@ -1,13 +1,21 @@
 %h2 Logs
-%table.table.table-bordered.table-striped{id: ""}
-  %thead
-    %tr
-      %th Description
-      %th Log type
-      %th Changed by
-      %th Company
-      %th Description
-      %th Status
-      %th Date
-  %tbody#topics
-    = render @logs
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm.table-hover{id: ""}
+    %thead.thead
+      %tr
+        %th 
+          %h6 Description
+        %th 
+          %h6 Log type
+        %th 
+          %h6 Changed by
+        %th 
+          %h6 Company
+        %th 
+          %h6 Description
+        %th 
+          %h6 Status
+        %th 
+          %h6 Date
+    %tbody#topics
+      = render @logs
