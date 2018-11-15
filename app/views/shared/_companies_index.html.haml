@@ -1,23 +1,37 @@
-- if current_user.admin?
-  = link_to('Add Company', new_admin_company_path)
-%table.table.table-bordered
-  %thead
-    %tr
-      %th{:scope => "col"} Company Name
-      %th{:scope => "col"} Actions
-  %tbody
-    - @companies.each do |company|
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm
+    %thead.thead
       %tr
-        %td
-          = company.name
-        %td
-          - if current_user.admin?
-            = link_to 'View', admin_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase
-            = link_to 'Edit', edit_admin_company_path(company), class: 'btn btn-primary btn-sm'
-            = link_to 'View time logs', admin_company_time_trackings_path(company), class: "btn btn-primary btn-sm"
-          - elsif current_user.mentor?
-            = link_to 'View', mentor_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase
-- if current_user.admin?
-  = link_to  "Dashboard", admin_root_path
-- elsif current_user.mentor?
-  = link_to  "Dashboard", mentor_root_path
+        %th{:scope => "col"} 
+          %h6 Company 
+        %th{:scope => "col"} 
+          %h6 Sector
+        %th{:scope => "col"} 
+          %h6 Location  
+        %th{:scope => "col", class: 'text-center'} 
+          %h6 Phase 
+        %th{:scope => "col", class: 'text-center'} 
+          %h6 Status 
+        %th{:scope => "col", class: 'text-center'} 
+          %h6 Actions 
+    %tbody
+      - @companies.each do |company|
+        %tr.tbody-tr-border
+          %td
+            - if company.current_phase
+              =link_to(admin_company_company_phase_path(company, company.current_phase)) do
+                %img{:src => "#{company.logo}", class: "img-avatar mr-2"}
+                = company.name
+            - else 
+              %img{:src => "#{company.logo}", class: "img-avatar mr-2"}
+              = company.name
+          %td= company.tags.first.name if company.tags.present?
+          %td= company.location.city
+          %td.text-center= company.current_phase.phase.phase_number.value if company.current_phase.present?
+          %td.text-center= calculate_task_progress(company.current_phase) if company.current_phase.present?
+          %td.text-center  
+            - if current_user.admin?
+              = link_to(edit_admin_company_path(company), class: 'text-muted') do
+                = material_icon.edit
+            - elsif current_user.mentor?
+              = link_to 'View', mentor_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase

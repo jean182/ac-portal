@@ -12,7 +12,6 @@ Rails.application.routes.draw do
              }
 
   namespace :admin do
-    root 'dashboard#show'
     resources :users, only: [:index, :show, :destroy]
     post 'users/:id/reactivate_user' => 'users#reactivate_user', as: :reactivate_user
     post 'users/:id/send_reset_password_instructions' => 'users#send_reset_password_instructions', as: :send_reset_password_instructions
@@ -41,6 +40,7 @@ Rails.application.routes.draw do
       put :refuse
     end
     resources :logs, only: :index
+    root 'companies#index'
   end
 
   namespace :mentor do
