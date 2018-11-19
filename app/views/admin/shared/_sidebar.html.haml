@@ -1,6 +1,6 @@
 .wrapper
   %nav#sidebar
-    - @phases.each_with_index do |phase, index|
+    -  @phases.each do |phase, index|
       - if current_user.admin?
         - path = admin_company_company_phase_path(@company, phase)
       - elsif current_user.mentor?

@@ -36,12 +36,13 @@ class Admin::ChecklistsController < Admin::AdminBaseController
   end
 
   def destroy
-    if @checklist.destroy
-      flash[:success] = "Deleted succesfully."
-      redirect_to admin_tags_path
+    if @checklist.phase.companies.count.positive?
+      flash[:error] = "This checklist has clients associated with it. You cannot delete it."
     else
-      flash[:error] = "Could not process your request"
+      @checklist.destroy
+      flash[:success] = "Deleted succesfully."
     end
+    redirect_to admin_checklists_path
   end
 
   private
