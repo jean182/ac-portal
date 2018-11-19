@@ -1,0 +1,35 @@
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm
+    %thead.thead
+      %tr
+        %th{:scope => "col"} 
+          %h6 Email
+        %th{:scope => "col"} 
+          %h6 Role
+        %th{:scope => "col"} 
+          %h6 Phone
+        %th{:scope => "col"} 
+          %h6.text-center Actions
+    %tbody
+      - @mentors.each do |mentor|
+        %tr
+          %td
+            = mentor.email
+            = " (Invitation pending)" if mentor.invitation_created_at.present? && mentor.invitation_accepted_at.nil?
+          %td
+            = mentor.type
+          %td
+            = mentor.phone if mentor.phone.present?
+          %td
+            .dropdown.text-center
+              %a#dropdownMenuLink{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
+                = material_icon.more_vert
+              .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+                = link_to("Edit", edit_admin_mentor_path(mentor), class: 'dropdown-item')
+                - if mentor.deleted_at.present?
+                  = button_to "Restore", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
+                -else
+                  = link_to("Disable", admin_mentor_path(mentor), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless mentor == current_user
+                = link_to("Reset password", admin_send_reset_password_instructions_path(mentor), data: { confirm: "Are you sure?" }, method: :post, class: 'dropdown-item')
+
+            

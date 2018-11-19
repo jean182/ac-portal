@@ -4,7 +4,9 @@ class Admin::UsersController < Admin::AdminBaseController
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def index
-    @users = User.all
+    @clients = Client.all
+    @admins = Admin.all
+    @mentors = Mentor.all
   end
 
   def show

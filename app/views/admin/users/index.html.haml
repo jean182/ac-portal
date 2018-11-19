@@ -1,31 +1,15 @@
-%h1 User Management
-= link_to  "Dashboard", admin_root_path
-|
-= link_to 'Admin List', admin_admins_path
-|
-= link_to 'Mentor List', admin_mentors_path
-|
-= link_to 'Client List', admin_clients_path
-.container.container-content
-  %table.table.table-borderless.table-responsive-sm
-    %thead.thead
-      %tr
-        %th{:scope => "col"} 
-          %h6 Email
-        %th{:scope => "col"} 
-          %h6 Role
-        %th{:scope => "col"} 
-          %h6 Actions
-    %tbody
-      - @users.each do |user|
-        %tr
-          %td
-            = link_to user.email, [:admin, user]
-          %td
-            = user.type
-          %td
-            - if user.deleted_at.present?
-              = button_to "Restore user", {controller: "users", action: "reactivate_user", id: user.id}, {class: 'btn btn-warning btn-sm', :data => { confirm: "Are you sure?" }} 
-            -else
-              = link_to("Disable user", admin_user_path(user), data: { :confirm => "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-sm') unless user == current_user
-            = link_to("Reset password", admin_send_reset_password_instructions_path(user), data: { confirm: "Are you sure?" }, method: :post, class: 'btn btn-success btn-sm')
+.d-flex.flex-row.align-items-center
+  %h1{ class: 'flex-grow-1'} User Management
+  = link_to('New Client', new_admin_client_path, class: 'btn btn-primary btn-sm', id: 'new-user')
+%nav
+  #nav-tab.nav.nav-tabs{role: "tablist"}
+    %a#nav-client-tab.nav-item.nav-link.active{"aria-controls" => "nav-client", "aria-selected" => "true", "data-toggle" => "tab", href: "#nav-client", role: "tab"} Clients
+    %a#nav-admin-tab.nav-item.nav-link{"aria-controls" => "nav-admin", "aria-selected" => "false", "data-toggle" => "tab", href: "#nav-admin", role: "tab"} Admins
+    %a#nav-mentor-tab.nav-item.nav-link{"aria-controls" => "nav-mentor", "aria-selected" => "false", "data-toggle" => "tab", href: "#nav-mentor", role: "tab"} Mentors
+#nav-tabContent.tab-content
+  #nav-client.tab-pane.fade.show.active{"aria-labelledby" => "nav-client-tab", role: "tabpanel"}
+    = render 'admin/clients/client_list'
+  #nav-admin.tab-pane.fade{"aria-labelledby" => "nav-admin-tab", role: "tabpanel"}
+    = render 'admin/admins/admin_list'
+  #nav-mentor.tab-pane.fade{"aria-labelledby" => "nav-mentor-tab", role: "tabpanel"}
+    = render 'admin/mentors/mentor_list'
