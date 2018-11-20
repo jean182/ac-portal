@@ -28,5 +28,5 @@
                 - if admin.deleted_at.present?
                   = button_to "Restore", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
                 -else
-                  = link_to("Disable", admin_admin_path(admin), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item')
+                  = link_to("Disable", admin_admin_path(admin), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless current_user == admin
                 = link_to("Reset password", admin_send_reset_password_instructions_path(admin), data: { confirm: "Are you sure?" }, method: :post, class: 'dropdown-item')
