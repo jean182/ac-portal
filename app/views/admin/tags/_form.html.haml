@@ -5,5 +5,5 @@
       = form.text_field :name, class: "form-control", placeholder: "Tag Name"
     .form-group.col-md-4
       = form.select(:tag_type, Tag.tag_types.keys.map {|type| [type.titleize, type]}, {include_blank: 'Tag type'}, {class: 'custom-select'})
-  .actions
-    = form.submit "Add", class: "btn btn-primary float-right"
+    .actions
+      = form.submit "Add", class: "btn btn-primary float-right"
