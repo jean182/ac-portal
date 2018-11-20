@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load", function () {
-  let button = $('#new-user');
-  let url = window.location.toString();
+  var button = $('#new-user');
+  var url = window.location.toString();
   $('#nav-client-tab').on('click', function (e) {
     e.preventDefault()
     button.attr("href", url.replace("/users", "/clients/new"));
@@ -20,7 +20,7 @@ $(document).on("turbolinks:load", function () {
   $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
     localStorage.setItem('activeTab', $(e.target).attr('href'));
   });
-  let activeTab = localStorage.getItem('activeTab');
+  var activeTab = localStorage.getItem('activeTab');
   if (activeTab) {
     $('#nav-tab a[href="' + activeTab + '"]').tab('show');
     if (activeTab == "#nav-client") {
