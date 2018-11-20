@@ -1,22 +1,21 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.pb-0.pt-0
-  .container
-    = link_to(root_path, class: "navbar-brand pt-0 pb-0") do
-      %img{ src: "/images/ac-portal-logo.png", class: 'd-inline-block align-top', width: "60", height: "60" }
-    %button.navbar-toggler.p-0.border-0{"aria-controls" => "navbarMobile", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarMobile", "data-toggle" => "collapse", type: "button"}
-      %span.navbar-toggler-icon
-    #navbarMobile.collapse.navbar-collapse
-      %ul.navbar-nav.ml-auto.d-flex.align-items-center
-        = render 'shared/nav_links'
-        - if user_signed_in?
-          %li.nav-item.dropdown
-            %a#navbarDropdown.nav-link.dropdown.d-flex.align-items-center{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
-              = current_user.name.split(" ")[0] if current_user.name.present?
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
-              = link_to 'Dashboard',admin_root_path, class: "dropdown-item" if current_user.admin?
-              = link_to 'Dashboard',mentor_root_path, class: "dropdown-item" if current_user.mentor?
-              = link_to 'Dashboard',member_root_path, class: "dropdown-item" if current_user.client?
-              .dropdown-divider
-              = link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'dropdown-item'
-        - else
-          %li.nav-item
-            = link_to "Login", new_user_session_path, class: 'nav-link'
+  = link_to(admin_root_path, class: "navbar-brand pt-0 pb-0 img-float") do
+    %img{ src: "/images/ac-portal-logo.png", class: 'd-inline-block align-top', width: "65", height: "65" }
+  %button.navbar-toggler.p-0.border-0{"aria-controls" => "navbarMobile", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarMobile", "data-toggle" => "collapse", type: "button"}
+    %span.navbar-toggler-icon
+  #navbarMobile.collapse.navbar-collapse
+    %ul.navbar-nav.ml-auto.d-flex.align-items-center
+      = render 'shared/nav_links'
+      - if user_signed_in?
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown.d-flex.align-items-center{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
+            = current_user.name.split(" ")[0] if current_user.name.present?
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+            = link_to 'Dashboard',admin_root_path, class: "dropdown-item" if current_user.admin?
+            = link_to 'Dashboard',mentor_root_path, class: "dropdown-item" if current_user.mentor?
+            = link_to 'Dashboard',member_root_path, class: "dropdown-item" if current_user.client?
+            .dropdown-divider
+            = link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+      - else
+        %li.nav-item
+          = link_to "Login", new_user_session_path, class: 'nav-link'

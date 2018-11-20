@@ -16,3 +16,4 @@
           %div
             = link_to(edit_admin_checklist_path(checklist), class: 'btn') do
               = material_icon.edit
+            = link_to( 'Delete',admin_checklist_path(checklist), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn btn-danger btn-sm')

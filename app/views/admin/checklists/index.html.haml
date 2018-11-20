@@ -3,15 +3,15 @@
   = link_to('New Checklist', new_admin_checklist_path, class: 'btn btn-primary btn-sm')
 .container.container-content
   %h4 Phase 1
-  = render get_checklists("first_phase", @checklists)
+  = render sort_by_phase("first_phase")
 .container.container-content
   %h4 Phase 2
-  = render get_checklists("second_phase", @checklists)
+  = render sort_by_phase("second_phase")
 .container.container-content
   %h4 Phase 3
-  = render get_checklists("third_phase", @checklists)
+  = render sort_by_phase("third_phase")
 .container.container-content
   %h4 Phase 4
-  = render get_checklists("fourth_phase", @checklists)
+  = render sort_by_phase("fourth_phase")
 
     

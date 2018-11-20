@@ -9,7 +9,7 @@ class Admin::CompanyPhasesController < Admin::AdminBaseController
   end
 
   def show
-    @phases = @company.company_phases
+    @phases = @company.company_phases.order(:phase_id)
   end
 
   def edit; end

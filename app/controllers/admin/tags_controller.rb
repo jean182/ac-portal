@@ -14,7 +14,7 @@ class Admin::TagsController < Admin::AdminBaseController
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
-      redirect_to admin_tag_path(@tag)
+      redirect_to admin_tags_path
     else
       render :new
     end
@@ -24,7 +24,7 @@ class Admin::TagsController < Admin::AdminBaseController
 
   def update
     if @tag.update(tag_params)
-      redirect_to admin_tag_path(@tag)
+      redirect_to admin_tags_path
     else
       render :edit
     end
