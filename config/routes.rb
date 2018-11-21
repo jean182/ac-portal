@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :tags
     resources :companies do
       resources :company_phases, except: [:new, :create, :destroy], path: 'phase'
-      resources :time_trackings, only: :index
+      resources :time_trackings, only: :index, path: 'time-tracker'
     end
     resources :checklists
     resources :company_tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
       put :approve
       put :refuse
     end
-    resources :time_trackings, only: [:index, :new, :create]
+    resources :time_trackings, only: [:index, :new, :create], path: 'time-tracker'
   end
 
   namespace :member do

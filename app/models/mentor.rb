@@ -40,6 +40,16 @@ class Mentor < User
 
   accepts_nested_attributes_for :mentor_info
 
+  def current_monthly_hours
+    total = time_trackings.where('extract(month from date) = ?', Time.now.month)
+    total.map(&:hours_spent).sum
+  end
+
+  def company_monthly_hours(company)
+    total = time_trackings.where(["extract(month from date) = ? and company_id = ?", Time.now.month, company.id])
+    total.map(&:hours_spent).sum
+  end
+
   private
 
   def create_mentor_info

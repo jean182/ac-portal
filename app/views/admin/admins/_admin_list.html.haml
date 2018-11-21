@@ -3,9 +3,9 @@
     %thead.thead
       %tr
         %th{:scope => "col"} 
-          %h6 Email
+          %h6 Name
         %th{:scope => "col"} 
-          %h6 Role
+          %h6 Email
         %th{:scope => "col"} 
           %h6 Phone
         %th{:scope => "col"} 
@@ -14,10 +14,10 @@
       - @admins.each do |admin|
         %tr
           %td
+            = admin.name if admin.name.present?
+          %td
             = admin.email
             = " (Invitation pending)" if admin.invitation_created_at.present? && admin.invitation_accepted_at.nil?
-          %td
-            = admin.type
           %td
             = admin.phone if admin.phone.present?
           %td
@@ -26,7 +26,7 @@
                 = material_icon.more_vert
               .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                 - if admin.deleted_at.present?
-                  = button_to "Restore", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
+                  = button_to "Enable User", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
                 -else
-                  = link_to("Disable", admin_admin_path(admin), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless current_user == admin
+                  = link_to("Disable User", admin_admin_path(admin), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless current_user == admin
                 = link_to("Reset password", admin_send_reset_password_instructions_path(admin), data: { confirm: "Are you sure?" }, method: :post, class: 'dropdown-item')

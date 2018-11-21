@@ -1,0 +1,20 @@
+%h1 Hours logged
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm{id: ""}
+    %thead
+      %tr
+        %th Date
+        %th Hours Spent
+        %th Notes
+        %th Company
+    %tbody#topics
+      - @mentor.time_trackings.each do |time_tracking|
+        %tr{id: "log-#{time_tracking.id}"}
+          %td= time_tracking.date
+          %td= time_tracking.hours_spent
+          %td= time_tracking.notes
+          %td= time_tracking.company.name
+      %td Current Monthly Hours
+      %td= @mentor.current_monthly_hours
+      %td
+      %td

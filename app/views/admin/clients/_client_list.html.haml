@@ -3,6 +3,8 @@
     %thead.thead
       %tr
         %th{:scope => "col"} 
+          %h6 Name
+        %th{:scope => "col"} 
           %h6 Email
         %th{:scope => "col"} 
           %h6 Company
@@ -12,12 +14,14 @@
           %h6 Actions
     %tbody
       - @clients.each do |client|
-        %tr
+        %tr{ class: "#{disabled_user(client.deleted_at)}" }
+          %td
+            = client.name if client.name.present?
           %td
             = client.email
             = " (Invitation pending)" if client.invitation_created_at.present? && client.invitation_accepted_at.nil?
           %td
-            = client.client_info.company.name
+            = link_to( client.client_info.company.name, admin_company_company_phase_path(client.client_info.company, client.client_info.company.current_phase))
           %td
             = client.phone if client.phone.present?
           %td
@@ -26,7 +30,7 @@
               = material_icon.more_vert
             .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
               - if client.deleted_at.present?
-                = button_to "Restore", {controller: "clients", action: "reactivate_client", id: client.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
+                = button_to "Enable User", {controller: "clients", action: "reactivate_client", id: client.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
               -else
-                = link_to("Disable", admin_client_path(client), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item')
+                = link_to("Disable User", admin_client_path(client), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item')
               = link_to("Reset password", admin_send_reset_password_instructions_path(client), data: { confirm: "Are you sure?" }, method: :post, class: 'dropdown-item')

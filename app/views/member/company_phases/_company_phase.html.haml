@@ -2,7 +2,10 @@
 .row
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
     %h5.mb-3= "Learning Objectives"
-    = @phase.learning_objectives.html_safe
+    - if @phase.learning_objectives.present?
+      = @phase.learning_objectives.html_safe 
+    - else
+      %p There's no learning objective defined yet
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Milestones"
     - @phase.milestones.each do |milestone|

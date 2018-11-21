@@ -11,6 +11,7 @@ class Admin::AdminsController < Admin::UsersController
       @admin.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Admin was successfully created.')
     else
+      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end

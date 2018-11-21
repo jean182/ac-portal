@@ -36,6 +36,11 @@ class Company < ApplicationRecord
     company_phases.with_status(:active).first
   end
 
+  def current_monthly_hours
+    total = time_trackings.where('extract(month from date) = ?', Time.now.month)
+    total.map(&:hours_spent).sum
+  end
+
   private
 
   def update_company_phases

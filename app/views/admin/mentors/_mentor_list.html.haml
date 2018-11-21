@@ -3,23 +3,30 @@
     %thead.thead
       %tr
         %th{:scope => "col"} 
+          %h6 Name
+        %th{:scope => "col"} 
           %h6 Email
         %th{:scope => "col"} 
-          %h6 Role
-        %th{:scope => "col"} 
           %h6 Phone
+        %th.text-center{:scope => "col"} 
+          %h6 Time Tracking
         %th{:scope => "col"} 
           %h6.text-center Actions
     %tbody
       - @mentors.each do |mentor|
         %tr
           %td
+            = mentor.name if mentor.name.present?
+          %td
             = mentor.email
             = " (Invitation pending)" if mentor.invitation_created_at.present? && mentor.invitation_accepted_at.nil?
           %td
-            = mentor.type
-          %td
             = mentor.phone if mentor.phone.present?
+          
+          %td.text-center.d-flex.align-center.justify-content-around{class: "#{exceeded_quota(mentor.current_monthly_hours)}"}
+            %p= mentor.current_monthly_hours
+            = link_to(admin_mentor_path(mentor)) do
+              = material_icon.access_time
           %td
             .dropdown.text-center
               %a#dropdownMenuLink{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
@@ -27,9 +34,9 @@
               .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                 = link_to("Edit", edit_admin_mentor_path(mentor), class: 'dropdown-item')
                 - if mentor.deleted_at.present?
-                  = button_to "Restore", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
+                  = button_to "Enable User", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
                 -else
-                  = link_to("Disable", admin_mentor_path(mentor), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless mentor == current_user
+                  = link_to("Disable User", admin_mentor_path(mentor), data: { confirm: "Are you sure?" }, method: :delete, class: 'dropdown-item') unless mentor == current_user
                 = link_to("Reset password", admin_send_reset_password_instructions_path(mentor), data: { confirm: "Are you sure?" }, method: :post, class: 'dropdown-item')
 
             
