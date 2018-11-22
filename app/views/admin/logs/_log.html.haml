@@ -3,10 +3,10 @@
   %td= log.loggable_type
   %td= log.user.email unless log.user.nil?
   %td
-    = log.loggable.company.name if log.loggable_type == "CompanyTask"
-    = log.loggable.company_phase.company.name if log.loggable_type == "Milestone"
+    = log.loggable.company.name if log.loggable.present? && log.loggable_type == "CompanyTask"
+    = log.loggable.company_phase.company.name if log.loggable.present? && log.loggable_type == "Milestone"
   %td
-    = log.loggable.task.description if log.loggable_type == "CompanyTask"
-    = log.loggable.title if log.loggable_type == "Milestone"
-  %td= log.loggable.approved == true ? 'Approved' : 'Rejected'
+    = log.loggable.task.description if log.loggable.present? && log.loggable_type == "CompanyTask"
+    = log.loggable.title if log.loggable.present? && log.loggable_type == "Milestone"
+  %td= log.loggable.present? && log.loggable.approved == true ? 'Approved' : 'Rejected'
   %td= log.created_at.strftime("%-d/%-m/%y: %H:%M %Z")
