@@ -1,11 +1,13 @@
-%h1 Hours logged
-= link_to "Track new", new_mentor_time_tracking_path, class: 'btn btn-primary btn-sm'
-%table.table.table-bordered.table-striped{id: ""}
-  %thead
-    %tr
-      %th Date
-      %th Hours Spent
-      %th Notes
-      %th Company
-  %tbody#topics
-    = render @time_trackings
+.d-flex.flex-row.align-items-center
+  %h1{ class: 'flex-grow-1'} Hours logged
+  = link_to "Track new", new_mentor_time_tracking_path, class: 'btn btn-primary btn-sm'
+.container.container-content
+  %table.table.table-borderless.table-responsive-sm{id: ""}
+    %thead
+      %tr
+        %th Date
+        %th Hours Spent
+        %th Notes
+        %th Company
+    %tbody#topics
+      = render @time_trackings

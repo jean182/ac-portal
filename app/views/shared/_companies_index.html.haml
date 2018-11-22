@@ -13,6 +13,8 @@
         %th{:scope => "col", class: 'text-center'} 
           %h6 Status 
         %th{:scope => "col", class: 'text-center'} 
+          %h6 Time Tracking 
+        %th{:scope => "col", class: 'text-center'} 
           %h6 Actions 
     %tbody
       - @companies.each do |company|
@@ -29,6 +31,10 @@
           %td= company.location.city
           %td.text-center= company.current_phase.phase.phase_number.value if company.current_phase.present?
           %td.text-center= calculate_task_progress(company.current_phase) if company.current_phase.present?
+          %td.text-center.d-flex.align-center.justify-content-around{class: "#{exceeded_quota(company.current_monthly_hours)}"}
+            = company.current_monthly_hours
+            = link_to(admin_company_time_trackings_path(company)) do
+              = material_icon.access_time
           %td.text-center  
             - if current_user.admin?
               = link_to(edit_admin_company_path(company), class: 'text-muted') do

@@ -21,6 +21,7 @@ class Checklist < ApplicationRecord
 
   accepts_nested_attributes_for :tasks, reject_if: :all_blank, allow_destroy: true
   delegate :phase_number, to: :phase
+  validates :name, presence: true
 
   def mentors
     mentors = []

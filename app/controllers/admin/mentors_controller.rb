@@ -1,7 +1,7 @@
 class Admin::MentorsController < Admin::UsersController
   before_action :authenticate_user!
   before_action :authenticate_admin!, except: :show
-  before_action :set_mentor, only: [:edit, :update]
+  before_action :set_mentor, only: [:edit, :update, :show]
 
   def new
     @mentor = Mentor.new
@@ -15,9 +15,12 @@ class Admin::MentorsController < Admin::UsersController
       @mentor.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Mentor was successfully created.')
     else
+      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end
+
+  def show; end
 
   def destroy
     @mentor = Mentor.find(params[:id])

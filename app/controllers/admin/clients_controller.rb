@@ -12,6 +12,7 @@ class Admin::ClientsController < Admin::UsersController
       @client.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Client was successfully created.')
     else
+      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end
