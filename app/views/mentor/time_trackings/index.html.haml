@@ -11,3 +11,6 @@
         %th Company
     %tbody#topics
       = render @time_trackings
+      %td 
+        %b Current Monthly Hours
+      %td= current_user.current_monthly_hours
