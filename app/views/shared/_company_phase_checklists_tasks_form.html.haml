@@ -2,13 +2,10 @@
   .div-spacer
     #accordionChecklist.accordion
       .card
-        .card-header.bg-white{id: "heading-#{index}"}
-          .row
-            .col-sm-8
-              %h6.mb-0=checklist.name
-            .col-sm-4
-              %button.float-right.btn.btn-link{"aria-controls" => "collapse-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-#{index}", "data-toggle" => "collapse", type: "button"}
-                = fa_icon "angle-down", class: "fa-2x text-dark"
+        .card-header.d-flex.align-items-center{id: "heading-#{index}"}
+          %h5.flex-grow-1.mb-0=checklist.name
+          %button.btn.btn-link{"aria-controls" => "collapse-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-#{index}", "data-toggle" => "collapse", type: "button"}
+            = material_icon.keyboard_arrow_down
         .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
           .card-body
             - checklist.tasks.each_with_index do |task, index|
