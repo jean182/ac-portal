@@ -1,6 +1,7 @@
 class Mentor::CompanyPhasesController < Mentor::MentorBaseController
   before_action :set_company
   before_action :set_phase, only: [:show, :edit, :update]
+  before_action :set_message, only: [:show, :edit, :update]
 
   layout 'phase/application'
 
@@ -27,6 +28,10 @@ class Mentor::CompanyPhasesController < Mentor::MentorBaseController
 
   def set_company
     @company ||= Company.find(params[:company_id])
+  end
+
+  def set_message
+    @message = Message.new
   end
 
   def phase_params

@@ -11,7 +11,7 @@
                 = fa_icon "angle-down", class: "fa-2x text-dark"
         .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
           .card-body
-            - checklist.tasks.each do |task|
+            - checklist.tasks.each_with_index do |task, index|
               %ul.list-unstyled
                 %li
                   =task.description 
@@ -26,3 +26,12 @@
                       -elsif current_user.is_a?(Mentor)
                         = link_to 'Approve', mentor_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-success gutter-top' if @company_task.approved != true
                         = link_to 'Refuse', mentor_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-danger gutter-top' if @company_task.approved != false
+                  - if @phase == @company.current_phase
+                    = render 'shared/form_message', current_company_task: task.company_tasks.find_or_create_by(company: @company).id
+                  - if task.company_tasks.find_by(company: @company).present?
+                    - if task.company_tasks.find_by(company: @company).messages.present?
+                      %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
+                        Show comments
+                      .collapse{id: "collapse-comment-#{index}"}
+                        - task.company_tasks.find_by(company: @company).messages.each do |message|
+                          =render 'member/company_phases/comment', message: message

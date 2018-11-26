@@ -15,4 +15,5 @@
 class Message < ApplicationRecord
   belongs_to :company_task
   belongs_to :user
+  validates :text, presence: true
 end

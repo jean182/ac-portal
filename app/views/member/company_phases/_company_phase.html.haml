@@ -47,12 +47,13 @@
                         - elsif @company_task.approved
                           %label.text-success Approved
                       = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
+                      - if @phase == @company.current_phase
+                        = render 'shared/form_message', current_company_task: task.company_tasks.find_or_create_by(company: @company).id
                       - if task.company_tasks.find_by(company: @company).present?
-                        - if @phase == @company.current_phase
-                          = render 'member/company_phases/form_message', current_company_task: task.company_tasks.find_by(company: @company).id
                         - if task.company_tasks.find_by(company: @company).messages.present?
                           %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
                             Show comments
                           .collapse{id: "collapse-comment-#{index}"}
                             - task.company_tasks.find_by(company: @company).messages.each do |message|
                               =render 'member/company_phases/comment', message: message
+                        
