@@ -1,14 +1,15 @@
 = render 'shared/company_phase_title_row'
-= simple_form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
-  .row
-    .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+.row
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+    = simple_form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
       %h5.mb-3= "Learning Objectives"
       %div
         = render 'shared/company_phase_learning_objectives_form', form: form
-    .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
+    = simple_form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
       %h5.mb-3= "Milestones"
       %div
         = render 'shared/company_phase_milestones_form', form: form
-    .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
-      %h5.mb-3= "Checklists"
-      = render 'shared/company_phase_checklists_tasks_form'
+  .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
+    %h5.mb-3= "Checklists"
+    = render 'shared/company_phase_checklists_tasks_form'

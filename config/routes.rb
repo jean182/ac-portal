@@ -72,4 +72,5 @@ Rails.application.routes.draw do
       put :mark_incomplete
     end
   end
+  resources :messages
 end
