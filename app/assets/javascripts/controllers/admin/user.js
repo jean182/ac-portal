@@ -4,7 +4,7 @@ $(document).on("turbolinks:load", function () {
   $('#nav-client-tab').on('click', function (e) {
     e.preventDefault()
     button.attr("href", url.replace("/users", "/clients/new"));
-    button.html('New Client')
+    button.html('New User')
   })
   $('#nav-admin-tab').on('click', function (e) {
     e.preventDefault()
@@ -25,7 +25,7 @@ $(document).on("turbolinks:load", function () {
     $('#nav-tab a[href="' + activeTab + '"]').tab('show');
     if (activeTab == "#nav-client") {
       button.attr("href", url.replace("/users", "/clients/new"));
-      button.html('New Client')
+      button.html('New User')
     } else if (activeTab == "#nav-admin") {
       button.attr("href", url.replace("/users", "/admins/new"));
       button.html('New Admin')

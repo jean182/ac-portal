@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @client] do |f|
+  - if @client.new_record?
+    = f.simple_fields_for :client_info do |f|
+      = f.input :company_id, collection: Company.all
+  = render 'admin/shared/form_nested', f: f
+  .form-group
+    = f.submit @client.new_record? ? "Create User" : "Update User", :class => 'btn btn-primary'

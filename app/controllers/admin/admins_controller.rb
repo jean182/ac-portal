@@ -1,4 +1,5 @@
 class Admin::AdminsController < Admin::UsersController
+  before_action :set_admin, only: [:edit, :update]
 
   def new
     @admin = Admin.new
@@ -16,6 +17,16 @@ class Admin::AdminsController < Admin::UsersController
     end
   end
 
+  def edit; end
+
+  def update
+    if @admin.update(admin_params)
+      redirect_to(admin_users_path, notice: 'Admin was successfully updated.')
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @admin = Admin.find(params[:id])
     @admin.soft_delete
@@ -30,6 +41,10 @@ class Admin::AdminsController < Admin::UsersController
   end
 
   private
+
+  def set_admin
+    @admin ||= Admin.find(params[:id])
+  end
 
   def admin_params
     params.require(:admin).permit(user_params)
