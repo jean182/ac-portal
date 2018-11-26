@@ -25,6 +25,7 @@
               %a#dropdownMenuLink{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
                 = material_icon.more_vert
               .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+                = link_to("Edit", edit_admin_admin_path(admin), class: 'dropdown-item')
                 - if admin.deleted_at.present?
                   = button_to "Enable User", {controller: "admins", action: "reactivate_admin", id: admin.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
                 -else

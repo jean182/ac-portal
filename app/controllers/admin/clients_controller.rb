@@ -1,4 +1,5 @@
 class Admin::ClientsController < Admin::UsersController
+  before_action :set_client, only: [:edit, :update]
 
   def new
     @client = Client.new
@@ -17,6 +18,16 @@ class Admin::ClientsController < Admin::UsersController
     end
   end
 
+  def edit; end
+
+  def update
+    if @client.update(client_params)
+      redirect_to(admin_users_path, notice: 'Client was successfully updated.')
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @client = Client.find(params[:id])
     @client.soft_delete
@@ -31,6 +42,10 @@ class Admin::ClientsController < Admin::UsersController
   end
 
   private
+
+  def set_client
+    @client ||= Client.find(params[:id])
+  end
 
   def client_params
     params.require(:client).permit(user_params, client_info_attributes: [:id, :description, :company_id])

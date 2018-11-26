@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @admin] do |f|
+  .form-group
+  = render 'admin/shared/form_nested', f: f
+  .form-group
+    = f.submit @admin.new_record? ? "Create Admin" : "Update Admin", :class => 'btn btn-primary'
