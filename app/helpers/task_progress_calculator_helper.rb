@@ -1,5 +1,5 @@
 module TaskProgressCalculatorHelper
-  def calculate_task_progress(phase)
+  def calculate_task_progress(phase, company)
     return 100 if phase.status == :completed
     return 0 if phase.status == :inactive
 
@@ -8,7 +8,7 @@ module TaskProgressCalculatorHelper
 
     phase.checklists.each do |checklist|
       checklist.tasks.each do |task|
-        completed_tasks += task.company_tasks.where(approved: true, company: @company).count
+        completed_tasks += task.company_tasks.where(approved: true, company: company).count
         length += 1
       end
     end
