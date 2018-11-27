@@ -6,7 +6,7 @@ class Member::CompanyPhasesController < Member::MemberBaseController
   layout 'phase/application'
 
   def index
-    @phase = CompanyPhase.where.not(["company_phases.status = ? and company_id = ?", CompanyPhase.statuses[:inactive], @company.id])
+    @phase = @company.current_phase
   end
 
   def show

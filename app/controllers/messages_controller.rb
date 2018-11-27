@@ -1,23 +1,30 @@
 class MessagesController < ApplicationController
-  def new; end
+  respond_to :html
+
+  def new
+    @message = Message.new(company_task_id: params[:company_task_id])
+    respond_with_modal(@message)
+  end
 
   def create
-    @message = Message.new(message_params)
+    @message = current_user.messages.build(message_params)
     authorize @message
-    if @message.save
-      @message.company_task.mentors.each do |mentor|
-        NotificationMailer.new_task_message(mentor, @message.user, @message.company_task).deliver_later
+    @task_id = message_params.require(:company_task_id).to_i
+    respond_to do |format|
+      if @message.save
+        @message.company_task.mentors.each do |mentor|
+          NotificationMailer.new_task_message(mentor, @message.user, @message.company_task).deliver_later
+        end
+        format.js
+      else
+        format.js
       end
-      redirect_to request.referer
-    else
-      redirect_to request.referer
-      flash[:error] = "Please write something!"
     end
   end
 
   private
 
   def message_params
-    params.require(:message).permit(:text, :company_task_id, :user_id)
+    params.require(:message).permit(:text, :company_task_id)
   end
 end

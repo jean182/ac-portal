@@ -45,12 +45,12 @@
                           %label.text-success Approved
                       = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
                       - if @phase == @company.current_phase
-                        = render 'shared/form_message', current_company_task: task.company_tasks.find_or_create_by(company: @company).id
-                      - if task.company_tasks.find_by(company: @company).present?
-                        - if task.company_tasks.find_by(company: @company).messages.present?
-                          %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
-                            Show comments
-                          .collapse{id: "collapse-comment-#{index}"}
+                        = link_to 'New Message', new_message_path(company_task_id: task.company_tasks.find_or_create_by(company: @company).id), data: { modal: true }
+                      - if task.company_tasks.find_by(company: @company).present? && task.company_tasks.find_by(company: @company).messages.present?
+                        %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
+                          %b="Show comments(#{task.company_tasks.find_by(company: @company).messages.count})"
+                        .collapse{id: "collapse-comment-#{index}"}
+                          %div{ id: "messages-#{task.company_tasks.find_or_create_by(company: @company).id}" }
                             - task.company_tasks.find_by(company: @company).messages.each do |message|
-                              =render 'member/company_phases/comment', message: message
+                              =render 'messages/message', message: message
                         

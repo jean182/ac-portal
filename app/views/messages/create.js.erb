@@ -1,0 +1,7 @@
+<% if @message.errors.any? %>
+  $('.modal-errors').html("")
+  $('.modal-errors').append('<%= j render("shared/errors", object: @message) %>')
+<% else %>
+  $('.modal').modal('toggle');
+  $('#messages-<%= @task_id %>').append('<%= j render (@message) %>')
+<% end %>
