@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Please login with a current client."
     redirect_to(request.referer || root_path)
   end
+
+  def respond_with_modal(*args, **options)
+    respond_with(*args, responder: ModalResponder, **options)
+  end
 end
