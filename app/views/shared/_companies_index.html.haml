@@ -20,7 +20,7 @@
       - @companies.each do |company|
         - path = nil
         - if current_user.admin?
-          - path = admin_company_company_phase_path(company, company.current_phase)
+          - path = admin_company_company_phase_path(company, company.current_phase) if company.current_phase.present?
         - elsif current_user.mentor?
           - path = mentor_company_company_phase_path(company, company.current_phase)
         %tr.tbody-tr-border
