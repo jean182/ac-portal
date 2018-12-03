@@ -8,49 +8,57 @@
       %p There's no learning objective defined yet
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Milestones"
-    - @phase.milestones.each do |milestone|
-      .div-spacer
-        .custom-control.custom-checkbox.p-3
-          - if !milestone.approved && @phase == @company.current_phase
-            = check_box_tag(milestone.title, milestone.id, milestone.complete?, { class: 'js--milestone-checkbox' })
-          = milestone.title
-          - if milestone.approved == false
-            %label.text-danger Refused
-          - elsif milestone.approved
-            %label.text-success Approved
-          = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--milestone-tag-#{milestone.id}")
+    %ul.list-group.list-group-flush
+      - @phase.milestones.each do |milestone|
+        %li.list-group-item
+          .custom-control.custom-checkbox.p-2
+            - if !milestone.approved && @phase == @company.current_phase
+              = check_box_tag milestone.title, milestone.id, milestone.complete?, id: dom_id(milestone), class: "custom-control-input js--milestone-checkbox", type: "checkbox"
+              = label_tag dom_id(milestone), milestone.title, class: "custom-control-label"
+            - if milestone.approved == false
+              %label.text-danger= "Rejected"
+            - elsif milestone.approved
+              %p.m-0
+                =milestone.title
+                %span.text-success.text-center= "Approved"
+            = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--milestone-tag-#{milestone.id}")
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Checklists"
     - @phase.checklists.each_with_index do |checklist, index|
-      .div-spacer
-        #accordionChecklist.accordion
-          .card
-            .card-header.d-flex.align-items-center{id: "heading-#{index}"}
-              %h5.flex-grow-1.mb-0=checklist.name
-              %button.btn.btn-link{"aria-controls" => "collapse-accordion-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-accordion-#{index}", "data-toggle" => "collapse", type: "button"}
-                = material_icon.keyboard_arrow_down
-            .collapse{id: "collapse-accordion-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
-              .card-body
+      #accordionChecklist.accordion
+        .card
+          .card-header.d-flex.align-items-center{id: "heading-#{index}"}
+            %h5.flex-grow-1.mb-0=checklist.name
+            %button.btn.btn-link{"aria-controls" => "collapse-accordion-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-accordion-#{index}", "data-toggle" => "collapse", type: "button"}
+              = material_icon.keyboard_arrow_down
+          .collapse{id: "collapse-accordion-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
+            .card-body
+              %div.list-group.list-group-flush
                 - checklist.tasks.each_with_index do |task, index|
-                  .div-spacer
-                    .custom-control.custom-checkbox.p-3
-                      - if @phase == @company.current_phase
-                        = check_box_tag(task.description, task.id, task.completed_by_company?(@company.id), { class: 'js--task-checkbox' })
-                      =task.description
-                      - @company_task = task.company_tasks.find_by(complete: true, company: @company)
-                      - unless @company_task.nil?
-                        - if @company_task.approved == false
-                          %label.text-danger Refused
-                        - elsif @company_task.approved
-                          %label.text-success Approved
+                  - @company_task = task.company_tasks.find_or_create_by(company: @company)
+                  %div.list-group-item.d-flex.justify-content-between
+                    .custom-control.custom-checkbox.d-flex.p-2
+                      - if !@company_task.approved && @phase == @company.current_phase
+                        = check_box_tag task.description, task.id, task.completed_by_company?(@company.id), id: dom_id(task), class: "custom-control-input js--task-checkbox", type: "checkbox"
+                        = label_tag dom_id(task), task.description, class: "custom-control-label"
+                        %label.text-danger.ml-2= "Rejected" if @company_task.approved == false
+                      - elsif @company_task.approved
+                        %p
+                          = task.description
+                          %span.text-success.ml-2 Approved
                       = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
+                    .mt-2
                       - if @phase == @company.current_phase
-                        = link_to 'New Message', new_message_path(company_task_id: task.company_tasks.find_or_create_by(company: @company).id), data: { modal: true }
-                      - if task.company_tasks.find_by(company: @company).present? && task.company_tasks.find_by(company: @company).messages.present?
-                        %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
-                          %b="Show comments(#{task.company_tasks.find_by(company: @company).messages.count})"
-                        .collapse{id: "collapse-comment-#{index}"}
-                          %div{ id: "messages-#{task.company_tasks.find_or_create_by(company: @company).id}" }
-                            - task.company_tasks.find_by(company: @company).messages.each do |message|
-                              =render 'messages/message', message: message
-                        
+                        = link_to 'New Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                        %span= "|"
+                        %a{"aria-controls" => "collapse-comment-#{@company_task.id}", id: "trigger-comments-#{@company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{@company_task.id}", role: "button"}
+                          Comments
+                          %b="(#{@company_task.messages.count})"
+                  .collapse{id: "collapse-comment-#{@company_task.id}"}
+                    %div{ id: "messages-#{@company_task.id}" }
+                      - if @company_task.messages.present?
+                        - @company_task.messages.each do |message|
+                          =render 'messages/message', message: message
+                      - else
+                        %blockquote.blockquote.text-center
+                          %p.mt-3 No comments to display

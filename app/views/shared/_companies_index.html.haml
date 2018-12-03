@@ -5,23 +5,28 @@
         %th{:scope => "col"} 
           %h6 Company 
         %th{:scope => "col"} 
-          %h6 Sector
+          %h6 Industry
         %th{:scope => "col"} 
           %h6 Location  
         %th{:scope => "col", class: 'text-center'} 
           %h6 Phase 
         %th{:scope => "col", class: 'text-center'} 
-          %h6 Status 
+          %h6 Progress 
         %th{:scope => "col", class: 'text-center'} 
           %h6 Time Tracking 
         %th{:scope => "col", class: 'text-center'} 
           %h6 Actions 
     %tbody
       - @companies.each do |company|
+        - path = nil
+        - if current_user.admin?
+          - path = admin_company_company_phase_path(company, company.current_phase)
+        - elsif current_user.mentor?
+          - path = mentor_company_company_phase_path(company, company.current_phase)
         %tr.tbody-tr-border
           %td
             - if company.current_phase
-              =link_to(admin_company_company_phase_path(company, company.current_phase)) do
+              =link_to(path) do
                 %img{:src => "#{company.logo}", class: "img-avatar mr-2"}
                 = company.name
             - else 
@@ -33,8 +38,12 @@
           %td.text-center= "#{calculate_task_progress(company.current_phase, company)}%" if company.current_phase.present?
           %td.text-center.d-flex.align-center.justify-content-around{class: "#{exceeded_quota(company.current_monthly_hours)}"}
             = company.current_monthly_hours
-            = link_to(admin_company_time_trackings_path(company)) do
-              = material_icon.access_time
+            - if current_user.admin?
+              = link_to(admin_company_time_trackings_path(company)) do
+                = material_icon.access_time
+            - else
+              = link_to(mentor_time_trackings_path) do
+                = material_icon.access_time
           %td.text-center  
             - if current_user.admin?
               = link_to(edit_admin_company_path(company), class: 'text-muted') do

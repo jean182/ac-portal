@@ -1,20 +1,12 @@
--# .card
--#   .card-body
--#     .row
--#       .col-md-2
--#         %img.img.img-rounded.img-fluid{src: "https://image.ibb.co/jw55Ex/def_face.jpg", width: "35"}/
--#         %p.text-secondary.text-center= "Created at: #{message.created_at.strftime("%Y-%m-%d")}"
--#       .col-md-10
--#         %p
--#           %strong= "#{message.user.email} wrote:"
--#         %p= message.text
-%ul.p-0.list-unstyled
+%ul.pt-3.list-unstyled{ "aria-expanded" => "false" }
   %li
     .row.comments.mb-2
       .col-md-2.col-sm-2.col-3.text-center.user-img
         %img.rounded-circle{src: "https://image.ibb.co/jw55Ex/def_face.jpg"}/
       .col-md-10.col-sm-10.col-9.comment.rounded.mb-2
-        %h4.m-0= message.user.email
-        %time.text-white.ml-3= "Created at: #{message.created_at.strftime("%Y-%m-%d")}"
+        .d-flex
+          %h4.m-0= message.user.email
+          %time.text-black.ml-3= "Created at: #{message.created_at.strftime("%Y-%m-%d")}"
+          = link_to("Delete", message_path(message), :data => { :confirm => "Are you sure?" }, :method => :delete, class: "ml-3 align-items-end") if current_user.admin? || current_user == message.user
         %like
-        %p.mb-0.text-white= message.text
+        %p.mb-0= message.text

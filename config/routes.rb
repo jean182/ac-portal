@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
   devise_for :users,
              path:       '',
              controllers: { invitations: 'users/invitations' },
@@ -10,7 +9,9 @@ Rails.application.routes.draw do
                confirmation: 'verification',
                unlock:       'unblock',
              }
-
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
   namespace :admin do
     resources :users, only: [:index, :show, :destroy]
     post 'users/:id/reactivate_user' => 'users#reactivate_user', as: :reactivate_user
@@ -44,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mentor do
-    root 'dashboard#show'
+    root 'companies#index'
     resources :companies, only: [:index, :show] do
       resources :company_phases, except: [:new, :create, :destroy], path: 'phase'
     end
@@ -59,7 +60,6 @@ Rails.application.routes.draw do
 
   namespace :member do
     root 'dashboard#show'
-    resources :messages
     resources :companies, path: 'company', only: :show
     resources :clients
     resources :company_phases

@@ -1,8 +1,10 @@
 class Member::TasksController < Member::MemberBaseController
+  include TaskProgressCalculatorHelper
   before_action :set_task
 
   def mark_complete
     @task.update_attribute(:complete, true)
+
     @task.mentors.each do |mentor|
       NotificationMailer.task_completed_notification(mentor, current_user, @task).deliver_later
     end
