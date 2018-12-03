@@ -1,35 +1,43 @@
 - @phase.checklists.each_with_index do |checklist, index|
-  .div-spacer
-    #accordionChecklist.accordion
-      .card
-        .card-header.d-flex.align-items-center{id: "heading-#{index}"}
-          %h5.flex-grow-1.mb-0=checklist.name
-          %button.btn.btn-link{"aria-controls" => "collapse-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-#{index}", "data-toggle" => "collapse", type: "button"}
-            = material_icon.keyboard_arrow_down
-        .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
-          .card-body
-            - checklist.tasks.each_with_index do |task, index|
-              %ul.list-unstyled
-                %li
-                  =task.description 
-                  - @company_task = task.company_tasks.find_by(complete: true, company: @company)
-                  - unless  @company_task.nil?
-                    - if @company_task.approved
-                      .form-control.gutter-top.text-success.text-center Approved
+  #accordionChecklist.accordion
+    .card
+      .card-header.d-flex.align-items-center{id: "heading-#{index}"}
+        %h5.flex-grow-1.mb-0=checklist.name
+        %button.btn.btn-link{"aria-controls" => "collapse-#{index}", "aria-expanded" => "true", "data-target" => "#collapse-#{index}", "data-toggle" => "collapse", type: "button"}
+          = material_icon.keyboard_arrow_down
+      .collapse{id: "collapse-#{index}", "aria-labelledby" => "heading-#{index}", "data-parent" => "#accordionChecklist"}
+        .card-body
+          %ul.list-group.list-group-flush
+            %div.list-group.list-group-flush
+              - checklist.tasks.each_with_index do |task, index|
+                - @company_task = task.company_tasks.find_or_create_by(company: @company)
+                %div.list-group-item.d-flex.justify-content-between
+                  .d-flex.p-2
+                    %p
+                      =task.description 
+                    - @company_task_complete = task.company_tasks.find_by(complete: true, company: @company)
+                    - unless  @company_task_complete.nil?
+                      - if @company_task_complete.approved
+                        %label.text-success.ml-2 Approved
+                      - else
+                        -if current_user.is_a?(Admin)
+                          = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-success ml-2'
+                          = link_to 'Reject', admin_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-danger ml-2'
+                        - elsif current_user.is_a?(Mentor)
+                          = link_to 'Approve', mentor_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-success ml-2'
+                          = link_to 'Reject', mentor_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ext-danger ml-2'
+                  .mt-2
+                    - if @phase == @company.current_phase
+                      = link_to 'Add Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                    - if @company_task.present?
+                      %a{"aria-controls" => "collapse-comment-#{@company_task.id}", id: "trigger-comments-#{@company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{@company_task.id}", role: "button"}
+                        Show comments
+                        %b="(#{@company_task.messages.count})"
+                .collapse{id: "collapse-comment-#{@company_task.id}"}
+                  %div{ id: "messages-#{@company_task.id}" }
+                    - if @company_task.messages.present?
+                      - @company_task.messages.each do |message|
+                        =render 'messages/message', message: message
                     - else
-                      -if current_user.is_a?(Admin)
-                        = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-success gutter-top' if @company_task.approved != true
-                        = link_to 'Refuse', admin_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-danger gutter-top' if @company_task.approved != false
-                      -elsif current_user.is_a?(Mentor)
-                        = link_to 'Approve', mentor_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-success gutter-top' if @company_task.approved != true
-                        = link_to 'Refuse', mentor_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'btn btn-danger gutter-top' if @company_task.approved != false
-                  - if @phase == @company.current_phase
-                    = link_to 'New Message', new_message_path(company_task_id: task.company_tasks.find_or_create_by(company: @company).id), data: { modal: true }
-                  - if task.company_tasks.find_by(company: @company).present?
-                    - if task.company_tasks.find_by(company: @company).messages.present?
-                      %a{"aria-controls" => "collapse-comment-#{index}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{index}", role: "button"}
-                        %b="Show comments(#{task.company_tasks.find_by(company: @company).messages.count})"
-                      .collapse{id: "collapse-comment-#{index}"}
-                        %div{ id: "messages-#{task.company_tasks.find_or_create_by(company: @company).id}" }
-                          - task.company_tasks.find_by(company: @company).messages.each do |message|
-                            =render 'messages/message', message: message
+                      %blockquote.blockquote.text-center
+                        %p.mt-3 No comments to display

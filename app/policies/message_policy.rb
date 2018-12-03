@@ -4,6 +4,10 @@ class MessagePolicy < ApplicationPolicy
     user.admin? || user.mentor? || company_member?
   end
 
+  def destroy?
+    user.admin? || record.user == user
+  end
+
   private
 
   def company_member?

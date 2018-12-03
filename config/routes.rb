@@ -59,7 +59,6 @@ Rails.application.routes.draw do
 
   namespace :member do
     root 'dashboard#show'
-    resources :messages
     resources :companies, path: 'company', only: :show
     resources :clients
     resources :company_phases

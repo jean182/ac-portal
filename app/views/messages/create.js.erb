@@ -4,4 +4,5 @@
 <% else %>
   $('.modal').modal('toggle');
   $('#messages-<%= @task_id %>').append('<%= j render (@message) %>')
+  $('#trigger-comments-<%= @task_id  %>').find("b").html('(<%= @task.messages.count %>)')
 <% end %>

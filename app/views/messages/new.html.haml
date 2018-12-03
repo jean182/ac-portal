@@ -4,5 +4,5 @@
 .modal-body
   = simple_form_for :message, url: @message, remote: true, html: { role: "form" } do |f|
     = f.hidden_field :company_task_id 
-    = f.input :text
+    = f.input :text, as: :text, label: false
     = f.submit 'Add Comment', :class => 'btn btn-primary'
