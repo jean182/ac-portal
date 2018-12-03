@@ -1,16 +1,15 @@
 .nested-fields.form-row
-  .form-group.col-md-8
+  .form-group.col-md-10
     = f.input :title, label: false
   - if f.object.approved
-    .form-group.col-md-4
+    .form-group.col-md-2
       %p.text-success.text-center
-        Ready
-        %span= material_icon.done_all
+        Approved
   -else
-    .form-group.col-md-4
+    .form-group.col-md-2
       .form-group
         = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger'
-    - if f.object.complete && current_user.admin?
+    - if f.object.complete  && current_user.admin?
       .form-group.mr-1
         = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success ml-1'
       .form-group

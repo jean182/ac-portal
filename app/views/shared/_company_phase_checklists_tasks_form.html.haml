@@ -21,17 +21,20 @@
                         %label.text-success.ml-2 Approved
                       - else
                         -if current_user.is_a?(Admin)
-                          = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-success ml-2'
-                          = link_to 'Reject', admin_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-danger ml-2'
+                          = link_to 'Approve', admin_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ml-2'
+                          %span.ml-2= "|"
+                          = link_to 'Reject', admin_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ml-2'
                         - elsif current_user.is_a?(Mentor)
-                          = link_to 'Approve', mentor_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'text-success ml-2'
-                          = link_to 'Reject', mentor_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ext-danger ml-2'
+                          = link_to 'Approve', mentor_company_task_approve_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ml-2'
+                          %span.ml-2= "|"
+                          = link_to 'Reject', mentor_company_task_refuse_path(company_id: @company.id, company_task_id: task.id), method: :put , class: 'ml-2'
                   .mt-2
                     - if @phase == @company.current_phase
-                      = link_to 'Add Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                      = link_to 'New Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                      %span= "|"
                     - if @company_task.present?
                       %a{"aria-controls" => "collapse-comment-#{@company_task.id}", id: "trigger-comments-#{@company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{@company_task.id}", role: "button"}
-                        Show comments
+                        Comments
                         %b="(#{@company_task.messages.count})"
                 .collapse{id: "collapse-comment-#{@company_task.id}"}
                   %div{ id: "messages-#{@company_task.id}" }

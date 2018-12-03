@@ -16,11 +16,11 @@
               = check_box_tag milestone.title, milestone.id, milestone.complete?, id: dom_id(milestone), class: "custom-control-input js--milestone-checkbox", type: "checkbox"
               = label_tag dom_id(milestone), milestone.title, class: "custom-control-label"
             - if milestone.approved == false
-              %label.text-danger= material_icon.close
+              %label.text-danger= "Rejected"
             - elsif milestone.approved
               %p.m-0
                 =milestone.title
-                %span.text-success.text-center= material_icon.done_all
+                %span.text-success.text-center= "Approved"
             = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--milestone-tag-#{milestone.id}")
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4.mb-4
     %h5.mb-3= "Checklists"
@@ -41,7 +41,7 @@
                       - if !@company_task.approved && @phase == @company.current_phase
                         = check_box_tag task.description, task.id, task.completed_by_company?(@company.id), id: dom_id(task), class: "custom-control-input js--task-checkbox", type: "checkbox"
                         = label_tag dom_id(task), task.description, class: "custom-control-label"
-                        %label.text-danger.ml-2= "Refused" if @company_task.approved == false
+                        %label.text-danger.ml-2= "Rejected" if @company_task.approved == false
                       - elsif @company_task.approved
                         %p
                           = task.description
@@ -49,9 +49,10 @@
                       = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
                     .mt-2
                       - if @phase == @company.current_phase
-                        = link_to 'Add Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                        = link_to 'New Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                        %span= "|"
                         %a{"aria-controls" => "collapse-comment-#{@company_task.id}", id: "trigger-comments-#{@company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{@company_task.id}", role: "button"}
-                          Show comments
+                          Comments
                           %b="(#{@company_task.messages.count})"
                   .collapse{id: "collapse-comment-#{@company_task.id}"}
                     %div{ id: "messages-#{@company_task.id}" }
