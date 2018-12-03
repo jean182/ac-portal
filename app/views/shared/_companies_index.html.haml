@@ -18,10 +18,15 @@
           %h6 Actions 
     %tbody
       - @companies.each do |company|
+        - path = nil
+        - if current_user.admin?
+          - path = admin_company_company_phase_path(company, company.current_phase)
+        - elsif current_user.mentor?
+          - path = mentor_company_company_phase_path(company, company.current_phase)
         %tr.tbody-tr-border
           %td
             - if company.current_phase
-              =link_to(admin_company_company_phase_path(company, company.current_phase)) do
+              =link_to(path) do
                 %img{:src => "#{company.logo}", class: "img-avatar mr-2"}
                 = company.name
             - else 

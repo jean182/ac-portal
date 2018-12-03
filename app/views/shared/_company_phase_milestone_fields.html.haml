@@ -1,14 +1,17 @@
 .nested-fields.form-row
-  .form-group.col-md-9
-    = f.input :title
+  .form-group.col-md-8
+    = f.input :title, label: false
   - if f.object.approved
-    .form-group.col-md-3
-      .form-control.gutter-top.text-success.text-center Approved
+    .form-group.col-md-4
+      %p.text-success.text-center
+        Ready
+        %span= material_icon.done_all
   -else
-    .form-group.col-md-1
-      = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger gutter-top'
+    .form-group.col-md-4
+      .form-group
+        = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger'
     - if f.object.complete && current_user.admin?
-      .form-group.col-md-1
-        = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success gutter-top'
-      .form-group.col-md-1
-        = link_to 'Refuse', admin_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger gutter-top'
+      .form-group.mr-1
+        = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success ml-1'
+      .form-group
+        = link_to 'Reject', admin_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger ml-1'
