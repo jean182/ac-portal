@@ -9,8 +9,10 @@
     .form-group.col-md-2
       .form-group
         = link_to_remove_association 'Remove', f, class: 'form-control btn btn-danger'
-    - if f.object.complete  && current_user.admin?
+    - if f.object.complete
       .form-group.mr-1
-        = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success ml-1'
+        = link_to 'Approve', admin_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success ml-1' if  current_user.admin?
+        = link_to 'Approve', mentor_milestone_approve_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-success ml-1' if  current_user.mentor?
       .form-group
-        = link_to 'Reject', admin_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger ml-1'
+        = link_to 'Reject', admin_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger ml-1' if current_user.admin?
+        = link_to 'Reject', mentor_milestone_refuse_path(milestone_id: f.object.id), method: :put , class: 'form-control btn btn-danger ml-1' if current_user.mentor?

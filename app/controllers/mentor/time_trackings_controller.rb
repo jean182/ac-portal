@@ -10,7 +10,7 @@ class Mentor::TimeTrackingsController < Mentor::MentorBaseController
   def create
     @time_tracking = current_user.time_trackings.new(time_tracking_params)
     if @time_tracking.save
-      redirect_to(new_mentor_time_tracking_path, notice: 'Time Tracking was successfully created.')
+      redirect_to(mentor_time_trackings_path, notice: 'Time Tracking was successfully created.')
     else
       render :new
     end

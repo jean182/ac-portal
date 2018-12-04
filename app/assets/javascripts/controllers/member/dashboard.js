@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", function () {
+$(document).ready(function () {
     $(".js--fade-out-on-load").fadeOut();
 
     $(".js--milestone-checkbox").on("change", function () {
@@ -22,13 +22,13 @@ $(document).on("turbolinks:load", function () {
     $(".js--task-checkbox").on("change", function () {
         if ($(this).is(":checked")) {
             $.ajax({
-                type: "PUT", url: "/member/tasks/" + $(this).val() + "/mark_complete", success: function (result) {
+                type: "PUT", url: "/member/company_tasks/" + $(this).val() + "/mark_complete", success: function (result) {
                     displaySuccess(result["id"], "task")
                 }
             });
         } else {
             $.ajax({
-                type: "PUT", url: "/member/tasks/" + $(this).val() + "/mark_incomplete", success: function (result) {
+                type: "PUT", url: "/member/company_tasks/" + $(this).val() + "/mark_incomplete", success: function (result) {
                     displaySuccess(result["id"], "task")
                 }
             });

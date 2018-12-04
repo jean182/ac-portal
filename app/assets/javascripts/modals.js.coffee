@@ -1,4 +1,4 @@
-$(document).on "turbolinks:load",  ->
+$ ->
   $modalContainer = $("#modal-container")
   modalSelector = ".modal"
 
@@ -9,13 +9,14 @@ $(document).on "turbolinks:load",  ->
       .find(modalSelector)
       .modal("show")
 
-  $(document).on "click", "a[data-modal]", ->
+  $(document).on "click", "a[data-modal]", (e) ->
     location = $(this).attr("href")
     $.get(location, displayModal)
     false
 
   $(document).on "ajax:success", "form[data-modal]", (_e, data, _s, xhr) ->
     url = xhr.getResponseHeader("Location")
+    console.log(url, data)
     if url
       window.location = url
     else

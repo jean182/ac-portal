@@ -32,11 +32,11 @@ Rails.application.routes.draw do
       resources :time_trackings, only: :index, path: 'time-tracker'
     end
     resources :checklists
-    resources :company_tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+    resources :company_tasks, only: [] do
       put :approve
       put :refuse
     end
-    resources :milestones, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+    resources :milestones, only: [] do
       put :approve
       put :refuse
     end
@@ -51,7 +51,11 @@ Rails.application.routes.draw do
     end
     resources :phases
     resources :milestones
-    resources :company_tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
+    resources :company_tasks, only: [] do
+      put :approve
+      put :refuse
+    end
+    resources :milestones, only: [] do
       put :approve
       put :refuse
     end
@@ -67,9 +71,11 @@ Rails.application.routes.draw do
       put :mark_complete
       put :mark_incomplete
     end
-    resources :tasks, except: [:index, :create, :new, :show, :edit, :update, :destroy] do
-      put :mark_complete
-      put :mark_incomplete
+    resources :company_tasks, only: [] do
+      member do
+        put :mark_complete
+        put :mark_incomplete
+      end
     end
   end
   resources :messages
