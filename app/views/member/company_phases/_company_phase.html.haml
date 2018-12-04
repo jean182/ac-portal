@@ -16,7 +16,7 @@
               = check_box_tag milestone.title, milestone.id, milestone.complete?, id: dom_id(milestone), class: "custom-control-input js--milestone-checkbox", type: "checkbox"
               = label_tag dom_id(milestone), milestone.title, class: "custom-control-label"
             - if milestone.approved == false
-              %label.text-danger= "Rejected"
+              %label.text-danger= "Resubmit"
             - elsif milestone.approved
               %p.m-0
                 =milestone.title
@@ -35,29 +35,29 @@
             .card-body
               %div.list-group.list-group-flush
                 - checklist.tasks.each_with_index do |task, index|
-                  - @company_task = task.company_tasks.find_or_create_by(company: @company)
+                  - company_task = task.company_tasks.find_or_create_by(company: @company)
                   %div.list-group-item.d-flex.justify-content-between
                     .custom-control.custom-checkbox.d-flex.p-2
-                      - if !@company_task.approved && @phase == @company.current_phase
-                        = check_box_tag task.description, task.id, task.completed_by_company?(@company.id), id: dom_id(task), class: "custom-control-input js--task-checkbox", type: "checkbox"
-                        = label_tag dom_id(task), task.description, class: "custom-control-label"
-                        %label.text-danger.ml-2= "Rejected" if @company_task.approved == false
-                      - elsif @company_task.approved
+                      - if !company_task.approved && @phase == @company.current_phase
+                        = check_box_tag task.description, company_task.id, company_task.complete?, id: dom_id(company_task), class: "custom-control-input js--task-checkbox", type: "checkbox"
+                        = label_tag dom_id(company_task), task.description, class: "custom-control-label"
+                        %label.text-danger.ml-2= "Resubmit" if company_task.approved == false
+                      - elsif company_task.approved
                         %p
                           = task.description
                           %span.text-success.ml-2 Approved
-                      = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{task.id}")
+                      = label_tag("", "", class: "js--fade-out-on-load text-success", id: "js--task-tag-#{company_task.id}")
                     .mt-2
                       - if @phase == @company.current_phase
-                        = link_to 'New Message', new_message_path(company_task_id: @company_task.id), data: { modal: true }
+                        = link_to 'New Message', new_message_path(company_task_id: company_task.id), data: { modal: true }
                         %span= "|"
-                        %a{"aria-controls" => "collapse-comment-#{@company_task.id}", id: "trigger-comments-#{@company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{@company_task.id}", role: "button"}
+                        %a{"aria-controls" => "collapse-comment-#{company_task.id}", id: "trigger-comments-#{company_task.id}", "aria-expanded" => "false", "data-toggle" => "collapse", href: "#collapse-comment-#{company_task.id}", role: "button"}
                           Comments
-                          %b="(#{@company_task.messages.count})"
-                  .collapse{id: "collapse-comment-#{@company_task.id}"}
-                    %div{ id: "messages-#{@company_task.id}" }
-                      - if @company_task.messages.present?
-                        - @company_task.messages.each do |message|
+                          %b="(#{company_task.messages.count})"
+                  .collapse{id: "collapse-comment-#{company_task.id}"}
+                    %div{ id: "messages-#{company_task.id}" }
+                      - if company_task.messages.present?
+                        - company_task.messages.each do |message|
                           =render 'messages/message', message: message
                       - else
                         %blockquote.blockquote.text-center
