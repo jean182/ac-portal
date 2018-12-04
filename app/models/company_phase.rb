@@ -21,6 +21,7 @@ class CompanyPhase < ApplicationRecord
   enumerize :status, in: { inactive: 1, active: 2, completed: 3 }, scope: true
 
   accepts_nested_attributes_for :milestones, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :phase
 
   delegate :phase_number, to: :phase
 

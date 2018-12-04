@@ -1,4 +1,5 @@
-.form-group
-  = form.input :learning_objectives, as: :trix_editor
+= form.fields_for :phase do |f|
+  .form-group
+    = f.trix_editor :learning_objectives
 .form-group
   = form.submit 'Save Learning Objectives', :class => 'btn btn-primary'
