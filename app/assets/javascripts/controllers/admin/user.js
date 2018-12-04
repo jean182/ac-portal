@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", function () {
+$(document).ready(function () {
   var button = $('#new-user');
   var url = window.location.toString();
   $('#nav-client-tab').on('click', function (e) {

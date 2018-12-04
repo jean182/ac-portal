@@ -35,6 +35,6 @@ class Mentor::CompanyPhasesController < Mentor::MentorBaseController
   end
 
   def phase_params
-    params.require(:company_phase).permit(:learning_objectives, milestones_attributes: [:id, :title])
+    params.require(:company_phase).permit(milestones_attributes: [:id, :title], phase_attributes: [:id, :learning_objectives])
   end
 end

@@ -13,6 +13,5 @@
 
 FactoryBot.define do
   factory :company_phase do
-    learning_objectives { Faker::Lorem.sentence(3) }
   end
 end
