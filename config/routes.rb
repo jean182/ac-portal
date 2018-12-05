@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     post 'users/:id/reactivate_user' => 'users#reactivate_user', as: :reactivate_user
     post 'users/:id/send_reset_password_instructions' => 'users#send_reset_password_instructions', as: :send_reset_password_instructions
     get 'reactivate_user'
-    resources :mentors
+    resources :mentors do
+      get :track_mentor_time, controller: 'time_trackings'
+    end
     post 'mentors/:id/reactivate_mentor' => 'mentors#reactivate_mentor', as: :reactivate_mentor
     get 'reactivate_mentor'
     resources :admins
@@ -41,6 +43,8 @@ Rails.application.routes.draw do
       put :refuse
     end
     resources :logs, only: :index
+
+    get :track_company_time, controller: 'time_trackings'
     root 'companies#index'
   end
 

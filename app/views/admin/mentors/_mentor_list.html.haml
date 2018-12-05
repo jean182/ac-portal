@@ -33,6 +33,7 @@
                 = material_icon.more_vert
               .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
                 = link_to("Edit", edit_admin_mentor_path(mentor), class: 'dropdown-item')
+                = link_to "Hours report", admin_mentor_track_mentor_time_path(mentor, format: "csv"), class: 'dropdown-item'
                 - if mentor.deleted_at.present?
                   = button_to "Enable User", {controller: "mentors", action: "reactivate_mentor", id: mentor.id}, {class: 'dropdown-item', data: { :confirm => "Are you sure?" }}
                 -else

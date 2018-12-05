@@ -14,3 +14,4 @@
       %td 
         %b Current Monthly Hours
       %td= current_user.current_monthly_hours
+  = link_to "Download report", mentor_time_trackings_path(format: "csv"), class: 'btn btn-primary'

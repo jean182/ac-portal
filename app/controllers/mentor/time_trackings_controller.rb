@@ -1,6 +1,13 @@
 class Mentor::TimeTrackingsController < Mentor::MentorBaseController
   def index
     @time_trackings = current_user.time_trackings
+    respond_to do |format|
+      format.html
+      format.csv { 
+        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor']),
+        filename: "#{current_user.name}-#{Date.today}.csv"
+      }
+    end
   end
 
   def new
