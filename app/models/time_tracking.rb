@@ -21,6 +21,15 @@ class TimeTracking < ApplicationRecord
 
   after_create :check_quota_exceeded
 
+  def self.to_csv(fields = column_names, options = {})
+    CSV.generate(options) do |csv|
+      csv << fields
+      all.each do |time|
+        csv << [time.date, time.hours_spent, time.company.name, time.mentor.email]
+      end
+    end
+  end
+
   private
 
   def check_quota_exceeded

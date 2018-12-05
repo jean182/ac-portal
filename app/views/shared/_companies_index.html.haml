@@ -50,3 +50,11 @@
                 = material_icon.edit
             - elsif current_user.mentor?
               = link_to 'View', mentor_company_company_phase_path(company, company.current_phase), class: 'btn btn-secondary btn-sm' if company.current_phase
+.container.container-content
+  %h4 Hours report
+  = form_tag admin_track_company_time_path(format: "csv"), method: :get do
+    .form-row
+      .col-md-10
+        = select_tag :company_id, options_for_select(Company.all.collect {|company| [company.name, company.id]}), { class: 'custom-select' }
+      .col-md-2
+        = submit_tag "Download", class: 'btn btn-primary', data: { disable_with: false } 

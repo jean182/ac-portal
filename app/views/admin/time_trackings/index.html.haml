@@ -13,3 +13,4 @@
       %td= @company.current_monthly_hours
       %td
       %td
+  = link_to "Download report", admin_company_time_trackings_path(format: "csv"), class: 'btn btn-primary'
