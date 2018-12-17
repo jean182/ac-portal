@@ -9,7 +9,7 @@ class Admin::TimeTrackingsController < Admin::AdminBaseController
     respond_to do |format|
       format.html
       format.csv { 
-        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor']),
+        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor', 'Notes']),
         filename: "#{@company.name}-#{Date.today}.csv"
       }
     end
@@ -23,7 +23,7 @@ class Admin::TimeTrackingsController < Admin::AdminBaseController
         redirect_to admin_users_path
       }
       format.csv { 
-        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor']),
+        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor', 'Notes']),
         filename: "#{@mentor.email}-#{Date.today}.csv"
       }
     end
@@ -33,7 +33,7 @@ class Admin::TimeTrackingsController < Admin::AdminBaseController
     @time_trackings = @company.time_trackings
     respond_to do |format|
       format.csv { 
-        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor']),
+        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor', 'Notes']),
         filename: "#{@company.name}-#{Date.today}.csv"
       }
     end

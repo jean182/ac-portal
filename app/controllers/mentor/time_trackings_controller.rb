@@ -4,7 +4,7 @@ class Mentor::TimeTrackingsController < Mentor::MentorBaseController
     respond_to do |format|
       format.html
       format.csv { 
-        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor']),
+        send_data @time_trackings.to_csv(['Date', 'Hours Spent', 'Company', 'Mentor', 'Notes']),
         filename: "#{current_user.name}-#{Date.today}.csv"
       }
     end

@@ -25,7 +25,7 @@ class TimeTracking < ApplicationRecord
     CSV.generate(options) do |csv|
       csv << fields
       all.each do |time|
-        csv << [time.date, time.hours_spent, time.company.name, time.mentor.email]
+        csv << [time.date, time.hours_spent, time.company.name, time.mentor.email, time.notes]
       end
     end
   end
