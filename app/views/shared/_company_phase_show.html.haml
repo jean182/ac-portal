@@ -3,10 +3,14 @@
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
     = form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
       %h5.mb-3= "Learning Objectives"
-      %p
-        %mark="Editing this learning objective will modify all the companies on Phase #{@phase.phase.id} "
-      %div
-        = render 'shared/company_phase_learning_objectives_form', form: form
+      - if current_user.admin?
+        %p
+          %mark="Editing this learning objective will modify all the companies on Phase #{@phase.phase.id} "
+        %div
+          = render 'shared/company_phase_learning_objectives_form', form: form
+      - else
+        = @phase.phase.learning_objectives.html_safe if @phase.phase.learning_objectives.present?
+        %p= 'No learning objective defined yet.' if @phase.phase.learning_objectives.present? == false
   .mt-4.col-12.bg-white.border-light-gray.ac-corner-radius.p-4
     = simple_form_for [current_user.class.to_s.downcase.to_sym, @company, @phase] do |form|
       %h5.mb-3= "Milestones"
