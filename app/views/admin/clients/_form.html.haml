@@ -1,4 +1,5 @@
 = simple_form_for [:admin, @client] do |f|
+  = render 'shared/errors', object: @client
   - if @client.new_record?
     = f.simple_fields_for :client_info do |f|
       = f.input :company_id, collection: Company.all

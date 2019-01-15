@@ -10,12 +10,12 @@ class Admin::MentorsController < Admin::UsersController
 
   def create
     @mentor = Mentor.new(mentor_params)
-    if params[:mentor][:email].present? && params[:mentor][:name].present?
-      @mentor.save(validate: false)
+    @mentor.skip_password_validation = true
+    if @mentor.valid?
+      @mentor.save
       @mentor.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Mentor was successfully created.')
     else
-      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end

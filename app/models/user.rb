@@ -32,7 +32,10 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :recoverable,
          :rememberable, :validatable, :trackable
+  validates :name, presence: true
   has_many :messages
+
+  attr_accessor :skip_password_validation
 
   def admin?
     is_a?(Admin)
@@ -56,5 +59,12 @@ class User < ApplicationRecord
 
   def inactive_message
     !deleted_at ? super : :deleted_account
+  end
+
+  protected
+
+  def password_required?
+    return false if skip_password_validation
+    super
   end
 end
