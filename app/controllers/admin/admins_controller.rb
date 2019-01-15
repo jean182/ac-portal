@@ -7,12 +7,12 @@ class Admin::AdminsController < Admin::UsersController
 
   def create
     @admin = Admin.new(admin_params)
-    if params[:admin][:email].present? && params[:admin][:name].present?
-      @admin.save(validate: false)
+    @admin.skip_password_validation = true
+    if @admin.valid?
+      @admin.save
       @admin.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Admin was successfully created.')
     else
-      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end

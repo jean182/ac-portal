@@ -8,12 +8,12 @@ class Admin::ClientsController < Admin::UsersController
 
   def create
     @client = Client.new(client_params)
-    if params[:client][:email].present? && params[:client][:name].present?
-      @client.save(validate: false)
+    @client.skip_password_validation = true
+    if @client.valid?
+      @client.save
       @client.invite!(current_user)
       redirect_to(admin_users_path, notice: 'Client was successfully created.')
     else
-      flash[:error] = "Please complete all the fields"
       render action: :new
     end
   end
