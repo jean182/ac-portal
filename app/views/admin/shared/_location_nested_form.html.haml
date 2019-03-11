@@ -7,10 +7,10 @@
     .form-group.col-md-6
       = f.input :city, autofocus: false, class: 'form-control'
     .form-group.col-md-4
-      = f.label :state
+      = f.label :country
       %br/
-      = f.select(:state, options_for_select(us_states, selected: @company.location.state), {include_blank: 'Select State'}, {class: 'custom-select'})
+      = f.select(:country, region_options_for_select(only_us_and_canada, selected: @company.location.state), {include_blank: 'Select Country'}, {class: 'custom-select'})
     .form-group.col-md-2
       = f.input :postal_code, autofocus: false, class: 'form-control'
   .form-group
-    = f.input :country, autofocus: false, class: 'form-control'
+    = f.select(:state, options_for_select(states_map(only_us_and_canada)), {include_blank: 'Select State'}, {class: 'custom-select'})

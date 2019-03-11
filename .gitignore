@@ -39,3 +39,4 @@
 # Ignore test coverage files
 coverage/*
 
+.DS_Store
