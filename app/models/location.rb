@@ -22,6 +22,14 @@ class Location < ApplicationRecord
   belongs_to :admin, optional: :true
   belongs_to :company, optional: :true
 
-  validates :address_line1, :address_line2, :city,
+  validates :address_line1, :city,
             :country, :postal_code, :state, presence: true
+  validate :subregion_belongs_to_country
+
+  def subregion_belongs_to_country
+    if country.present? && state.present? &&
+       Carmen::Country.coded(country).subregions.select { |s| state.include?(s.code) }.present? == false
+      errors.add(:state, "must be of the same country")
+    end
+  end
 end

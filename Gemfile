@@ -41,6 +41,10 @@ gem 'rails_12factor'
 gem 'enumerize'
 gem 'faker'
 
+gem 'rb-readline'
+# Gem for state selectors
+gem 'carmen-rails', '~> 1.0.0'
+
 # TinyMce
 gem 'tinymce-rails'
 
