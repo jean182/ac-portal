@@ -56,7 +56,7 @@ group :development do
   gem 'erb2haml'
   gem 'rails-erd', require: false
 
-  gem 'rubocop', '~> 0.46.0', require: false
+  gem 'rubocop', '~> 0.48.1', require: false
   gem 'foreman'
   gem 'scss_lint', require: false
   gem 'bullet'
