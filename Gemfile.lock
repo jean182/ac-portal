@@ -219,7 +219,9 @@ GEM
     material_icons (2.2.1)
       railties (>= 3.2)
     method_source (0.9.0)
-    mimemagic (0.3.2)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -242,7 +244,8 @@ GEM
       pry (~> 0.9)
       slop (~> 3.0)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (4.3.11)
+      nio4r (~> 2.0)
     pundit (2.0.0)
       activesupport (>= 3.0.0)
     rack (2.0.5)
@@ -442,7 +445,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   pry-remote
-  puma (~> 3.11)
+  puma (~> 4.3)
   pundit
   rails (~> 5.2.1)
   rails-erd
